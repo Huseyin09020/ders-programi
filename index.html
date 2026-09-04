@@ -371,7 +371,7 @@
   </div>
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg bot">
-      Selam! Çalışma planını, çözdüğün soruları ve notlarını takip ediyorum. Takıldığın her şeyi bana sorabilirsin!
+      Selam! Çalışma planını ve ilerlemeni buradan takip ediyorum. Kafana takılan soruları, moral durumunu veya dersleri hemen sorabilirsin!
     </div>
   </div>
   <div class="chat-input-area">
@@ -539,7 +539,7 @@
     </div>
   </div>
   
-  <div class="version-tag">Sürüm: v19 (Özel Ses Efektleri: Plan Fanfarı, Koç Mesaj Sesi, Pomodoro Alarmı)</div>
+  <div class="version-tag">Sürüm: v21 (Koç Yanıt Sesi Güçlendirmesi)</div>
 </div>
 
 <script>
@@ -613,7 +613,7 @@
     document.querySelector('.theme-toggle-btn').textContent = isDark ? '☀️ Gündüz Modu' : '🌙 Karanlık Mod';
   }
 
-  // --- GELİŞMİŞ SES MOTORU ---
+  // SES MOTORU (KULLANICI TIKLAMASIYLA UYANDIRILAN SİSTEM)
   let audioCtx = null;
   let activeNoiseHandles = [];
   let currentNoise = null;
@@ -622,12 +622,15 @@
   let birdInterval = null;
 
   function getAudioContext() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
     return audioCtx;
   }
 
-  // 1. Görev Tikleme Sesi (Dınk)
   function playDinkSound() {
     const ctx = getAudioContext();
     const osc = ctx.createOscillator();
@@ -635,7 +638,7 @@
     osc.type = 'sine';
     osc.frequency.setValueAtTime(587.33, ctx.currentTime);
     osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
-    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.setValueAtTime(0.35, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
     osc.connect(gain);
     gain.connect(ctx.destination);
@@ -643,10 +646,9 @@
     osc.stop(ctx.currentTime + 0.35);
   }
 
-  // 2. Plan Başarıyla Oluşunca Çalan Zafer Akoru (Do - Mi - Sol)
   function playPlanCreatedSound() {
     const ctx = getAudioContext();
-    const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+    const notes = [523.25, 659.25, 783.99];
     notes.forEach((freq, idx) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -654,7 +656,7 @@
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(freq, startTime);
       gain.gain.setValueAtTime(0.001, startTime);
-      gain.gain.linearRampToValueAtTime(0.25, startTime + 0.04);
+      gain.gain.linearRampToValueAtTime(0.3, startTime + 0.04);
       gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
       osc.connect(gain);
       gain.connect(ctx.destination);
@@ -663,25 +665,36 @@
     });
   }
 
-  // 3. Sınav Koçu Yanıt Verince Çalan Mesaj Bildirim Sesi (Pop-Tone)
+  // Koçun Mesaj Bildirim Sesi (Belirgin Çift Vuruş)
   function playCoachReplySound() {
     const ctx = getAudioContext();
     const now = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(600, now);
-    osc.frequency.exponentialRampToValueAtTime(1050, now + 0.12);
-    gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(0.2, now + 0.03);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start(now);
-    osc.stop(now + 0.3);
+    
+    // 1. Vuruş
+    const osc1 = ctx.createOscillator();
+    const gain1 = ctx.createGain();
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(520, now);
+    gain1.gain.setValueAtTime(0.3, now);
+    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+    osc1.connect(gain1);
+    gain1.connect(ctx.destination);
+    osc1.start(now);
+    osc1.stop(now + 0.13);
+
+    // 2. Vuruş (Daha tiz ve tatlı)
+    const osc2 = ctx.createOscillator();
+    const gain2 = ctx.createGain();
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(880, now + 0.09);
+    gain2.gain.setValueAtTime(0.35, now + 0.09);
+    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+    osc2.connect(gain2);
+    gain2.connect(ctx.destination);
+    osc2.start(now + 0.09);
+    osc2.stop(now + 0.3);
   }
 
-  // 4. Pomodoro Süresi Dolunca Çalan Kısa Alarm (3 Kere Bip-Bip)
   function playPomodoroAlarmSound() {
     const ctx = getAudioContext();
     for (let i = 0; i < 3; i++) {
@@ -689,9 +702,9 @@
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'square';
-      osc.frequency.setValueAtTime(880, startTime); // A5
+      osc.frequency.setValueAtTime(880, startTime);
       gain.gain.setValueAtTime(0.001, startTime);
-      gain.gain.linearRampToValueAtTime(0.18, startTime + 0.02);
+      gain.gain.linearRampToValueAtTime(0.2, startTime + 0.02);
       gain.gain.linearRampToValueAtTime(0.001, startTime + 0.14);
       osc.connect(gain);
       gain.connect(ctx.destination);
@@ -901,11 +914,12 @@
     setTimeout(() => toast.remove(), 2500);
   }
 
-  // KOÇLUK SOHBET
+  // KOÇLUK SOHBET (SES KİLİDİ AÇILMIŞ)
   function toggleChatWindow() {
     const win = document.getElementById('aiChatWindow');
     win.classList.toggle('open');
     if (win.classList.contains('open')) {
+      getAudioContext(); // Kullanıcı pencereyi açınca ses yetkisini hazırla
       setTimeout(() => document.getElementById('chatInput').focus(), 150);
     }
   }
@@ -915,6 +929,9 @@
     const sendBtn = document.getElementById('chatSendBtn');
     const msg = input.value.trim();
     if (!msg) return;
+
+    // Kullanıcı tıkladığı anda AudioContext'i kesin olarak uyandır
+    getAudioContext();
 
     const messagesBox = document.getElementById('chatMessages');
 
@@ -933,30 +950,34 @@
 
     const activeKey = getActiveApiKey();
     if (!activeKey) {
-      botDiv.textContent = "API anahtarı bulunamadı. Lütfen önce kurulum adımından anahtarını gir.";
+      botDiv.textContent = "API anahtarı bulunamadı. Lütfen önce anahtarınızı tanımlayın.";
       return;
     }
 
     sendBtn.disabled = true;
 
-    const currentPlan = localStorage.getItem(getUserStorageKey('study_plan')) || "Plan yok.";
-    const questionsData = localStorage.getItem(getUserStorageKey('questions_and_notes')) || "Soru/not yok.";
+    let planSummary = "Plan henüz çıkarılmadı.";
+    try {
+      const rawPlan = localStorage.getItem(getUserStorageKey('study_plan'));
+      if (rawPlan) {
+        const parsed = JSON.parse(rawPlan);
+        planSummary = `Toplam ${parsed.length} günlük KPSS çalışma planı mevcut.`;
+      }
+    } catch(e){}
 
-    const systemPrompt = `Sen öğrencinin samimi, enerjik ve net sınav koçusun.
-Öğrencinin ders planı: ${currentPlan}
-Öğrencinin net/soru ve not durumu: ${questionsData}
+    const systemPrompt = `Sen öğrencinin samimi, enerjik ve net sınav hazırlık koçusun.
+Öğrencinin durumu: ${planSummary}
 
 Öğrencinin mesajı: "${msg}"
 
 KURALLAR:
-1. Kısa, net, 2-3 cümleyi geçmeyen hızlı ve etkili tavsiye ver.
-2. Gereksiz uzun edebiyat yapma, doğrudan soruya odaklan.`;
+1. Samimi bir dille, motive edici, en fazla 2-3 cümlelik çok net ve pratik bir tavsiye ver.
+2. Uzun teorik anlatımlar yapma.`;
 
     const candidateModels = [
-      "gemini-3.6-flash-lite",
-      "gemini-3.6-flash",
-      "gemini-2.5-pro",
-      "gemini-2.0-flash"
+      "gemini-2.5-flash",
+      "gemini-1.5-flash",
+      "gemini-2.5-pro"
     ];
 
     let success = false;
@@ -967,7 +988,10 @@ KURALLAR:
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${activeKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ text: systemPrompt }] }] })
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: systemPrompt }] }],
+            generationConfig: { maxOutputTokens: 250 }
+          })
         });
 
         const data = await response.json();
@@ -978,8 +1002,8 @@ KURALLAR:
 
         const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
         if (reply) {
-          botDiv.textContent = reply;
-          playCoachReplySound(); // Koç dönüş yaptığında çalan bildirim sesi
+          botDiv.textContent = reply.trim();
+          playCoachReplySound(); // Cevap ekrana düştüğü an bildirim sesini çal
           success = true;
           break;
         }
@@ -989,7 +1013,7 @@ KURALLAR:
     }
 
     if (!success) {
-      botDiv.textContent = "Bağlantı kurulamadı: " + (errDetail || "Model yanıt vermedi.");
+      botDiv.textContent = "Bağlantı kurulamadı: " + (errDetail || "Lütfen internet bağlantını veya API anahtarını kontrol et.");
     }
 
     sendBtn.disabled = false;
@@ -1189,7 +1213,7 @@ Format şu JSON şemasında olmalıdır:
     "gorevler": [
       {
         "baslik": "Matematik: Temel Kavramlar 1. ve 2. Video izle",
-        "link": "https://www.youtube.com/..."
+        "link": "https://www.youtube.com/... "
       },
       {
         "baslik": "Soru Çözümü: 30 Soru çöz",
@@ -1200,7 +1224,12 @@ Format şu JSON şemasında olmalıdır:
 ]
 Eğer link verilmemişse "link" alanını boş string ("") bırak. Yalnızca geçerli JSON döndür.`;
 
-    const candidateModels = ["gemini-3.6-flash", "gemini-3.6-flash-lite", "gemini-2.5-pro", "gemini-2.0-flash"];
+    const candidateModels = [
+      "gemini-2.5-flash",
+      "gemini-1.5-flash",
+      "gemini-2.5-pro"
+    ];
+
     let success = false;
     let lastError = "";
 
@@ -1221,243 +1250,4 @@ Eğer link verilmemişse "link" alanını boş string ("") bırak. Yalnızca ge�
         let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
         if (!text) continue;
 
-        text = text.replace(/```json/g, '').replace(/```/g, '').trim();
-        const planData = JSON.parse(text);
-
-        localStorage.setItem(getUserStorageKey('study_plan'), JSON.stringify(planData));
-        localStorage.removeItem(getUserStorageKey('checkbox_states'));
-        localStorage.removeItem(getUserStorageKey('questions_and_notes'));
-
-        renderCards(planData);
-        updateProgress();
-        output.style.display = 'block';
-        playPlanCreatedSound(); // Plan olunca çalan zafer fanfarı
-        showToast('🚀 Çalışma planın başarıyla oluşturuldu!');
-        success = true;
-        break;
-      } catch (err) {
-        lastError = err.message;
-      }
-    }
-
-    if (!success) alert("Hata oluştu: " + lastError);
-
-    btn.disabled = false;
-    loading.style.display = 'none';
-  }
-
-  function renderCards(planData) {
-    const grid = document.getElementById('agendaGrid');
-    grid.innerHTML = '';
-
-    planData.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'agenda-card';
-
-      const tasksHtml = item.gorevler.map((g, idx) => {
-        const title = typeof g === 'object' ? g.baslik : g;
-        const link = typeof g === 'object' && g.link ? g.link : '';
-
-        return `
-          <li class="task-item" id="task_${item.gun}_${idx}">
-            <div class="task-row">
-              <input type="checkbox" data-id="chk_${item.gun}_${idx}" onchange="handleCheck(this)">
-              <span class="task-title">${title}</span>
-            </div>
-            ${link ? `<a href="${link}" target="_blank" rel="noopener" class="video-link-btn">▶ Videoyu Aç</a>` : ''}
-          </li>
-        `;
-      }).join('');
-
-      card.innerHTML = `
-        <div class="card-head">
-          <span class="card-title">📌 Gün ${item.gun}</span>
-          <span class="card-badge">${item.odak}</span>
-        </div>
-        <ul class="task-list">
-          ${tasksHtml}
-        </ul>
-        <div class="card-footer">
-          <div class="q-tracker">
-            <span>📝 Soru:</span>
-            <input type="number" min="0" placeholder="Doğru" data-day="${item.gun}" class="q-input q-correct" oninput="saveQuestionsAndNotes()">
-            <input type="number" min="0" placeholder="Yanlış" data-day="${item.gun}" class="q-input q-wrong" oninput="saveQuestionsAndNotes()">
-          </div>
-          <textarea class="card-note" data-day="${item.gun}" placeholder="📌 Bu güne özel not ekle..." oninput="saveQuestionsAndNotes()"></textarea>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-  }
-
-  function handleCheck(chk) {
-    const parent = chk.closest('.task-item');
-    if (chk.checked) {
-      parent.classList.add('done');
-      playDinkSound();
-      showToast('🎉 Harika! Görev tamamlandı.');
-    } else {
-      parent.classList.remove('done');
-    }
-    saveCheckboxes();
-    updateProgress();
-  }
-
-  function saveCheckboxes() {
-    const states = {};
-    document.querySelectorAll('.task-item input[type="checkbox"]').forEach(c => {
-      states[c.dataset.id] = c.checked;
-    });
-    localStorage.setItem(getUserStorageKey('checkbox_states'), JSON.stringify(states));
-  }
-
-  function loadCheckboxes() {
-    const saved = localStorage.getItem(getUserStorageKey('checkbox_states'));
-    if (!saved) return;
-    try {
-      const states = JSON.parse(saved);
-      document.querySelectorAll('.task-item input[type="checkbox"]').forEach(c => {
-        if (states[c.dataset.id]) {
-          c.checked = true;
-          c.closest('.task-item').classList.add('done');
-        }
-      });
-    } catch(e) {}
-  }
-
-  function saveQuestionsAndNotes() {
-    const data = {};
-    document.querySelectorAll('.agenda-card').forEach(card => {
-      const d = card.querySelector('.q-correct').dataset.day;
-      const c = parseInt(card.querySelector('.q-correct').value, 10) || 0;
-      const w = parseInt(card.querySelector('.q-wrong').value, 10) || 0;
-      const note = card.querySelector('.card-note').value;
-      data[d] = { correct: c, wrong: w, note: note };
-    });
-    localStorage.setItem(getUserStorageKey('questions_and_notes'), JSON.stringify(data));
-    updateQuestionStats();
-  }
-
-  function loadQuestionsAndNotes() {
-    const saved = localStorage.getItem(getUserStorageKey('questions_and_notes'));
-    if (!saved) return;
-    try {
-      const data = JSON.parse(saved);
-      Object.keys(data).forEach(day => {
-        const item = data[day];
-        const cInput = document.querySelector(`.q-correct[data-day="${day}"]`);
-        const wInput = document.querySelector(`.q-wrong[data-day="${day}"]`);
-        const nInput = document.querySelector(`.card-note[data-day="${day}"]`);
-        if (cInput && item.correct) cInput.value = item.correct;
-        if (wInput && item.wrong) wInput.value = item.wrong;
-        if (nInput && item.note) nInput.value = item.note;
-      });
-      updateQuestionStats();
-    } catch(e) {}
-  }
-
-  function updateQuestionStats() {
-    let total = 0;
-    document.querySelectorAll('.q-input').forEach(inp => {
-      total += parseInt(inp.value, 10) || 0;
-    });
-    document.getElementById('totalQuestionsCount').textContent = total;
-  }
-
-  function updateProgress() {
-    const all = document.querySelectorAll('.task-item input[type="checkbox"]');
-    if (all.length === 0) return;
-    const done = document.querySelectorAll('.task-item input[type="checkbox"]:checked');
-    const pct = Math.round((done.length / all.length) * 100);
-    document.getElementById('progressBar').style.width = pct + '%';
-    document.getElementById('progressPctText').textContent = `%${pct}`;
-  }
-
-  function clearSavedData() {
-    if (confirm("Bu hesaba ait çalışma planını silmek istediğinize emin misiniz?")) {
-      localStorage.removeItem(getUserStorageKey('study_plan'));
-      localStorage.removeItem(getUserStorageKey('checkbox_states'));
-      localStorage.removeItem(getUserStorageKey('questions_and_notes'));
-      document.getElementById('output').style.display = 'none';
-      document.getElementById('agendaGrid').innerHTML = '';
-      updateProgress();
-      updateQuestionStats();
-    }
-  }
-
-  // POMODORO SAYAÇ
-  let timerInterval = null;
-  let isRunning = false;
-  let isWorkMode = true;
-  let timeLeft = 25 * 60;
-
-  function getWorkSeconds() {
-    const val = parseInt(document.getElementById('customWorkMin').value, 10);
-    return (val > 0 ? val : 25) * 60;
-  }
-
-  function getBreakSeconds() {
-    const val = parseInt(document.getElementById('customBreakMin').value, 10);
-    return (val > 0 ? val : 5) * 60;
-  }
-
-  function onPomoSettingChange() {
-    if (!isRunning) {
-      timeLeft = isWorkMode ? getWorkSeconds() : getBreakSeconds();
-      updateTimerDisplay();
-    }
-  }
-
-  function toggleTimer() {
-    const btn = document.getElementById('timerToggle');
-    if (isRunning) {
-      clearInterval(timerInterval);
-      btn.textContent = 'Devam Et';
-      isRunning = false;
-    } else {
-      isRunning = true;
-      btn.textContent = 'Durdur';
-      timerInterval = setInterval(() => {
-        if (timeLeft > 0) {
-          timeLeft--;
-          updateTimerDisplay();
-        } else {
-          clearInterval(timerInterval);
-          isRunning = false;
-          btn.textContent = 'Başlat';
-          playPomodoroAlarmSound(); // Pomodoro bitiş alarmı (bip-bip-bip)
-
-          if (isWorkMode) {
-            showToast('☕ Çalışma bitti, mola vakti!');
-            isWorkMode = false;
-            timeLeft = getBreakSeconds();
-          } else {
-            showToast('📚 Mola bitti, derse başla!');
-            isWorkMode = true;
-            timeLeft = getWorkSeconds();
-          }
-          updateTimerDisplay();
-        }
-      }, 1000);
-    }
-  }
-
-  function resetTimer() {
-    clearInterval(timerInterval);
-    isRunning = false;
-    isWorkMode = true;
-    document.getElementById('timerToggle').textContent = 'Başlat';
-    timeLeft = getWorkSeconds();
-    updateTimerDisplay();
-  }
-
-  function updateTimerDisplay() {
-    const min = Math.floor(timeLeft / 60);
-    const sec = timeLeft % 60;
-    document.getElementById('timerDisplay').textContent = 
-      `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
-  }
-</script>
-
-</body>
-</html>
+        text = text.replace(/```json/g, '').replace(/

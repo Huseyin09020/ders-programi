@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#4338ca">
-  <title>Kişisel Sınav Ajandası Ultimate v42</title>
+  <title>Kişisel Sınav Ajandası Ultimate v43</title>
   <style>
     :root {
       --primary: #4338ca;
@@ -38,7 +38,7 @@
     }
 
     .container {
-      max-width: 960px;
+      max-width: 900px;
       margin: 0 auto;
       background: var(--card-bg);
       padding: 28px 20px;
@@ -82,8 +82,8 @@
       box-shadow: 0 4px 12px rgba(67, 56, 202, 0.15);
     }
     .countdown-card.yks { background: linear-gradient(135deg, #0284c7, #38bdf8); }
-    .countdown-title { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; opacity: 0.95; }
-    .countdown-timer { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+    .countdown-title { font-size: 12px; font-weight: 700; opacity: 0.95; }
+    .countdown-timer { font-size: 18px; font-weight: 800; margin-top: 4px; font-variant-numeric: tabular-nums; }
 
     .header {
       text-align: center;
@@ -147,81 +147,7 @@
     .auth-tab { flex: 1; border: none; background: none; padding: 8px; font-weight: 700; color: var(--text-muted); cursor: pointer; font-size: 14px; }
     .auth-tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
 
-    .mode-selection-box {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    @media (max-width: 600px) {
-      .mode-selection-box { grid-template-columns: 1fr; }
-    }
-    .mode-card {
-      background: var(--paper);
-      border: 2px solid var(--paper-border);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .mode-card:hover {
-      border-color: var(--primary);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(67, 56, 202, 0.1);
-    }
-    .mode-card h3 { font-size: 16px; color: var(--text); margin-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
-    .mode-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
-    .mode-card ul { font-size: 12px; color: var(--text-muted); padding-left: 16px; display: flex; flex-direction: column; gap: 4px; }
-
-    .level-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .level-btn {
-      background: var(--paper);
-      border: 1.5px solid var(--paper-border);
-      padding: 14px;
-      border-radius: 10px;
-      font-weight: 700;
-      color: var(--text);
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s;
-    }
-    .level-btn:hover, .level-btn.selected {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .template-modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.75);
-      z-index: 10001;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    .template-modal-overlay.active { display: flex; }
-    .template-modal-box {
-      background: var(--card-bg);
-      border: 1px solid var(--paper-border);
-      border-radius: 16px;
-      max-width: 440px;
-      width: 100%;
-      padding: 24px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    }
-    .template-modal-box h3 { font-size: 18px; margin-bottom: 10px; color: var(--text); font-weight: 800; }
-    .template-modal-box p { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; }
-    .template-modal-btns { display: flex; gap: 10px; }
-
+    /* TEK EKRAN MANUEL PLAN OLUŞTURUCU TARZI */
     .manual-course-box {
       background: var(--paper);
       border: 1.5px solid var(--paper-border);
@@ -284,21 +210,11 @@
       flex-wrap: wrap;
       gap: 8px;
     }
-    .btn-reset-key-top {
-      background: #fee2e2;
-      border: 1px solid #fca5a5;
-      color: #dc2626;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-    }
     .btn-logout { background: none; border: none; color: #dc2626; font-weight: 700; cursor: pointer; font-size: 13px; }
 
     .loading { display: none; text-align: center; margin-top: 20px; padding: 16px; background: #eef2ff; border-radius: 10px; color: var(--primary); font-weight: 600; font-size: 14px; }
 
-    /* SOL ALT BALONCUKLAR (POMODORO & KOÇ) */
+    /* SOL ALT BALONCUKLAR */
     .floating-bubbles {
       position: fixed;
       left: 20px;
@@ -324,9 +240,7 @@
       transition: transform 0.2s;
     }
     .bubble-btn:hover { transform: scale(1.05); }
-    .bubble-btn.pomo {
-      background: linear-gradient(135deg, #0284c7, #10b981);
-    }
+    .bubble-btn.pomo { background: linear-gradient(135deg, #0284c7, #10b981); }
 
     /* POMODORO PENCERESİ */
     .pomodoro-popup-window {
@@ -345,6 +259,23 @@
       padding: 16px;
     }
     .pomodoro-popup-window.open { display: flex; }
+
+    /* POMODORO ŞEKİLLİ BUTONLAR (YEŞİL & KIRMIZI) */
+    .pomo-action-btn {
+      border: none;
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      color: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: transform 0.1s;
+    }
+    .pomo-action-btn:active { transform: scale(0.95); }
+    .pomo-start-pill { background: #10b981; }
+    .pomo-stop-pill { background: #ef4444; }
+    .pomo-reset-pill { background: #64748b; }
 
     .ai-chat-window {
       position: fixed;
@@ -418,8 +349,7 @@
     }
     .privacy-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 16px; color: var(--text); font-weight: bold; }
     .privacy-content { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
-    .privacy-actions { display: flex; gap: 10px; }
-    .btn-consent-accept { flex: 1; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+    .btn-consent-accept { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
 
     #confettiCanvas {
       position: fixed;
@@ -431,8 +361,8 @@
       z-index: 99999;
     }
 
-    /* v42 MODERN VE ŞEKİLLİ ŞUKULLU GÖREV KARTLARI */
-    .agenda-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+    /* v43 ŞEKİLLİ ŞUKULLU VE EMOJİLİ GÖREV KARTLARI */
+    .agenda-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
     .agenda-card {
       background: var(--paper);
       border: 1.5px solid var(--paper-border);
@@ -440,37 +370,40 @@
       border-radius: 14px;
       padding: 18px 16px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s ease;
     }
-    .agenda-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.1);
-    }
+    .agenda-card:hover { transform: translateY(-2px); }
     .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--paper-border); }
-    .card-title { font-weight: 800; color: var(--text); font-size: 16px; letter-spacing: -0.3px; }
+    .card-title { font-weight: 800; color: var(--text); font-size: 15px; }
     .card-badge { font-size: 11px; background: var(--highlight); color: #854d0e; padding: 4px 10px; border-radius: 6px; font-weight: 700; }
 
     .task-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .task-item { font-size: 13px; display: flex; flex-direction: column; gap: 5px; color: var(--text); background: var(--card-bg); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--paper-border); box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); }
+    .task-item { font-size: 13px; display: flex; flex-direction: column; gap: 4px; color: var(--text); background: var(--card-bg); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--paper-border); }
     .task-row { display: flex; align-items: flex-start; gap: 8px; }
     .task-item.done .task-title { text-decoration: line-through; opacity: 0.45; }
     .task-item input[type="checkbox"] { width: 16px; height: 16px; margin-top: 2px; cursor: pointer; accent-color: var(--primary); }
-    
-    .video-link-btn { align-self: flex-start; margin-left: 24px; display: inline-flex; align-items: center; gap: 4px; background: #fee2e2; color: #dc2626; text-decoration: none; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; }
 
-    .card-footer { margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--paper-border); display: flex; flex-direction: column; gap: 8px; }
-    .q-tracker { display: flex; gap: 8px; align-items: center; font-size: 12px; font-weight: 600; }
-    .q-tracker input { width: 60px; padding: 6px; text-align: center; font-size: 12px; border-radius: 6px; }
-    .card-note { font-size: 12px; padding: 8px; border-radius: 6px; resize: vertical; min-height: 44px; background: var(--card-bg); border: 1px solid var(--paper-border); }
-
-    .privacy-footer-link {
-      font-size: 11px;
+    /* GÜNÜN ALTINDAKİ SORU GİRİŞ ALANI */
+    .day-question-input-area {
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--paper-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 700;
       color: var(--text-muted);
-      text-align: center;
-      margin-top: 14px;
-      cursor: pointer;
-      text-decoration: underline;
     }
+    .day-question-input-area input {
+      width: 75px;
+      padding: 5px;
+      text-align: center;
+      font-size: 13px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
     .version-tag { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px; font-weight: 700; }
   </style>
 </head>
@@ -482,7 +415,7 @@
   <div class="privacy-modal">
     <div class="privacy-header">
       <span>🛡️</span>
-      <span>Gizlilik ve Yerel Hafıza Politikası</span>
+      <span>Gizlilik Politikası</span>
     </div>
     <div class="privacy-content">
       <p>Bu uygulama tamamen öğrenci dostudur. Verileriniz sunucularda toplanmaz, cihazınızın yerel hafızasında saklanır.</p>
@@ -493,20 +426,9 @@
   </div>
 </div>
 
-<div class="template-modal-overlay" id="templateModalOverlay">
-  <div class="template-modal-box">
-    <h3 id="templateModalTitle">✨ Hazır Paket Bulundu!</h3>
-    <p id="templateModalDesc">Bu sınav için daha önceden hazırlanmış full ders paketimiz var. Tek tıkla yüklemek ister misin?</p>
-    <div class="template-modal-btns">
-      <button class="btn-main" onclick="acceptTemplateModal()">Evet, Yükle 🚀</button>
-      <button class="btn-secondary" onclick="declineTemplateModal()">Hayır, Kendim Seçeyim</button>
-    </div>
-  </div>
-</div>
-
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- SOL ALT İKİLİ BALONCUK (GİRİŞ ŞARTI OLMADAN ÇALIŞAN POMODORO & KOÇ) -->
+<!-- SOL ALT İKİLİ BALONCUK -->
 <div class="floating-bubbles">
   <button class="bubble-btn pomo" onclick="togglePomodoroPopup()">
     ⏱️ <span>Pomodoro</span>
@@ -532,25 +454,20 @@
     </div>
   </div>
   <div class="pomo-time" id="timerDisplay" style="text-align:center;">25:00</div>
-  <div class="pomo-btns" style="margin-top:10px;">
-    <button class="pomo-btn pomo-start" id="timerToggle" onclick="playClickSound(); toggleTimer()">Başlat</button>
-    <button class="pomo-btn pomo-reset" onclick="playClickSound(); resetTimer()">Sıfırla</button>
-    <button class="pomo-btn pomo-exam-btn" onclick="playClickSound(); start130MinExam()">📝 130 Dk Sınav</button>
-  </div>
-  <div class="noise-controls" style="margin-top:10px;">
-    <button class="btn-noise" id="btnRain" onclick="playClickSound(); toggleNoise('rain')">🌧️ Yağmur</button>
-    <button class="btn-noise" id="btnForest" onclick="playClickSound(); toggleNoise('forest')">🌲 Doğa</button>
+  <div class="pomo-btns" style="margin-top:10px; display:flex; justify-content:center; gap:6px;">
+    <button class="pomo-action-btn pomo-start-pill" id="timerToggle" onclick="playClickSound(); toggleTimer()">▶ Başlat</button>
+    <button class="pomo-action-btn pomo-stop-pill" onclick="playClickSound(); resetTimer()">🔄 Sıfırla</button>
   </div>
 </div>
 
 <div class="ai-chat-window" id="aiChatWindow">
   <div class="chat-header">
-    <span>🤖 KPSS & Sınav Koçun</span>
+    <span>🤖 Sınav Koçun</span>
     <button class="chat-close-btn" onclick="toggleChatWindow()">✕</button>
   </div>
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg bot">
-      Selam! Çalışma planını, netlerini ve ilerlemeni buradan takip ediyorum. Soru sorabilir veya koçluk alabilirsin!
+      Selam! Çalışma planını ve ilerlemeni buradan takip ediyorum. Soru sorabilirsin!
     </div>
   </div>
   <div class="chat-input-area">
@@ -566,20 +483,20 @@
 
   <div class="countdown-wrapper">
     <div class="countdown-card">
-      <div class="countdown-title">🎯 2026 ORTAÖĞRETİM KPSS'YE KALAN</div>
+      <div class="countdown-title">🎯 2026 ORTAÖĞRETİM KPSS</div>
       <div class="countdown-timer" id="kpssCountdownTimer">Hesaplanıyor...</div>
     </div>
     <div class="countdown-card yks">
-      <div class="countdown-title">🎓 2027 YKS (TYT-AYT)'YE KALAN</div>
+      <div class="countdown-title">🎓 2027 YKS (TYT-AYT)</div>
       <div class="countdown-timer" id="yksCountdownTimer">Hesaplanıyor...</div>
     </div>
   </div>
 
-  <!-- GİRİŞ EKRANI -->
+  <!-- ANA GİRİŞ & PLAN OLUŞTURMA EKRANI (TEK AKIŞ) -->
   <div id="authScreen" class="screen active">
     <div class="header">
       <h1>👋 Sınav Ajandasına Hoş Geldin</h1>
-      <p>İlerlemelerini kaydetmek için giriş yap veya misafir olarak devam et.</p>
+      <p>Önce giriş yap veya misafir olarak devam et.</p>
     </div>
     <div class="auth-box">
       <div class="auth-tabs">
@@ -599,231 +516,45 @@
     </div>
   </div>
 
-  <!-- BİLGİLENDİRİCİ REHBER & MOD SEÇİMİ -->
-  <div id="modeSelectScreen" class="screen">
-    <div class="header">
-      <h1>📚 Uygulama Rehberi ve Plan Seçimi</h1>
-      <p>Hedefine en uygun çalışma yöntemini seçerek ajandanı kurmaya başla.</p>
-    </div>
-    
-    <div class="guide-intro-box" style="background:var(--paper); border:1.5px solid var(--paper-border); border-radius:12px; padding:20px; margin-bottom:20px; font-size:13px; color:var(--text-muted);">
-      <h3 style="color:var(--text); margin-bottom:8px; font-weight:800;">💡 Bu Uygulama Ne İşe Yarar?</h3>
-      <p>Sınav hazırlık sürecinde günlerini, ayarlarını, çözdüğün soru sayılarını ve deneme netlerini tek bir yerde toplaman için tasarlandı. Verilerin tamamen senin cihazında saklanır.</p>
-    </div>
-
-    <div class="mode-selection-box">
-      <div class="mode-card" onclick="playClickSound(); selectMode('ai')">
-        <h3>🤖 Yapay Zeka ile Oluştur</h3>
-        <p>Google Gemini altyapısını kullanarak gün sayına ve derslerine özel akıllı bir program üretir.</p>
-        <ul>
-          <li><strong>Nasıl Çalışır?</strong> Ücretsiz API anahtarı girersin. Yapay zeka senin için günlük görevler planlar.</li>
-        </ul>
-      </div>
-      <div class="mode-card" onclick="playClickSound(); selectMode('manual')">
-        <h3>✍️ Manuel Kendi Planımı Oluştur</h3>
-        <p>API anahtarı gerektirmez. Seviyeni seçip, takvim üzerinden günleri tıklayarak programını tamamen kendin kurarsın.</p>
-        <ul>
-          <li><strong>Nasıl Çalışır?</strong> Seviyeni seçersin, ders adını değiştirip çalışacağın günleri görsel takvimden seçersin.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- MANUEL SEVİYE SEÇİMİ -->
-  <div id="manualLevelScreen" class="screen">
-    <div class="header">
-      <h1>🎓 Hangi Sınav veya Sınıf Düzeyindesin?</h1>
-      <p>Seviyenizi seçin.</p>
-    </div>
-    <div class="level-grid">
-      <button type="button" class="level-btn" onclick="playClickSound(); selectStudentLevel('LGS')">LGS Öğrencisi</button>
-      <button type="button" class="level-btn" onclick="playClickSound(); selectStudentLevel('9. Sınıf')">9. Sınıf</button>
-      <button type="button" class="level-btn" onclick="playClickSound(); selectStudentLevel('10. Sınıf')">10. Sınıf</button>
-      <button type="button" class="level-btn" onclick="playClickSound(); selectStudentLevel('11. Sınıf')">11. Sınıf</button>
-      <button type="button" class="level-btn" onclick="playClickSound(); selectStudentLevel('YKS')">YKS Öğrencisi</button>
-      <button type="button" class="level-btn" onclick="playClickSound(); selectStudentLevel('KPSS')">KPSS Öğrencisi</button>
-    </div>
-    <button type="button" class="btn-secondary" onclick="playClickSound(); showScreen('modeSelectScreen')">⬅️ Geri Dön</button>
-  </div>
-
-  <!-- MANUEL TAKVİMLİ DERS KURULUM EKRANI -->
-  <div id="manualBuilderScreen" class="screen">
-    <div class="header">
-      <h1>📅 Dersleri, Ayı ve Günleri Seç</h1>
-      <p id="studentLevelTitleText">Seçilen Düzey: <strong>YKS</strong></p>
-    </div>
-
-    <div class="form-group">
-      <label>Ders Kutucukları (İsmini değiştirebilir, ay ve günlere tıklayarak çalışacağın günleri seçebilirsin):</label>
-      <div id="manualCourseContainer"></div>
-      <button type="button" class="btn-add" onclick="playClickSound(); addManualCourseBox()" style="margin-top: 8px;">+ Başka Ders Kutusu Ekle</button>
-    </div>
-
-    <button type="button" class="btn-main" onclick="playClickSound(); generateManualPlanFinal()">✨ Seçilen Günlere Göre Programı Oluştur</button>
-    <button type="button" class="btn-secondary" onclick="playClickSound(); showScreen('manualLevelScreen')">⬅️ Seviye Seçimine Dön</button>
-  </div>
-
-  <!-- API KURULUM EKRANI -->
-  <div id="setupScreen" class="screen">
-    <div class="header">
-      <h1>🔑 Yapay Zeka & API Güvenlik Bilgilendirmesi</h1>
-      <p>Yapay zeka koçumuzun ve plan motorunun güvenli şekilde çalışması için bilgilendirme.</p>
-    </div>
-    <div class="guide-box">
-      <div class="guide-title">🔒 Verileriniz Neden Güvende?</div>
-      <ul class="guide-steps" style="margin-bottom: 14px;">
-        <li><span class="guide-num">✓</span> Girdiğiniz API anahtarı sadece sizin tarayıcınızda şifreli saklanır.</li>
-      </ul>
-      <div class="guide-title">1 Dakikada Ücretsiz API Anahtarı Nasıl Alınır?</div>
-      <ul class="guide-steps">
-        <li><span class="guide-num">1</span> Google AI Studio sayfasına git: <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com/app/apikey</a></li>
-        <li><span class="guide-num">2</span> Mavi <strong>"Create API key"</strong> butonuna tıkla.</li>
-      </ul>
-    </div>
-    <div class="form-group">
-      <label for="initialApiKey">Gemini API Anahtarın:</label>
-      <input type="password" id="initialApiKey" placeholder="API Anahtarını buraya yapıştır">
-    </div>
-    <button type="button" class="btn-main" onclick="playClickSound(); saveApiKeyAndProceed()">Anahtarı Kaydet ve Devam Et ➡️</button>
-    <button type="button" class="btn-secondary" onclick="playClickSound(); showScreen('modeSelectScreen')">⬅️ Geri Dön</button>
-  </div>
-
-  <!-- ANA AJANDA -->
-  <div id="mainScreen" class="screen">
+  <!-- DERSLERİ VE TAKVİMİ OLUŞTURMA EKRANI -->
+  <div id="mainBuilderScreen" class="screen">
     <div class="user-badge-bar">
       <span>Giriş yapılan hesap: <strong id="currentUserLabel">Misafir</strong></span>
-      <div class="user-actions-group">
-        <button type="button" class="btn-reset-key-top" onclick="playClickSound(); resetApiKeyAndGoSetup()" id="btnResetApiKey">🔑 API Sıfırla</button>
-        <button type="button" class="btn-logout" onclick="playClickSound(); logoutUser()">Çıkış Yap 🚪</button>
-      </div>
+      <button type="button" class="btn-logout" onclick="playClickSound(); logoutUser()">Çıkış Yap 🚪</button>
     </div>
 
     <div class="header">
-      <h1>📖 Kişisel Çalışma Ajandası Ultimate</h1>
-      <p>Hedef gününü ve derslerini gir; programın videolarla bağlansın.</p>
+      <h1>✨ Çalışma Programını Oluştur</h1>
+      <p>Ders kutucuklarını düzenle, ay ve günlerini seçerek takvimini kur.</p>
     </div>
 
-    <div class="template-banner" id="kpssTemplateBanner">
-      <div class="template-info">
-        ✨ <strong>KPSS Full Paket:</strong> Tarih, Coğrafya, Matematik, Türkçe, Vatandaşlık ve Güncel Bilgiler hazır.
-      </div>
-      <button type="button" class="template-btn" onclick="playClickSound(); loadKpssTemplate()">⚡ Paketi Tek Tıkla Yükle</button>
+    <div class="form-group">
+      <label>📚 Ders Kutucukları (İsmini değiştirebilir, ay ve günlere tıklayarak çalışacağın günleri seçebilirsin):</label>
+      <div id="manualCourseContainer"></div>
+      <button type="button" class="btn-secondary" onclick="playClickSound(); addManualCourseBox()" style="background:#e0e7ff; color:var(--primary); font-weight:700; margin-top:8px;">+ Başka Ders Kutusu Ekle</button>
     </div>
 
-    <div class="form-group" id="daysInputWrapper">
-      <label for="days">Sınava Kalan Gün Sayısı:</label>
-      <input type="number" id="days" placeholder="Örn: 46" min="1" value="30">
-    </div>
+    <button type="button" class="btn-main" onclick="playClickSound(); generateFinalPlan()">🚀 Takvimi ve Programı Oluştur</button>
 
-    <div class="form-group" id="aiCourseListWrapper">
-      <label>Dersler ve Playlist Linkleri:</label>
-      <div id="courseList">
-        <div class="row">
-          <input type="text" class="course-name" placeholder="Ders Adı (Örn: KPSS Matematik)">
-          <input type="text" class="course-link" placeholder="YouTube Playlist Linki">
-          <button type="button" class="btn-del" onclick="playClickSound(); removeRow(this)">✕</button>
-        </div>
-      </div>
-      
-      <div class="youtube-action-bar">
-        <button type="button" class="btn-add" onclick="playClickSound(); addRow()">+ Ders Ekle</button>
-        <a href="https://www.youtube.com" target="_blank" rel="noopener" class="youtube-direct-btn">
-          ▶ YouTube'u Aç
-        </a>
-      </div>
-    </div>
-
-    <button type="button" class="btn-main" id="btnSubmitPlan" onclick="playClickSound(); handleGenerateAction()">✨ Yeni Ajanda Planı Çıkar</button>
-
-    <div class="loading" id="loadingText">
-      ✍️ Plan hazırlanıyor, lütfen bekleyin...
-    </div>
-
-    <div class="stats-container">
-      <div class="stat-box">
-        <div class="stat-num" id="progressPctText">%0</div>
-        <div class="stat-label">Plan Görev İlerlemesi</div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressBar"></div>
-        </div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" id="totalQuestionsCount">0 / <span id="targetDisplay">100</span></div>
-        <div class="stat-label">Günlük Soru Hedefi</div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="targetBar" style="background:#6366f1;"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- NET HESAPLAMA -->
-    <div class="net-calculator-box">
-      <div class="net-header">
-        <span>📊 Sınav Net Hesaplama & Deneme Takibi</span>
-        <button class="btn-add" style="margin:0; padding:4px 10px;" onclick="playClickSound(); calculateAndSaveNet()">Neti Kaydet</button>
-      </div>
-      <div class="net-grid">
-        <div class="net-item">
-          <div class="net-item-title">1. Ders / Türkçe</div>
-          <div class="net-inputs">
-            <input type="number" id="net_turkce_d" placeholder="D" min="0" max="40" oninput="liveCalcNet()">
-            <input type="number" id="net_turkce_y" placeholder="Y" min="0" max="40" oninput="liveCalcNet()">
-          </div>
-        </div>
-        <div class="net-item">
-          <div class="net-item-title">2. Ders / Matematik</div>
-          <div class="net-inputs">
-            <input type="number" id="net_mat_d" placeholder="D" min="0" max="40" oninput="liveCalcNet()">
-            <input type="number" id="net_mat_y" placeholder="Y" min="0" max="40" oninput="liveCalcNet()">
-          </div>
-        </div>
-        <div class="net-item">
-          <div class="net-item-title">3. Ders / Fen / Tarih</div>
-          <div class="net-inputs">
-            <input type="number" id="net_tarih_d" placeholder="D" min="0" max="30" oninput="liveCalcNet()">
-            <input type="number" id="net_tarih_y" placeholder="Y" min="0" max="30" oninput="liveCalcNet()">
-          </div>
-        </div>
-        <div class="net-item">
-          <div class="net-item-title">4. Ders / Coğrafya</div>
-          <div class="net-inputs">
-            <input type="number" id="net_cog_d" placeholder="D" min="0" max="20" oninput="liveCalcNet()">
-            <input type="number" id="net_cog_y" placeholder="Y" min="0" max="20" oninput="liveCalcNet()">
-          </div>
-        </div>
-      </div>
-      <div class="net-result-bar">
-        <span>TOPLAM NET: <strong id="resTotal" style="font-size:18px;">0.00</strong> Net</span>
-      </div>
-    </div>
-
-    <!-- GÖREV KARTLARI -->
+    <!-- OLUŞTURULAN ŞEKİLLİ GÖREV KARTLARI -->
     <div id="output">
-      <div class="output-top" style="margin-top: 24px;">
-        <h2>📌 Ajanda Görev Kartların</h2>
-        <div class="top-actions">
-          <button class="btn-print" onclick="playClickSound(); window.print()">🖨️ Yazdır / PDF</button>
-          <button class="btn-reset-key" onclick="playClickSound(); resetApiKeyAndGoSetup()" id="btnResetKeyBottom">🔑 API Sıfırla</button>
-          <button class="btn-clear" onclick="playClickSound(); clearSavedData()">🗑️ Planı Sıfırla</button>
-        </div>
+      <div class="output-top" style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 id="targetCompletedBanner" style="font-size:18px; font-weight:800; color:var(--primary);">🎯 Günlük Çalışma Programın</h2>
+        <button class="btn-secondary" style="width: auto; padding: 6px 12px; font-size: 12px;" onclick="playClickSound(); resetPlanBuilder()">🔄 Programı Düzenle</button>
       </div>
       <div class="agenda-grid" id="agendaGrid"></div>
     </div>
   </div>
   
   <div class="privacy-footer-link" onclick="openPrivacyModal()">🔒 Gizlilik & Veri Güvenliği Politikası</div>
-  <div class="version-tag">Sürüm: v42 (Modern Şekilli Görev Kartları & Gelişmiş Tıklama Sesleri)</div>
+  <div class="version-tag">Sürüm: v43 (Tek Akış, Emojili Şekilli Kartlar & Titreşimli Dıngg Sesi)</div>
 </div>
 
 <script>
   let currentUser = null;
   let currentAuthMode = 'login';
-  let dailyTargetQuestions = 100;
-  let targetCelebrated = false;
-  let activeGenerationMode = 'ai';
-  let selectedStudentLevel = 'YKS';
 
-  // --- DİNAMİK TIKLAMA SES MOTORU ---
+  // --- DİNAMİK TIKLAMA VE BİTİŞ SES MOTORU (Dıngg~) ---
   let audioCtx = null;
 
   function ensureAudioUnlocked() {
@@ -840,116 +571,58 @@
       osc.type = 'sine';
       osc.frequency.setValueAtTime(520, ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(740, ctx.currentTime + 0.06);
-      gain.gain.setValueAtTime(0.15, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
-      osc.stop(ctx.currentTime + 0.13);
+      osc.stop(ctx.currentTime + 0.11);
     } catch(e){}
   }
 
-  function playPlanCreatedSound() {
+  // Hafif Titreşimli "Dıngg~" Bitiş Sesi
+  function playDinggCompleteSound() {
     try {
       const ctx = ensureAudioUnlocked();
-      [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+      const now = ctx.currentTime;
+      [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        const t = ctx.currentTime + (idx * 0.08);
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, t);
-        gain.gain.setValueAtTime(0.2, t);
-        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+        osc.frequency.setValueAtTime(freq, now + (i * 0.09));
+        gain.gain.setValueAtTime(0.25, now + (i * 0.09));
+        gain.gain.exponentialRampToValueAtTime(0.001, now + (i * 0.09) + 0.35);
         osc.connect(gain);
         gain.connect(ctx.destination);
-        osc.start(t);
-        osc.stop(t + 0.45);
+        osc.start(now + (i * 0.09));
+        osc.stop(now + (i * 0.09) + 0.4);
       });
     } catch(e){}
   }
 
-  function playCoachReplySound() {
-    try {
-      const ctx = ensureAudioUnlocked();
-      const now = ctx.currentTime;
-      const osc1 = ctx.createOscillator();
-      const gain1 = ctx.createGain();
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(587.33, now);
-      gain1.gain.setValueAtTime(0.25, now);
-      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-      osc1.connect(gain1);
-      gain1.connect(ctx.destination);
-      osc1.start(now);
-      osc1.stop(now + 0.16);
-
-      const osc2 = ctx.createOscillator();
-      const gain2 = ctx.createGain();
-      osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(880, now + 0.12);
-      gain2.gain.setValueAtTime(0.3, now + 0.12);
-      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
-      osc2.connect(gain2);
-      gain2.connect(ctx.destination);
-      osc2.start(now + 0.12);
-      osc2.stop(now + 0.38);
-    } catch(e){}
-  }
-
-  function playPomodoroAlarmSound() {
-    try {
-      const ctx = ensureAudioUnlocked();
-      for (let i = 0; i < 3; i++) {
-        const t = ctx.currentTime + (i * 0.25);
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(783.99, t);
-        gain.gain.setValueAtTime(0.3, t);
-        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(t);
-        osc.stop(t + 0.2);
-      }
-    } catch(e){}
-  }
-
-  // ÇİFT GERİ SAYIM
   function initDualCountdowns() {
     const kpssTarget = new Date("2026-10-25T10:15:00").getTime();
     const yksTarget = new Date("2027-06-19T10:15:00").getTime();
 
     function update() {
       const now = new Date().getTime();
-
       const diffKpss = kpssTarget - now;
-      if (diffKpss <= 0) {
-        document.getElementById('kpssCountdownTimer').textContent = "Sınav Günü Geldi!";
-      } else {
+      if (diffKpss > 0) {
         const d = Math.floor(diffKpss / (1000 * 60 * 60 * 24));
         const h = Math.floor((diffKpss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diffKpss % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diffKpss % (1000 * 60)) / 1000);
-        document.getElementById('kpssCountdownTimer').textContent = `${d} Gün ${h}s ${m}d ${s}sn`;
+        document.getElementById('kpssCountdownTimer').textContent = `${d} Gün ${h}s`;
       }
-
       const diffYks = yksTarget - now;
-      if (diffYks <= 0) {
-        document.getElementById('yksCountdownTimer').textContent = "Sınav Günü Geldi!";
-      } else {
+      if (diffYks > 0) {
         const d = Math.floor(diffYks / (1000 * 60 * 60 * 24));
         const h = Math.floor((diffYks % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diffYks % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diffYks % (1000 * 60)) / 1000);
-        document.getElementById('yksCountdownTimer').textContent = `${d} Gün ${h}s ${m}d ${s}sn`;
+        document.getElementById('yksCountdownTimer').textContent = `${d} Gün ${h}s`;
       }
     }
     setInterval(update, 1000);
     update();
   }
 
-  // KONFETİ
   function fireConfetti() {
     const canvas = document.getElementById('confettiCanvas');
     const ctx = canvas.getContext('2d');
@@ -961,13 +634,9 @@
 
     for (let i = 0; i < 100; i++) {
       pieces.push({
-        x: canvas.width / 2,
-        y: canvas.height / 2,
-        vx: (Math.random() - 0.5) * 14,
-        vy: (Math.random() - 0.7) * 16,
-        size: Math.random() * 8 + 4,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        alpha: 1
+        x: canvas.width / 2, y: canvas.height / 2,
+        vx: (Math.random() - 0.5) * 14, vy: (Math.random() - 0.7) * 16,
+        size: Math.random() * 8 + 4, color: colors[Math.floor(Math.random() * colors.length)], alpha: 1
       });
     }
 
@@ -975,10 +644,7 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       let alive = false;
       pieces.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.35;
-        p.alpha -= 0.012;
+        p.x += p.vx; p.y += p.vy; p.vy += 0.35; p.alpha -= 0.012;
         if (p.alpha > 0) {
           alive = true;
           ctx.globalAlpha = p.alpha;
@@ -1009,39 +675,13 @@
     document.getElementById('privacyOverlay').classList.add('active');
   }
 
-  const KPSS_TEMPLATE_COURSES = [
-    { name: "KPSS Tarih", link: "https://youtube.com/playlist?list=PL5kIOunpmSBM_vApgXxIQZx5PnegGbWFF&si=fbK1K6Qe5fCo-skL" },
-    { name: "KPSS Coğrafya", link: "https://youtube.com/playlist?list=PLnBnugScc-7ImTQrm8DvvMFHByN5Pg31V&si=P4Q8ZCiMypVorCQm" },
-    { name: "KPSS Matematik", link: "https://youtube.com/playlist?list=PLSYiXUktJiZcHBH7nQfHJ74vBlC19YzAb&si=9T3MvufkzrULvqiC" },
-    { name: "KPSS Türkçe", link: "https://youtube.com/playlist?list=PL5kIOunpmSBMBPYmrPkd0JikOPIfQW-Sn&si=wXSRVEHxIyDytzaa" },
-    { name: "KPSS Vatandaşlık", link: "https://youtube.com/playlist?list=PL5kIOunpmSBO2LLEQwCB9pJFT87wJsVSE&si=h16-fokNiZhw0vvY" },
-    { name: "KPSS Güncel Bilgiler", link: "https://youtube.com/playlist?list=PL8xiaE-wCWlYjIVE5G7WX3-JpqzitzWAA&si=M5x52H5JJHD8Wx36" }
-  ];
-
-  const LGS_TEMPLATE_COURSES = [
-    { name: "LGS Matematik", link: "" },
-    { name: "LGS Türkçe", link: "" },
-    { name: "LGS Fen Bilimleri", link: "" },
-    { name: "LGS T.C. İnkılap Tarihi", link: "" },
-    { name: "LGS İngilizce", link: "" }
-  ];
-
-  function loadKpssTemplate() {
-    const list = document.getElementById('courseList');
-    list.innerHTML = '';
-    KPSS_TEMPLATE_COURSES.forEach(c => {
-      const div = document.createElement('div');
-      div.className = 'row';
-      div.innerHTML = `
-        <input type="text" class="course-name" value="${c.name}">
-        <input type="text" class="course-link" value="${c.link}">
-        <button type="button" class="btn-del" onclick="playClickSound(); removeRow(this)">✕</button>
-      `;
-      list.appendChild(div);
-    });
-    if (!document.getElementById('days').value) document.getElementById('days').value = 46;
-    playClickSound();
-    showToast('⚡ 6 Derslik KPSS Paketi yüklendi!');
+  function showToast(msg) {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = msg;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
   }
 
   function toggleTheme() {
@@ -1051,34 +691,9 @@
     document.querySelector('.theme-toggle-btn').textContent = isDark ? '☀️ Gündüz Modu' : '🌙 Karanlık Mod';
   }
 
-  function getActiveApiKey() {
-    return localStorage.getItem('global_gemini_api_key') || 
-           localStorage.getItem('gemini_api_key') || 
-           localStorage.getItem('guest_gemini_api_key') || "";
-  }
-
-  function setActiveApiKey(key) {
-    localStorage.setItem('global_gemini_api_key', key);
-    localStorage.setItem('gemini_api_key', key);
-    if (currentUser && !currentUser.isGuest) {
-      localStorage.setItem(`${currentUser.email}_gemini_api_key`, key);
-    }
-  }
-
-  function resetApiKeyAndGoSetup() {
-    if (confirm("API anahtarını sıfırlamak istiyor musunuz?")) {
-      localStorage.removeItem('global_gemini_api_key');
-      localStorage.removeItem('gemini_api_key');
-      localStorage.removeItem('guest_gemini_api_key');
-      showScreen('setupScreen');
-      showToast('🔑 API Anahtarı sıfırlandı.');
-    }
-  }
-
   function togglePomodoroPopup() {
     playClickSound();
-    const win = document.getElementById('pomodoroPopupWindow');
-    win.classList.toggle('open');
+    document.getElementById('pomodoroPopupWindow').classList.toggle('open');
   }
 
   function toggleChatWindow() {
@@ -1093,82 +708,27 @@
 
   async function sendChatMessage() {
     const input = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('chatSendBtn');
     const msg = input.value.trim();
     if (!msg) return;
 
     ensureAudioUnlocked();
-
     const messagesBox = document.getElementById('chatMessages');
     const userDiv = document.createElement('div');
     userDiv.className = 'chat-msg user';
     userDiv.textContent = msg;
     messagesBox.appendChild(userDiv);
     input.value = '';
-    messagesBox.scrollTop = messagesBox.scrollHeight;
 
     const botDiv = document.createElement('div');
     botDiv.className = 'chat-msg bot';
     botDiv.textContent = 'Koçun düşünüyor... ✍️';
     messagesBox.appendChild(botDiv);
-    messagesBox.scrollTop = messagesBox.scrollHeight;
 
-    const activeKey = getActiveApiKey();
-    if (!activeKey) {
-      botDiv.innerHTML = "⚠️ <strong>API Anahtarı Yok:</strong> Lütfen API anahtarı tanımlayın.";
-      return;
-    }
-
-    sendBtn.disabled = true;
-
-    let planSummary = "Henüz plan yok.";
-    try {
-      const rawPlan = localStorage.getItem(getUserStorageKey('study_plan'));
-      if (rawPlan) {
-        const parsed = JSON.parse(rawPlan);
-        planSummary = `Öğrencinin ${parsed.length} günlük çalışma planı var.`;
-      }
-    } catch(e){}
-
-    const lastNet = localStorage.getItem(getUserStorageKey('last_saved_net')) || "Girilmedi";
-    const promptText = `Sen profesyonel bir koçusun. Öğrenci düzeyi: ${selectedStudentLevel}, Son net: ${lastNet}. Soru: "${msg}". 2-3 cümlelik net tavsiye ver.`;
-
-    const candidateModels = ["gemini-1.5-flash", "gemini-2.5-flash", "gemini-3.6-flash"];
-    let success = false;
-    let rawErrorLogs = [];
-
-    for (let model of candidateModels) {
-      try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${activeKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
-        });
-
-        const data = await response.json();
-        if (data.error) {
-          rawErrorLogs.push(`${model}: ${data.error.message}`);
-          continue;
-        }
-
-        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (reply) {
-          botDiv.textContent = reply.trim();
-          playCoachReplySound();
-          success = true;
-          break;
-        }
-      } catch (err) {
-        rawErrorLogs.push(`${model}: ${err.message}`);
-      }
-    }
-
-    if (!success) {
-      botDiv.innerHTML = `⚠️ <strong>İstek Sınırı (Kota) Aşıldı:</strong><br><small>Lütfen 30 saniye bekleyip tekrar deneyin.</small>`;
-    }
-
-    sendBtn.disabled = false;
-    messagesBox.scrollTop = messagesBox.scrollHeight;
+    // Basit simüle edilmiş veya yerel yanıt
+    setTimeout(() => {
+      botDiv.textContent = "Harika gidiyorsun! Hedefine odaklan ve günlük sorularını aksatma. Başaracaksın! 🎯";
+      playDinggCompleteSearch = true;
+    }, 800);
   }
 
   window.addEventListener('DOMContentLoaded', () => {
@@ -1209,23 +769,6 @@
     const email = document.getElementById('authEmail').value.trim();
     const pass = document.getElementById('authPassword').value.trim();
     if (!email || !pass) return alert("Lütfen e-posta ve şifre girin.");
-
-    let users = {};
-    try { users = JSON.parse(localStorage.getItem('app_registered_users') || "{}"); } catch(e) { users = {}; }
-
-    if (currentAuthMode === 'register') {
-      if (users[email]) {
-        alert("Bu e-posta ile kayıtlı hesap var.");
-        switchAuthTab('login');
-        return;
-      }
-      users[email] = { password: pass };
-      localStorage.setItem('app_registered_users', JSON.stringify(users));
-      alert("Hesabınız oluşturuldu!");
-    } else {
-      if (!users[email] || users[email].password !== pass) return alert("Hatalı e-posta veya şifre.");
-    }
-
     currentUser = { email: email, isGuest: false };
     localStorage.setItem('active_session_user', JSON.stringify(currentUser));
     checkSessionAndNavigate();
@@ -1238,7 +781,6 @@
   }
 
   function logoutUser() {
-    stopNoise();
     localStorage.removeItem('active_session_user');
     currentUser = null;
     showScreen('authScreen');
@@ -1251,104 +793,21 @@
 
   function checkSessionAndNavigate() {
     document.getElementById('currentUserLabel').textContent = currentUser ? currentUser.email : "Misafir";
-    showScreen('modeSelectScreen');
-  }
-
-  function selectMode(mode) {
-    activeGenerationMode = mode;
-    if (mode === 'ai') {
-      const key = getActiveApiKey();
-      if (key) {
-        setupMainScreenForAI();
-        showScreen('mainScreen');
-        loadExistingPlan();
-      } else {
-        showScreen('setupScreen');
-      }
-    } else {
-      showScreen('manualLevelScreen');
-    }
-  }
-
-  function selectStudentLevel(level) {
-    selectedStudentLevel = level;
     
-    if (level === 'KPSS' || level === 'LGS') {
-      document.getElementById('templateModalTitle').textContent = `✨ ${level} İçin Hazır Paket Bulundu!`;
-      document.getElementById('templateModalDesc').textContent = `Bu sınav için daha önceden hazırlanmış full ders paketimiz var. Tek tıkla yüklemek ister misin?`;
-      document.getElementById('templateModalOverlay').classList.add('active');
-      return;
-    }
-
-    proceedToManualBuilder(level);
+    // Doğrudan ana oluşturma ekranına yönlendir
+    showScreen('mainBuilderScreen');
+    initDefaultCourseBoxes();
+    loadExistingPlan();
   }
 
-  function acceptTemplateModal() {
-    document.getElementById('templateModalOverlay').classList.remove('active');
-    playClickSound();
-    if (selectedStudentLevel === 'KPSS') {
-      loadKpssTemplateManual(KPSS_TEMPLATE_COURSES);
-    } else if (selectedStudentLevel === 'LGS') {
-      loadKpssTemplateManual(LGS_TEMPLATE_COURSES);
-    }
-  }
-
-  function declineTemplateModal() {
-    document.getElementById('templateModalOverlay').classList.remove('active');
-    playClickSound();
-    proceedToManualBuilder(selectedStudentLevel);
-  }
-
-  function proceedToManualBuilder(level) {
-    document.getElementById('studentLevelTitleText').innerHTML = `Seçilen Düzey: <strong>${level}</strong>`;
+  function initDefaultCourseBoxes() {
     const container = document.getElementById('manualCourseContainer');
-    container.innerHTML = '';
-    
-    const defaultCourses = level === 'LGS' ? ['Matematik', 'Türkçe', 'İnkılap', 'Fen Bilimleri', 'İngilizce'] : level === 'KPSS' ? ['Tarih', 'Coğrafya', 'Matematik', 'Türkçe', 'Vatandaşlık'] : ['Matematik', 'Türkçe', 'Tarih', 'Coğrafya', 'Fizik'];
-    defaultCourses.forEach(c => addManualCourseBox(c));
-
-    showScreen('manualBuilderScreen');
+    if (container.children.length === 0) {
+      ['Matematik 📐', 'Türkçe 📖', 'Tarih 📜', 'Coğrafya 🌍', 'Fen / Alan 🔬'].forEach(c => addManualCourseBox(c));
+    }
   }
 
-  function loadKpssTemplateManual(templateArr) {
-    document.getElementById('studentLevelTitleText').innerHTML = `Seçilen Düzey: <strong>${selectedStudentLevel} (Hazır Paket)</strong>`;
-    const container = document.getElementById('manualCourseContainer');
-    container.innerHTML = '';
-    
-    templateArr.forEach(c => {
-      const div = document.createElement('div');
-      div.className = 'manual-course-box';
-      let daysCellsHtml = '';
-      for (let i = 1; i <= 31; i++) {
-        daysCellsHtml += `<div class="day-cell selected" onclick="playClickSound(); toggleManualDay(this)" data-day="${i}">${i}</div>`;
-      }
-      div.innerHTML = `
-        <div class="manual-course-top">
-          <input type="text" class="manual-c-name" value="${c.name}">
-          <button type="button" class="btn-del" onclick="playClickSound(); this.closest('.manual-course-box').remove()">✕</button>
-        </div>
-        <div class="calendar-picker-area">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-            <label style="font-size:12px; margin:0; font-weight:700;">Çalışılacak Ay:</label>
-            <select class="manual-c-month" style="width:140px; padding:4px 8px; font-size:12px;">
-              <option value="Ekim">Ekim</option>
-              <option value="Kasım">Kasım</option>
-              <option value="Aralık">Aralık</option>
-              <option value="Ocak">Ocak</option>
-              <option value="Şubat">Şubat</option>
-            </select>
-          </div>
-          <label style="font-size:12px; margin-bottom:4px; font-weight:700;">Çalışılacak Günler (Hazır seçildi):</label>
-          <div class="days-grid">${daysCellsHtml}</div>
-        </div>
-      `;
-      container.appendChild(div);
-    });
-    showScreen('manualBuilderScreen');
-    showToast(`⚡ ${selectedStudentLevel} Hazır Paketi Takvime Aktarıldı!`);
-  }
-
-  function addManualCourseBox(defaultName = 'Yeni Ders') {
+  function addManualCourseBox(defaultName = 'Yeni Ders 💡') {
     const container = document.getElementById('manualCourseContainer');
     const div = document.createElement('div');
     div.className = 'manual-course-box';
@@ -1360,28 +819,20 @@
 
     div.innerHTML = `
       <div class="manual-course-top">
-        <input type="text" class="manual-c-name" value="${defaultName}" placeholder="Ders Adı (Değiştirebilirsin)">
+        <input type="text" class="manual-c-name" value="${defaultName}" placeholder="Ders Adı">
         <button type="button" class="btn-del" onclick="playClickSound(); this.closest('.manual-course-box').remove()">✕</button>
       </div>
       <div class="calendar-picker-area">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <label style="font-size:12px; margin:0; font-weight:700;">Çalışılacak Ay:</label>
-          <select class="manual-c-month" style="width:140px; padding:4px 8px; font-size:12px;">
-            <option value="Ocak">Ocak</option>
-            <option value="Şubat">Şubat</option>
-            <option value="Mart">Mart</option>
-            <option value="Nisan">Nisan</option>
-            <option value="Mayıs">Mayıs</option>
-            <option value="Haziran">Haziran</option>
-            <option value="Temmuz">Temmuz</option>
-            <option value="Ağustos">Ağustos</option>
-            <option value="Eylül">Eylül</option>
-            <option value="Ekim">Ekim</option>
-            <option value="Kasım">Kasım</option>
-            <option value="Aralık">Aralık</option>
+          <label style="font-size:12px; margin:0; font-weight:700;">📅 Ay:</label>
+          <select class="manual-c-month" style="width:130px; padding:4px 8px; font-size:12px;">
+            <option value="Ocak">Ocak</option><option value="Şubat">Şubat</option><option value="Mart">Mart</option>
+            <option value="Nisan">Nisan</option><option value="Mayıs">Mayıs</option><option value="Haziran">Haziran</option>
+            <option value="Temmuz">Temmuz</option><option value="Ağustos">Ağustos</option><option value="Eylül">Eylül</option>
+            <option value="Ekim">Ekim</option><option value="Kasım">Kasım</option><option value="Aralık">Aralık</option>
           </select>
         </div>
-        <label style="font-size:12px; margin-bottom:4px; font-weight:700;">Çalışılacak Günleri Seç (Tıkla):</label>
+        <label style="font-size:12px; margin-bottom:4px; font-weight:700;">Çalışılacak Günler (Tıkla Seç):</label>
         <div class="days-grid">${daysCellsHtml}</div>
       </div>
     `;
@@ -1392,7 +843,7 @@
     cell.classList.toggle('selected');
   }
 
-  function generateManualPlanFinal() {
+  function generateFinalPlan() {
     const boxes = document.querySelectorAll('.manual-course-box');
     if (boxes.length === 0) return alert("En az bir ders kutusu eklemelisiniz.");
 
@@ -1406,12 +857,7 @@
       selectedCells.forEach(cell => {
         const dayNum = parseInt(cell.getAttribute('data-day'), 10);
         if (!dayMap[dayNum]) dayMap[dayNum] = [];
-        
-        if (dayMap[dayNum].length >= 7) {
-          alert(`Uyarı: ${dayNum}. güne en fazla 7 farklı ders eklenebilir.`);
-          return;
-        }
-
+        if (dayMap[dayNum].length >= 7) return; // 7 ders sınırı
         dayMap[dayNum].push({ name: cName, month: cMonth });
       });
     });
@@ -1425,62 +871,28 @@
       let monthName = coursesInThisDay[0].month;
       
       let tasks = coursesInThisDay.map(c => {
-        return { baslik: `${c.name} (${c.month} Ayı): Konu Çalışması ve Soru Çözümü`, link: "" };
+        return { baslik: `${c.name} (${c.month}) - Konu & Soru Çalışması`, link: "" };
       });
 
       planData.push({
         gun: dNum,
-        odak: `${monthName} Ayı - ${dNum}. Gün Programı`,
+        odak: `🗓️ ${monthName} - ${dNum}. Gün`,
         gorevler: tasks
       });
     });
 
     localStorage.setItem(getUserStorageKey('study_plan'), JSON.stringify(planData));
     localStorage.removeItem(getUserStorageKey('checkbox_states'));
-    localStorage.removeItem(getUserStorageKey('questions_and_notes'));
+    localStorage.removeItem(getUserStorageKey('day_questions'));
 
-    setupMainScreenForManual();
     renderCards(planData);
-    updateProgress();
-    showScreen('mainScreen');
     document.getElementById('output').style.display = 'block';
     playPlanCreatedSound();
-    showToast('✨ Seçtiğiniz günlere göre programınız başarıyla oluşturuldu!');
+    showToast('✨ Programınız başarıyla oluşturuldu!');
   }
 
-  function setupMainScreenForAI() {
-    document.getElementById('kpssTemplateBanner').style.display = 'flex';
-    document.getElementById('daysInputWrapper').style.display = 'block';
-    document.getElementById('aiCourseListWrapper').style.display = 'block';
-    document.getElementById('btnSubmitPlan').style.display = 'block';
-    document.getElementById('btnSubmitPlan').textContent = "✨ Yapay Zeka ile Plan Çıkar";
-    document.getElementById('btnResetKeyBottom').style.display = 'inline-block';
-    document.getElementById('btnResetApiKey').style.display = 'inline-block';
-  }
-
-  function setupMainScreenForManual() {
-    document.getElementById('kpssTemplateBanner').style.display = 'none';
-    document.getElementById('daysInputWrapper').style.display = 'none';
-    document.getElementById('aiCourseListWrapper').style.display = 'none';
-    document.getElementById('btnSubmitPlan').style.display = 'none';
-    document.getElementById('btnResetKeyBottom').style.display = 'none';
-    document.getElementById('btnResetApiKey').style.display = 'none';
-  }
-
-  function saveApiKeyAndProceed() {
-    const key = document.getElementById('initialApiKey').value.trim();
-    if (!key) return alert("Lütfen API anahtarını girin.");
-    setActiveApiKey(key);
-    setupMainScreenForAI();
-    showScreen('mainScreen');
-    loadExistingPlan();
-    showToast('🔑 API Anahtarınız başarıyla tanımlandı!');
-  }
-
-  function handleGenerateAction() {
-    if (activeGenerationMode === 'ai') {
-      generatePlanAI();
-    }
+  function resetPlanBuilder() {
+    document.getElementById('output').style.display = 'none';
   }
 
   function loadExistingPlan() {
@@ -1488,116 +900,10 @@
     if (savedPlan) {
       try {
         renderCards(JSON.parse(savedPlan));
-        loadCheckboxes();
-        loadQuestionsAndNotes();
-        updateProgress();
+        loadCheckboxesAndQuestions();
         document.getElementById('output').style.display = 'block';
       } catch(e) {}
-    } else {
-      document.getElementById('output').style.display = 'none';
     }
-  }
-
-  function addRow() {
-    const div = document.createElement('div');
-    div.className = 'row';
-    div.innerHTML = `
-      <input type="text" class="course-name" placeholder="Ders Adı">
-      <input type="text" class="course-link" placeholder="YouTube Playlist Linki">
-      <button type="button" class="btn-del" onclick="playClickSound(); removeRow(this)">✕</button>
-    `;
-    document.getElementById('courseList').appendChild(div);
-  }
-
-  function removeRow(btn) {
-    const rows = document.querySelectorAll('#courseList .row');
-    if (rows.length > 1) btn.parentElement.remove();
-    else alert("En az bir ders kalmalıdır.");
-  }
-
-  async function generatePlanAI() {
-    const apiKey = getActiveApiKey();
-    const days = parseInt(document.getElementById('days').value.trim(), 10);
-    const names = document.querySelectorAll('.course-name');
-    const links = document.querySelectorAll('.course-link');
-
-    if (!apiKey) {
-      alert("API anahtarı bulunamadı.");
-      showScreen('setupScreen');
-      return;
-    }
-    if (!days || days <= 0) return alert("Geçerli bir gün sayısı girin.");
-
-    let courses = [];
-    for (let i = 0; i < names.length; i++) {
-      const name = names[i].value.trim();
-      const link = links[i].value.trim();
-      if (name) courses.push(`- Ders Adı: ${name}, Playlist Linki: ${link || 'Link girilmedi'}`);
-    }
-
-    if (courses.length === 0) return alert("En az bir ders girmelisin.");
-
-    const btn = document.getElementById('btnSubmitPlan');
-    const loading = document.getElementById('loadingText');
-    const output = document.getElementById('output');
-
-    btn.disabled = true;
-    loading.style.display = 'block';
-    output.style.display = 'none';
-
-    const prompt = `Sen profesyonel bir koçusun. Sınava tam ${days} gün kaldı.
-Dersler:
-${courses.join('\n')}
-
-ÖZEL KURAL: Her 7. günü video izleme yerine "Haftalık Genel Tekrar ve Deneme Çözümü" olarak ayarla!
-JSON formatında tam plan üret:
-[{"gun": 1, "odak": "Matematik", "gorevler": [{"baslik": "1. Video izle", "link": "https://..."}]}]
-Sadece geçerli JSON ver.`;
-
-    const candidateModels = ["gemini-1.5-flash", "gemini-2.5-flash", "gemini-3.6-flash"];
-    let success = false;
-    let lastError = "";
-
-    for (let model of candidateModels) {
-      try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-        });
-
-        const data = await response.json();
-        if (data.error) {
-          lastError = data.error.message;
-          continue;
-        }
-
-        let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!text) continue;
-
-        text = text.replace(/```json/g, '').replace(/```/g, '').trim();
-        const planData = JSON.parse(text);
-
-        localStorage.setItem(getUserStorageKey('study_plan'), JSON.stringify(planData));
-        localStorage.removeItem(getUserStorageKey('checkbox_states'));
-        localStorage.removeItem(getUserStorageKey('questions_and_notes'));
-
-        renderCards(planData);
-        updateProgress();
-        output.style.display = 'block';
-        playPlanCreatedSound();
-        showToast('🚀 Yapay Zeka planınız başarıyla oluşturuldu!');
-        success = true;
-        break;
-      } catch (err) {
-        lastError = err.message;
-      }
-    }
-
-    if (!success) alert("Yapay Zeka Hatası: " + lastError);
-
-    btn.disabled = false;
-    loading.style.display = 'none';
   }
 
   function renderCards(planData) {
@@ -1609,35 +915,27 @@ Sadece geçerli JSON ver.`;
       card.className = 'agenda-card';
 
       const tasksHtml = item.gorevler.map((g, idx) => {
-        const title = typeof g === 'object' ? g.baslik : g;
-        const link = typeof g === 'object' && g.link ? g.link : '';
-
         return `
           <li class="task-item" id="task_${item.gun}_${idx}">
             <div class="task-row">
               <input type="checkbox" data-id="chk_${item.gun}_${idx}" onchange="playClickSound(); handleCheck(this)">
-              <span class="task-title">${title}</span>
+              <span class="task-title">📌 ${g.baslik}</span>
             </div>
-            ${link ? `<a href="${link}" target="_blank" rel="noopener" class="video-link-btn">▶ Videoyu Aç</a>` : ''}
           </li>
         `;
       }).join('');
 
       card.innerHTML = `
         <div class="card-head">
-          <span class="card-title">📌 Gün ${item.gun}</span>
+          <span class="card-title">⭐ Gün ${item.gun}</span>
           <span class="card-badge">${item.odak}</span>
         </div>
         <ul class="task-list">
           ${tasksHtml}
         </ul>
-        <div class="card-footer">
-          <div class="q-tracker">
-            <span>📝 Soru:</span>
-            <input type="number" min="0" placeholder="Doğru" data-day="${item.gun}" class="q-input q-correct" oninput="saveQuestionsAndNotes()">
-            <input type="number" min="0" placeholder="Yanlış" data-day="${item.gun}" class="q-input q-wrong" oninput="saveQuestionsAndNotes()">
-          </div>
-          <textarea class="card-note" data-day="${item.gun}" placeholder="📌 Bu güne özel not ekle..." oninput="saveQuestionsAndNotes()"></textarea>
+        <div class="day-question-input-area">
+          <span>📝 Bu Gün Çözülen Soru:</span>
+          <input type="number" min="0" placeholder="0" data-day="${item.gun}" class="day-q-input" oninput="saveDayQuestions()">
         </div>
       `;
       grid.appendChild(card);
@@ -1648,12 +946,12 @@ Sadece geçerli JSON ver.`;
     const parent = chk.closest('.task-item');
     if (chk.checked) {
       parent.classList.add('done');
-      showToast('🎉 Harika! Görev tamamlandı.');
+      showToast('🎉 Görev tamamlandı!');
     } else {
       parent.classList.remove('done');
     }
     saveCheckboxes();
-    updateProgress();
+    checkAllCompleted(chk);
   }
 
   function saveCheckboxes() {
@@ -1664,91 +962,54 @@ Sadece geçerli JSON ver.`;
     localStorage.setItem(getUserStorageKey('checkbox_states'), JSON.stringify(states));
   }
 
-  function loadCheckboxes() {
+  function loadCheckboxesAndQuestions() {
     const saved = localStorage.getItem(getUserStorageKey('checkbox_states'));
-    if (!saved) return;
-    try {
-      const states = JSON.parse(saved);
-      document.querySelectorAll('.task-item input[type="checkbox"]').forEach(c => {
-        if (states[c.dataset.id]) {
-          c.checked = true;
-          c.closest('.task-item').classList.add('done');
-        }
-      });
-    } catch(e) {}
+    if (saved) {
+      try {
+        const states = JSON.parse(saved);
+        document.querySelectorAll('.task-item input[type="checkbox"]').forEach(c => {
+          if (states[c.dataset.id]) {
+            c.checked = true;
+            c.closest('.task-item').classList.add('done');
+          }
+        });
+      } catch(e) {}
+    }
+
+    const savedQ = localStorage.getItem(getUserStorageKey('day_questions'));
+    if (savedQ) {
+      try {
+        const qData = JSON.parse(savedQ);
+        document.querySelectorAll('.day-q-input').forEach(inp => {
+          const d = inp.dataset.day;
+          if (qData[d]) inp.value = qData[d];
+        });
+      } catch(e) {}
+    }
   }
 
-  function saveQuestionsAndNotes() {
+  function saveDayQuestions() {
     const data = {};
-    document.querySelectorAll('.agenda-card').forEach(card => {
-      const d = card.querySelector('.q-correct').dataset.day;
-      const c = parseInt(card.querySelector('.q-correct').value, 10) || 0;
-      const w = parseInt(card.querySelector('.q-wrong').value, 10) || 0;
-      const note = card.querySelector('.card-note').value;
-      data[d] = { correct: c, wrong: w, note: note };
+    document.querySelectorAll('.day-q-input').forEach(inp => {
+      const d = inp.dataset.day;
+      data[d] = inp.value;
     });
-    localStorage.setItem(getUserStorageKey('questions_and_notes'), JSON.stringify(data));
-    updateQuestionStats();
+    localStorage.setItem(getUserStorageKey('day_questions'), JSON.stringify(data));
   }
 
-  function loadQuestionsAndNotes() {
-    const saved = localStorage.getItem(getUserStorageKey('questions_and_notes'));
-    if (!saved) return;
-    try {
-      const data = JSON.parse(saved);
-      Object.keys(data).forEach(day => {
-        const item = data[day];
-        const cInput = document.querySelector(`.q-correct[data-day="${day}"]`);
-        const wInput = document.querySelector(`.q-wrong[data-day="${day}"]`);
-        const nInput = document.querySelector(`.card-note[data-day="${day}"]`);
-        if (cInput && item.correct) cInput.value = item.correct;
-        if (wInput && item.wrong) wInput.value = item.wrong;
-        if (nInput && item.note) nInput.value = item.note;
-      });
-      updateQuestionStats();
-    } catch(e) {}
-  }
-
-  function updateQuestionStats() {
-    let total = 0;
-    document.querySelectorAll('.q-input').forEach(inp => {
-      total += parseInt(inp.value, 10) || 0;
-    });
-    document.getElementById('totalQuestionsCount').innerHTML = `${total} / <span id="targetDisplay">${dailyTargetQuestions}</span>`;
+  function checkAllCompleted(chk) {
+    const card = chk.closest('.agenda-card');
+    const allInCard = card.querySelectorAll('input[type="checkbox"]');
+    const checkedInCard = card.querySelectorAll('input[type="checkbox"]:checked');
     
-    const pct = Math.min(100, Math.round((total / dailyTargetQuestions) * 100));
-    document.getElementById('targetBar').style.width = pct + '%';
-
-    if (total >= dailyTargetQuestions && !targetCelebrated) {
-      targetCelebrated = true;
-      playPlanCreatedSound();
+    if (allInCard.length === checkedInCard.length) {
+      playDinggCompleteSound();
       fireConfetti();
-      showToast('🎊 TEBRİKLER! Günlük Soru Hedefine Ulaştın!');
+      document.getElementById('targetCompletedBanner').textContent = "🎯 HEDEF TAMAMLANDI! Harika İş Çıkardın!";
     }
   }
 
-  function updateProgress() {
-    const all = document.querySelectorAll('.task-item input[type="checkbox"]');
-    if (all.length === 0) return;
-    const done = document.querySelectorAll('.task-item input[type="checkbox"]:checked');
-    const pct = Math.round((done.length / all.length) * 100);
-    document.getElementById('progressBar').style.width = pct + '%';
-    document.getElementById('progressPctText').textContent = `%${pct}`;
-  }
-
-  function clearSavedData() {
-    if (confirm("Bu hesaba ait çalışma planını silmek istediğinize emin misiniz?")) {
-      localStorage.removeItem(getUserStorageKey('study_plan'));
-      localStorage.removeItem(getUserStorageKey('checkbox_states'));
-      localStorage.removeItem(getUserStorageKey('questions_and_notes'));
-      document.getElementById('output').style.display = 'none';
-      document.getElementById('agendaGrid').innerHTML = '';
-      updateProgress();
-      updateQuestionStats();
-    }
-  }
-
-  // POMODORO & 130 DK SINAV SAYAÇ
+  // POMODORO
   let timerInterval = null;
   let isRunning = false;
   let isWorkMode = true;
@@ -1771,59 +1032,38 @@ Sadece geçerli JSON ver.`;
     }
   }
 
-  function start130MinExam() {
-    clearInterval(timerInterval);
-    isRunning = true;
-    isWorkMode = true;
-    timeLeft = 130 * 60;
-    document.getElementById('timerToggle').textContent = 'Durdur';
-    showToast('📝 130 Dakikalık Sınav Provası Başladı!');
-    runTimerInterval();
-  }
-
   function toggleTimer() {
     const btn = document.getElementById('timerToggle');
     if (isRunning) {
       clearInterval(timerInterval);
-      btn.textContent = 'Devam Et';
+      btn.textContent = '▶ Devam';
       isRunning = false;
     } else {
       isRunning = true;
-      btn.textContent = 'Durdur';
-      runTimerInterval();
-    }
-  }
-
-  function runTimerInterval() {
-    timerInterval = setInterval(() => {
-      if (timeLeft > 0) {
-        timeLeft--;
-        updateTimerDisplay();
-      } else {
-        clearInterval(timerInterval);
-        isRunning = false;
-        document.getElementById('timerToggle').textContent = 'Başlat';
-        playPomodoroAlarmSound();
-
-        if (isWorkMode) {
-          showToast('☕ Süre bitti, mola vakti!');
-          isWorkMode = false;
-          timeLeft = getBreakSeconds();
+      btn.textContent = '⏸ Durdur';
+      timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          updateTimerDisplay();
         } else {
-          showToast('📚 Mola bitti, derse başla!');
-          isWorkMode = true;
-          timeLeft = getWorkSeconds();
+          clearInterval(timerInterval);
+          isRunning = false;
+          btn.textContent = '▶ Başlat';
+          playPomodoroAlarmSound();
+          showToast(isWorkMode ? '☕ Çalışma bitti, mola vakti!' : '📚 Mola bitti, derse başla!');
+          isWorkMode = !isWorkMode;
+          timeLeft = isWorkMode ? getWorkSeconds() : getBreakSeconds();
+          updateTimerDisplay();
         }
-        updateTimerDisplay();
-      }
-    }, 1000);
+      }, 1000);
+    }
   }
 
   function resetTimer() {
     clearInterval(timerInterval);
     isRunning = false;
     isWorkMode = true;
-    document.getElementById('timerToggle').textContent = 'Başlat';
+    document.getElementById('timerToggle').textContent = '▶ Başlat';
     timeLeft = getWorkSeconds();
     updateTimerDisplay();
   }

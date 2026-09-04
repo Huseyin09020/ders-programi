@@ -64,7 +64,7 @@
 
   <button type="button" class="btn-generate" id="btnSubmit" onclick="generatePlan()">Çalışma Programını Oluştur</button>
 
-  <div class="loading" id="loadingText">Uygun model tespit ediliyor ve planın hazırlanıyor...</div>
+  <div class="loading" id="loadingText">Yapay zeka planını hazırlıyor, lütfen bekleyin...</div>
 
   <div id="output">
     <h2>Senin İçin Hazırlanan Çalışma Programı</h2>
@@ -133,34 +133,13 @@
 
     const prompt = `Sen uzman bir sınav koçu ve eğitim danışmanısın.
 Öğrencinin sınava tam ${days} günü kaldı.
-Çalışması gereken dersler ve oynatma listeleri:
+Çalışması gereken dersler ve oynatma listeleri şunlar:
 ${courseData.join('\n')}
 
 Lütfen bu ${days} gün için dengeli, mantıklı, genel tekrarlar, branş denemeleri ve son haftaya genel denemeler koyarak gün gün bir çalışma programı hazırla.`;
 
     try {
-      // 1. Önce bu API anahtarının erişebildiği aktif modelleri çekiyoruz
-      const listRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
-      const listData = await listRes.json();
-
-      if (listData.error) {
-        throw new Error("Anahtar doğrulanırken hata: " + listData.error.message);
-      }
-
-      // generateContent destekleyen modelleri filtrele
-      const availableModels = (listData.models || [])
-        .filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes("generateContent"))
-        .map(m => m.name); // örn: "models/gemini-2.5-flash"
-
-      if (availableModels.length === 0) {
-        throw new Error("Bu API anahtarı için uygun bir metin üretim modeli bulunamadı.");
-      }
-
-      // Tercihen flash modellerinden birini, yoksa ilk uygun modeli seç
-      let targetModel = availableModels.find(m => m.includes("flash")) || availableModels[0];
-
-      // 2. Belirlenen gerçek modelle isteği gönder
-      const genRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/${targetModel}:generateContent?key=${apiKey}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -168,18 +147,18 @@ Lütfen bu ${days} gün için dengeli, mantıklı, genel tekrarlar, branş denem
         })
       });
 
-      const genData = await genRes.json();
+      const data = await response.json();
 
-      if (genData.error) {
-        throw new Error(genData.error.message);
+      if (data.error) {
+        throw new Error(data.error.message);
       }
 
-      const reply = genData.candidates?.[0]?.content?.parts?.[0]?.text;
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
       if (reply) {
         planText.textContent = reply;
         output.style.display = 'block';
       } else {
-        throw new Error("Yapay zekadan yanıt metni alınamadı.");
+        throw new Error("Yapay zekadan metin çıktısı alınamadı.");
       }
 
     } catch (err) {

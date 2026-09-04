@@ -7,10 +7,8 @@
   <style>
     :root {
       --primary: #4338ca;
-      --primary-hover: #3730a3;
       --paper: #fffefb;
       --paper-border: #e7e2d7;
-      --grid-line: rgba(67, 56, 202, 0.04);
       --bg: #f7f6f2;
       --text: #1e293b;
       --text-muted: #64748b;
@@ -20,10 +18,8 @@
 
     body.dark-mode {
       --primary: #818cf8;
-      --primary-hover: #6366f1;
       --paper: #1e293b;
       --paper-border: #334155;
-      --grid-line: rgba(255, 255, 255, 0.03);
       --bg: #0f172a;
       --text: #f8fafc;
       --text-muted: #94a3b8;
@@ -35,14 +31,9 @@
     
     body {
       background-color: var(--bg);
-      background-image: 
-        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-      background-size: 22px 22px;
       color: var(--text);
       padding: 20px 14px;
       line-height: 1.5;
-      transition: background-color 0.3s, color 0.3s;
     }
 
     .container {
@@ -53,7 +44,6 @@
       border-radius: 16px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.05);
       border: 1px solid var(--paper-border);
-      position: relative;
     }
 
     .top-bar-tools {
@@ -89,10 +79,9 @@
       border-radius: 12px;
       text-align: center;
       margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(67, 56, 202, 0.2);
     }
     .countdown-title { font-size: 13px; font-weight: 600; opacity: 0.9; }
-    .countdown-timer { font-size: 24px; font-weight: 800; letter-spacing: 1px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+    .countdown-timer { font-size: 24px; font-weight: 800; letter-spacing: 1px; margin-top: 4px; }
 
     .form-group { margin-bottom: 16px; }
     label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; color: var(--text); }
@@ -105,11 +94,6 @@
       outline: none;
       background: var(--paper);
       color: var(--text);
-      transition: all 0.2s;
-    }
-    input:focus, textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.12);
     }
 
     .template-banner {
@@ -124,10 +108,7 @@
       flex-wrap: wrap;
       gap: 10px;
     }
-    body.dark-mode .template-banner {
-      background: rgba(34, 197, 94, 0.1);
-      border-color: #16a34a;
-    }
+    body.dark-mode .template-banner { background: rgba(34, 197, 94, 0.1); border-color: #16a34a; }
     .template-info { font-size: 13px; color: var(--text); font-weight: 600; }
     .template-btn {
       background: #16a34a;
@@ -138,13 +119,11 @@
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
     }
-    .template-btn:hover { background: #15803d; transform: scale(1.02); }
 
     .btn-main {
       width: 100%;
-      background: linear-gradient(135deg, var(--primary), #6366f1);
+      background: var(--primary);
       color: white;
       border: none;
       padding: 14px;
@@ -153,10 +132,7 @@
       font-weight: 700;
       cursor: pointer;
       margin-top: 10px;
-      box-shadow: 0 4px 14px rgba(67, 56, 202, 0.25);
-      transition: all 0.2s;
     }
-    .btn-main:hover { transform: translateY(-1px); }
     .btn-secondary {
       width: 100%;
       background: #f1f5f9;
@@ -194,9 +170,7 @@
     }
     .guide-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
     .guide-steps { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: var(--text-muted); }
-    .guide-steps li { display: flex; align-items: flex-start; gap: 8px; }
-    .guide-num { background: #e0e7ff; color: var(--primary); font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
-    .guide-box a { color: var(--primary); font-weight: 700; text-decoration: underline; }
+    .guide-num { background: #e0e7ff; color: var(--primary); font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
 
     .user-badge-bar {
       display: flex;
@@ -213,34 +187,31 @@
 
     .row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 8px; margin-bottom: 8px; align-items: center; }
     .btn-del { background: #fee2e2; color: #dc2626; border: none; padding: 10px 14px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-    .btn-add { background: #e0e7ff; color: var(--primary); border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; margin-top: 4px; }
+    .btn-add { background: #e0e7ff; color: var(--primary); border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; }
 
     .loading { display: none; text-align: center; margin-top: 20px; padding: 16px; background: #eef2ff; border-radius: 10px; color: var(--primary); font-weight: 600; font-size: 14px; }
 
-    /* POMODORO & AMBİYANS */
+    /* POMODORO */
     .pomodoro-card {
       background: var(--paper);
       border: 1.5px solid var(--paper-border);
       border-radius: 12px;
       padding: 16px;
       margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
+      text-align: center;
     }
-    .pomo-settings { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap; }
+    .pomo-settings { display: flex; gap: 16px; align-items: center; justify-content: center; margin-bottom: 8px; }
     .pomo-input-group { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); }
-    .pomo-input-group input { width: 65px; padding: 6px 8px; text-align: center; font-weight: 700; background: var(--card-bg); }
-    .pomo-time { font-size: 36px; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; }
-    .pomo-btns { display: flex; gap: 8px; }
+    .pomo-input-group input { width: 60px; padding: 4px; text-align: center; }
+    .pomo-time { font-size: 36px; font-weight: 800; color: var(--text); margin: 6px 0; }
+    .pomo-btns { display: flex; gap: 8px; justify-content: center; }
     .pomo-btn { border: none; padding: 7px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; }
     .pomo-start { background: var(--primary); color: white; }
     .pomo-reset { background: #e2e8f0; color: #475569; }
 
-    .noise-controls { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; justify-content: center; }
-    .btn-noise { background: none; border: 1px solid var(--paper-border); padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; color: var(--text-muted); font-weight: 600; transition: all 0.2s; }
-    .btn-noise.active { background: var(--primary); color: white; border-color: var(--primary); transform: scale(1.03); }
+    .noise-controls { display: flex; gap: 8px; margin-top: 12px; justify-content: center; }
+    .btn-noise { background: none; border: 1px solid var(--paper-border); padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; color: var(--text-muted); font-weight: 600; }
+    .btn-noise.active { background: var(--primary); color: white; border-color: var(--primary); }
 
     .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
     .stat-box { background: var(--paper); padding: 14px; border-radius: 10px; border: 1px solid var(--paper-border); text-align: center; }
@@ -258,7 +229,7 @@
     .btn-change-key { background: #64748b; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
 
     .agenda-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
-    .agenda-card { background-color: var(--paper); border: 1px solid var(--paper-border); border-left: 5px solid #ef4444; border-radius: 10px; padding: 16px 14px; box-shadow: 2px 3px 6px rgba(0,0,0,0.04); position: relative; }
+    .agenda-card { background-color: var(--paper); border: 1px solid var(--paper-border); border-left: 5px solid #ef4444; border-radius: 10px; padding: 16px 14px; box-shadow: 2px 3px 6px rgba(0,0,0,0.04); }
     .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1.5px solid var(--paper-border); }
     .card-title { font-weight: 800; color: var(--text); font-size: 15px; }
     .card-badge { font-size: 11px; background: var(--highlight); color: #854d0e; padding: 3px 8px; border-radius: 4px; font-weight: 700; }
@@ -267,7 +238,7 @@
     .task-item { font-size: 13px; display: flex; flex-direction: column; gap: 5px; color: var(--text); background: var(--card-bg); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--paper-border); }
     .task-row { display: flex; align-items: flex-start; gap: 8px; }
     .task-item.done .task-title { text-decoration: line-through; opacity: 0.45; }
-    .task-item input[type="checkbox"] { width: auto; margin-top: 3px; cursor: pointer; accent-color: var(--primary); }
+    .task-item input[type="checkbox"] { width: auto; margin-top: 3px; cursor: pointer; }
     
     .video-link-btn { align-self: flex-start; margin-left: 24px; display: inline-flex; align-items: center; gap: 4px; background: #fee2e2; color: #dc2626; text-decoration: none; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
 
@@ -277,8 +248,7 @@
     .card-note { font-size: 12px; padding: 6px; border-radius: 6px; resize: vertical; min-height: 40px; background: var(--card-bg); }
 
     .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-    .toast { background: #10b981; color: white; padding: 12px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.15); animation: slideIn 0.3s ease; }
-    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    .toast { background: #10b981; color: white; padding: 12px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
     /* KOÇ BALONCUĞU */
     .ai-bubble-btn {
@@ -298,9 +268,7 @@
       align-items: center;
       gap: 8px;
       z-index: 9990;
-      transition: transform 0.2s;
     }
-    .ai-bubble-btn:hover { transform: scale(1.05); }
 
     .ai-chat-window {
       position: fixed;
@@ -308,7 +276,7 @@
       bottom: 80px;
       width: 340px;
       max-width: calc(100vw - 40px);
-      height: 440px;
+      height: 420px;
       background: var(--card-bg);
       border: 1.5px solid var(--paper-border);
       border-radius: 16px;
@@ -350,904 +318,4 @@
       gap: 6px;
     }
     .chat-input-area input { flex: 1; padding: 8px 12px; font-size: 13px; }
-    .chat-send-btn { background: var(--primary); color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; }
-
-    .version-tag { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 24px; }
-  </style>
-</head>
-<body>
-
-<div class="toast-container" id="toastContainer"></div>
-
-<!-- KOÇ BALONCUĞU -->
-<button class="ai-bubble-btn" id="aiBubbleBtn" onclick="toggleChatWindow()">
-  💬 <span>Sınav Koçum</span>
-</button>
-
-<div class="ai-chat-window" id="aiChatWindow">
-  <div class="chat-header">
-    <span>🤖 KPSS & Sınav Koçun</span>
-    <button class="chat-close-btn" onclick="toggleChatWindow()">✕</button>
-  </div>
-  <div class="chat-messages" id="chatMessages">
-    <div class="chat-msg bot">
-      Selam! Çalışma planını ve ilerlemeni buradan takip ediyorum. Kafana takılan soruları, moral durumunu veya dersleri hemen sorabilirsin!
-    </div>
-  </div>
-  <div class="chat-input-area">
-    <input type="text" id="chatInput" placeholder="Mesajını yaz..." onkeydown="if(event.key==='Enter') sendChatMessage()">
-    <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">Gönder</button>
-  </div>
-</div>
-
-<div class="container">
-  <div class="top-bar-tools">
-    <button class="theme-toggle-btn" onclick="toggleTheme()">🌙 Karanlık Mod</button>
-  </div>
-
-  <div class="countdown-card" id="countdownCard">
-    <div class="countdown-title">🎯 KPSS HEDEF SINAVINA KALAN SÜRE</div>
-    <div class="countdown-timer" id="countdownTimer">Hesaplanıyor...</div>
-  </div>
-
-  <!-- GİRİŞ EKRANI -->
-  <div id="authScreen" class="screen active">
-    <div class="header">
-      <h1>👋 Sınav Ajandasına Hoş Geldin</h1>
-      <p>İlerlemelerini kaydetmek için giriş yap veya misafir olarak devam et.</p>
-    </div>
-    <div class="auth-box">
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Giriş Yap</button>
-        <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Kayıt Ol</button>
-      </div>
-      <div class="form-group">
-        <label for="authEmail">E-posta:</label>
-        <input type="email" id="authEmail" placeholder="ornek@mail.com">
-      </div>
-      <div class="form-group">
-        <label for="authPassword">Şifre:</label>
-        <input type="password" id="authPassword" placeholder="******">
-      </div>
-      <button type="button" class="btn-main" id="btnAuthSubmit" onclick="handleAuthSubmit()">Giriş Yap ➡️</button>
-      <button type="button" class="btn-secondary" onclick="loginAsGuest()">👤 Misafir Olarak Devam Et</button>
-    </div>
-  </div>
-
-  <!-- API KURULUM -->
-  <div id="setupScreen" class="screen">
-    <div class="header">
-      <h1>🔑 API Anahtarı Kurulumu</h1>
-      <p>Yapay zekanın planını hazırlayabilmesi için ücretsiz Google API anahtarını tanımla.</p>
-    </div>
-    <div class="guide-box">
-      <div class="guide-title">1 Dakikada Ücretsiz API Anahtarı Nasıl Alınır?</div>
-      <ul class="guide-steps">
-        <li>
-          <span class="guide-num">1</span>
-          <span>Google AI Studio sayfasına git: <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com/app/apikey</a></span>
-        </li>
-        <li>
-          <span class="guide-num">2</span>
-          <span>Mavi <strong>"Create API key"</strong> butonuna tıkla.</span>
-        </li>
-        <li>
-          <span class="guide-num">3</span>
-          <span>Oluşan kodu kopyala ve aşağıdaki kutucuğa yapıştır.</span>
-        </li>
-      </ul>
-    </div>
-    <div class="form-group">
-      <label for="initialApiKey">Gemini API Anahtarın:</label>
-      <input type="password" id="initialApiKey" placeholder="API Anahtarını buraya yapıştır">
-    </div>
-    <button type="button" class="btn-main" onclick="saveApiKeyAndProceed()">Kaydet ve Ajandaya Başla ➡️</button>
-  </div>
-
-  <!-- ANA AJANDA -->
-  <div id="mainScreen" class="screen">
-    <div class="user-badge-bar">
-      <span>Giriş yapılan hesap: <strong id="currentUserLabel">Misafir</strong></span>
-      <button class="btn-logout" onclick="logoutUser()">Çıkış Yap 🚪</button>
-    </div>
-
-    <div class="header">
-      <h1>📖 Kişisel Çalışma Ajandası Ultimate</h1>
-      <p>Hedef gününü ve derslerini gir; programın videolarla bağlansın.</p>
-    </div>
-
-    <!-- 6 DERSLİK KPSS PAKETİ -->
-    <div class="template-banner">
-      <div class="template-info">
-        ✨ <strong>KPSS Full Paket:</strong> Tarih, Coğrafya, Matematik, Türkçe, Vatandaşlık ve Güncel Bilgiler hazır.
-      </div>
-      <button type="button" class="template-btn" onclick="loadKpssTemplate()">⚡ Paketi Tek Tıkla Yükle</button>
-    </div>
-
-    <div class="form-group">
-      <label for="days">Sınava Kalan Gün Sayısı:</label>
-      <input type="number" id="days" placeholder="Örn: 46" min="1">
-    </div>
-
-    <div class="form-group">
-      <label>Dersler ve Playlist Linkleri:</label>
-      <div id="courseList">
-        <div class="row">
-          <input type="text" class="course-name" placeholder="Ders Adı (Örn: KPSS Matematik)">
-          <input type="text" class="course-link" placeholder="YouTube Playlist Linki">
-          <button type="button" class="btn-del" onclick="removeRow(this)">✕</button>
-        </div>
-      </div>
-      <button type="button" class="btn-add" onclick="addRow()">+ Ders Ekle</button>
-    </div>
-
-    <button type="button" class="btn-main" id="btnSubmit" onclick="generatePlan()">✨ Yeni Ajanda Planı Çıkar</button>
-
-    <div class="loading" id="loadingText">
-      ✍️ Videolar günlere paylaştırılıyor, ajandan hazırlanıyor...
-    </div>
-
-    <!-- POMODORO -->
-    <div class="pomodoro-card">
-      <div class="pomo-settings">
-        <div class="pomo-input-group">
-          <label for="customWorkMin">Çalışma (dk):</label>
-          <input type="number" id="customWorkMin" value="25" min="1" max="180" onchange="onPomoSettingChange()">
-        </div>
-        <div class="pomo-input-group">
-          <label for="customBreakMin">Mola (dk):</label>
-          <input type="number" id="customBreakMin" value="5" min="1" max="60" onchange="onPomoSettingChange()">
-        </div>
-      </div>
-      <div class="pomo-time" id="timerDisplay">25:00</div>
-      <div class="pomo-btns">
-        <button class="pomo-btn pomo-start" id="timerToggle" onclick="toggleTimer()">Başlat</button>
-        <button class="pomo-btn pomo-reset" onclick="resetTimer()">Sıfırla</button>
-      </div>
-
-      <div class="noise-controls">
-        <button class="btn-noise" id="btnRain" onclick="toggleNoise('rain')">🌧️ Sakin Yağmur</button>
-        <button class="btn-noise" id="btnForest" onclick="toggleNoise('forest')">🌲 Doğa & Gök Gürültüsü</button>
-        <button class="btn-noise" id="btnWaves" onclick="toggleNoise('waves')">🌊 Sahil & Martı</button>
-      </div>
-    </div>
-
-    <div class="stats-container">
-      <div class="stat-box">
-        <div class="stat-num" id="progressPctText">%0</div>
-        <div class="stat-label">Görev İlerlemesi</div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressBar"></div>
-        </div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" id="totalQuestionsCount">0</div>
-        <div class="stat-label">Toplam Çözülen Soru</div>
-      </div>
-    </div>
-
-    <div id="output">
-      <div class="output-top" style="margin-top: 24px;">
-        <h2>📌 Ajanda Görev Kartların</h2>
-        <div class="top-actions">
-          <button class="btn-print" onclick="window.print()">🖨️ Yazdır / PDF</button>
-          <button class="btn-change-key" onclick="promptChangeApiKey()">🔑 Anahtar Değiştir</button>
-          <button class="btn-clear" onclick="clearSavedData()">🗑️ Planı Sıfırla</button>
-        </div>
-      </div>
-      <div class="agenda-grid" id="agendaGrid"></div>
-    </div>
-  </div>
-  
-  <div class="version-tag">Sürüm: v21 (Koç Yanıt Sesi Güçlendirmesi)</div>
-</div>
-
-<script>
-  let currentUser = null;
-  let currentAuthMode = 'login';
-
-  const KPSS_TEMPLATE_COURSES = [
-    { name: "KPSS Tarih", link: "https://youtube.com/playlist?list=PL5kIOunpmSBM_vApgXxIQZx5PnegGbWFF&si=fbK1K6Qe5fCo-skL" },
-    { name: "KPSS Coğrafya", link: "https://youtube.com/playlist?list=PLnBnugScc-7ImTQrm8DvvMFHByN5Pg31V&si=P4Q8ZCiMypVorCQm" },
-    { name: "KPSS Matematik", link: "https://youtube.com/playlist?list=PLSYiXUktJiZcHBH7nQfHJ74vBlC19YzAb&si=9T3MvufkzrULvqiC" },
-    { name: "KPSS Türkçe", link: "https://youtube.com/playlist?list=PL5kIOunpmSBMBPYmrPkd0JikOPIfQW-Sn&si=wXSRVEHxIyDytzaa" },
-    { name: "KPSS Vatandaşlık", link: "https://youtube.com/playlist?list=PL5kIOunpmSBO2LLEQwCB9pJFT87wJsVSE&si=h16-fokNiZhw0vvY" },
-    { name: "KPSS Güncel Bilgiler", link: "https://youtube.com/playlist?list=PL8xiaE-wCWlYjIVE5G7WX3-JpqzitzWAA&si=M5x52H5JJHD8Wx36" }
-  ];
-
-  function loadKpssTemplate() {
-    const list = document.getElementById('courseList');
-    list.innerHTML = '';
-    
-    KPSS_TEMPLATE_COURSES.forEach(c => {
-      const div = document.createElement('div');
-      div.className = 'row';
-      div.innerHTML = `
-        <input type="text" class="course-name" value="${c.name}">
-        <input type="text" class="course-link" value="${c.link}">
-        <button type="button" class="btn-del" onclick="removeRow(this)">✕</button>
-      `;
-      list.appendChild(div);
-    });
-
-    if (!document.getElementById('days').value) {
-      document.getElementById('days').value = 46;
-    }
-
-    playDinkSound();
-    showToast('⚡ 6 Derslik KPSS Full Paketi yüklendi!');
-  }
-
-  function initCountdown() {
-    let targetDate = localStorage.getItem('exam_target_date');
-    if (!targetDate) {
-      const d = new Date();
-      d.setDate(d.getDate() + 46);
-      targetDate = d.getTime();
-      localStorage.setItem('exam_target_date', targetDate);
-    } else {
-      targetDate = parseInt(targetDate, 10);
-    }
-
-    function updateTimer() {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
-      if (diff <= 0) {
-        document.getElementById('countdownTimer').textContent = "Sınav Günü Geldi!";
-        return;
-      }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const secs = Math.floor((diff % (1000 * 60)) / 1000);
-      document.getElementById('countdownTimer').textContent = `${days} Gün ${hours} Saat ${mins} Dk ${secs} Sn`;
-    }
-    setInterval(updateTimer, 1000);
-    updateTimer();
-  }
-
-  function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    localStorage.setItem('theme_preference', isDark ? 'dark' : 'light');
-    document.querySelector('.theme-toggle-btn').textContent = isDark ? '☀️ Gündüz Modu' : '🌙 Karanlık Mod';
-  }
-
-  // SES MOTORU (KULLANICI TIKLAMASIYLA UYANDIRILAN SİSTEM)
-  let audioCtx = null;
-  let activeNoiseHandles = [];
-  let currentNoise = null;
-  let thunderInterval = null;
-  let seagullInterval = null;
-  let birdInterval = null;
-
-  function getAudioContext() {
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-    return audioCtx;
-  }
-
-  function playDinkSound() {
-    const ctx = getAudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
-    gain.gain.setValueAtTime(0.35, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.35);
-  }
-
-  function playPlanCreatedSound() {
-    const ctx = getAudioContext();
-    const notes = [523.25, 659.25, 783.99];
-    notes.forEach((freq, idx) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      const startTime = ctx.currentTime + (idx * 0.12);
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(freq, startTime);
-      gain.gain.setValueAtTime(0.001, startTime);
-      gain.gain.linearRampToValueAtTime(0.3, startTime + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(startTime);
-      osc.stop(startTime + 0.45);
-    });
-  }
-
-  // Koçun Mesaj Bildirim Sesi (Belirgin Çift Vuruş)
-  function playCoachReplySound() {
-    const ctx = getAudioContext();
-    const now = ctx.currentTime;
-    
-    // 1. Vuruş
-    const osc1 = ctx.createOscillator();
-    const gain1 = ctx.createGain();
-    osc1.type = 'sine';
-    osc1.frequency.setValueAtTime(520, now);
-    gain1.gain.setValueAtTime(0.3, now);
-    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
-    osc1.connect(gain1);
-    gain1.connect(ctx.destination);
-    osc1.start(now);
-    osc1.stop(now + 0.13);
-
-    // 2. Vuruş (Daha tiz ve tatlı)
-    const osc2 = ctx.createOscillator();
-    const gain2 = ctx.createGain();
-    osc2.type = 'sine';
-    osc2.frequency.setValueAtTime(880, now + 0.09);
-    gain2.gain.setValueAtTime(0.35, now + 0.09);
-    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-    osc2.connect(gain2);
-    gain2.connect(ctx.destination);
-    osc2.start(now + 0.09);
-    osc2.stop(now + 0.3);
-  }
-
-  function playPomodoroAlarmSound() {
-    const ctx = getAudioContext();
-    for (let i = 0; i < 3; i++) {
-      const startTime = ctx.currentTime + (i * 0.22);
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'square';
-      osc.frequency.setValueAtTime(880, startTime);
-      gain.gain.setValueAtTime(0.001, startTime);
-      gain.gain.linearRampToValueAtTime(0.2, startTime + 0.02);
-      gain.gain.linearRampToValueAtTime(0.001, startTime + 0.14);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(startTime);
-      osc.stop(startTime + 0.16);
-    }
-  }
-
-  function triggerSeagullSound() {
-    if (currentNoise !== 'waves') return;
-    const ctx = getAudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    const now = ctx.currentTime;
-
-    osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(900, now);
-    osc.frequency.linearRampToValueAtTime(1400, now + 0.15);
-    osc.frequency.exponentialRampToValueAtTime(800, now + 0.5);
-
-    gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(0.025, now + 0.15);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
-
-    const bp = ctx.createBiquadFilter();
-    bp.type = 'bandpass';
-    bp.frequency.value = 1100;
-    bp.Q.value = 3;
-
-    osc.connect(bp);
-    bp.connect(gain);
-    gain.connect(ctx.destination);
-
-    osc.start(now);
-    osc.stop(now + 0.55);
-  }
-
-  function triggerThunderSound() {
-    if (currentNoise !== 'forest') return;
-    const ctx = getAudioContext();
-    const bufferSize = ctx.sampleRate * 2.5;
-    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const output = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) output[i] = Math.random() * 2 - 1;
-
-    const thunder = ctx.createBufferSource();
-    thunder.buffer = noiseBuffer;
-
-    const filter = ctx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = 140;
-
-    const gain = ctx.createGain();
-    const now = ctx.currentTime;
-    gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(0.12, now + 0.4);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 2.4);
-
-    thunder.connect(filter);
-    filter.connect(gain);
-    gain.connect(ctx.destination);
-
-    thunder.start(now);
-    thunder.stop(now + 2.5);
-  }
-
-  function triggerBirdChirp() {
-    if (currentNoise !== 'forest') return;
-    const ctx = getAudioContext();
-    const now = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(2000, now);
-    osc.frequency.exponentialRampToValueAtTime(3200, now + 0.08);
-    osc.frequency.exponentialRampToValueAtTime(1800, now + 0.16);
-
-    gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(0.03, now + 0.04);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start(now);
-    osc.stop(now + 0.2);
-  }
-
-  function toggleNoise(type) {
-    const ctx = getAudioContext();
-    if (currentNoise === type) {
-      stopNoise();
-      return;
-    }
-    stopNoise();
-    currentNoise = type;
-    const btn = document.getElementById(`btn${type.charAt(0).toUpperCase() + type.slice(1)}`);
-    if (btn) btn.classList.add('active');
-
-    const bufferSize = ctx.sampleRate * 2;
-    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const data = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
-
-    const noiseSource = ctx.createBufferSource();
-    noiseSource.buffer = noiseBuffer;
-    noiseSource.loop = true;
-
-    if (type === 'rain') {
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.value = 850;
-      filter.Q.value = 0.8;
-
-      const gain = ctx.createGain();
-      gain.gain.value = 0.055;
-
-      const lfo = ctx.createOscillator();
-      lfo.frequency.value = 1.2;
-      const lfoGain = ctx.createGain();
-      lfoGain.gain.value = 0.02;
-      lfo.connect(lfoGain);
-      lfoGain.connect(gain.gain);
-      lfo.start();
-
-      noiseSource.connect(filter);
-      filter.connect(gain);
-      gain.connect(ctx.destination);
-      noiseSource.start();
-
-      activeNoiseHandles.push(noiseSource, lfo);
-
-    } else if (type === 'forest') {
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.value = 350;
-
-      const gain = ctx.createGain();
-      gain.gain.value = 0.045;
-
-      noiseSource.connect(filter);
-      filter.connect(gain);
-      gain.connect(ctx.destination);
-      noiseSource.start();
-      activeNoiseHandles.push(noiseSource);
-
-      triggerThunderSound();
-      thunderInterval = setInterval(() => {
-        if (Math.random() > 0.4) triggerThunderSound();
-      }, 14000);
-
-      birdInterval = setInterval(() => {
-        if (Math.random() > 0.3) triggerBirdChirp();
-      }, 4500);
-
-    } else if (type === 'waves') {
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.value = 280;
-
-      const gain = ctx.createGain();
-      gain.gain.value = 0.06;
-
-      const lfo = ctx.createOscillator();
-      lfo.frequency.value = 0.12;
-      const lfoGain = ctx.createGain();
-      lfoGain.gain.value = 0.045;
-      lfo.connect(lfoGain);
-      lfoGain.connect(gain.gain);
-      lfo.start();
-
-      noiseSource.connect(filter);
-      filter.connect(gain);
-      gain.connect(ctx.destination);
-      noiseSource.start();
-
-      activeNoiseHandles.push(noiseSource, lfo);
-
-      setTimeout(triggerSeagullSound, 1500);
-      seagullInterval = setInterval(() => {
-        if (Math.random() > 0.35) triggerSeagullSound();
-      }, 8000);
-    }
-  }
-
-  function stopNoise() {
-    activeNoiseHandles.forEach(h => {
-      try { h.stop(); } catch(e){}
-    });
-    activeNoiseHandles = [];
-    clearInterval(thunderInterval);
-    clearInterval(seagullInterval);
-    clearInterval(birdInterval);
-    thunderInterval = null;
-    seagullInterval = null;
-    birdInterval = null;
-    currentNoise = null;
-    document.querySelectorAll('.btn-noise').forEach(b => b.classList.remove('active'));
-  }
-
-  function showToast(msg) {
-    const container = document.getElementById('toastContainer');
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = msg;
-    container.appendChild(toast);
-    setTimeout(() => toast.remove(), 2500);
-  }
-
-  // KOÇLUK SOHBET (SES KİLİDİ AÇILMIŞ)
-  function toggleChatWindow() {
-    const win = document.getElementById('aiChatWindow');
-    win.classList.toggle('open');
-    if (win.classList.contains('open')) {
-      getAudioContext(); // Kullanıcı pencereyi açınca ses yetkisini hazırla
-      setTimeout(() => document.getElementById('chatInput').focus(), 150);
-    }
-  }
-
-  async function sendChatMessage() {
-    const input = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('chatSendBtn');
-    const msg = input.value.trim();
-    if (!msg) return;
-
-    // Kullanıcı tıkladığı anda AudioContext'i kesin olarak uyandır
-    getAudioContext();
-
-    const messagesBox = document.getElementById('chatMessages');
-
-    const userDiv = document.createElement('div');
-    userDiv.className = 'chat-msg user';
-    userDiv.textContent = msg;
-    messagesBox.appendChild(userDiv);
-    input.value = '';
-    messagesBox.scrollTop = messagesBox.scrollHeight;
-
-    const botDiv = document.createElement('div');
-    botDiv.className = 'chat-msg bot';
-    botDiv.textContent = 'Koçun düşünüyor... ✍️';
-    messagesBox.appendChild(botDiv);
-    messagesBox.scrollTop = messagesBox.scrollHeight;
-
-    const activeKey = getActiveApiKey();
-    if (!activeKey) {
-      botDiv.textContent = "API anahtarı bulunamadı. Lütfen önce anahtarınızı tanımlayın.";
-      return;
-    }
-
-    sendBtn.disabled = true;
-
-    let planSummary = "Plan henüz çıkarılmadı.";
-    try {
-      const rawPlan = localStorage.getItem(getUserStorageKey('study_plan'));
-      if (rawPlan) {
-        const parsed = JSON.parse(rawPlan);
-        planSummary = `Toplam ${parsed.length} günlük KPSS çalışma planı mevcut.`;
-      }
-    } catch(e){}
-
-    const systemPrompt = `Sen öğrencinin samimi, enerjik ve net sınav hazırlık koçusun.
-Öğrencinin durumu: ${planSummary}
-
-Öğrencinin mesajı: "${msg}"
-
-KURALLAR:
-1. Samimi bir dille, motive edici, en fazla 2-3 cümlelik çok net ve pratik bir tavsiye ver.
-2. Uzun teorik anlatımlar yapma.`;
-
-    const candidateModels = [
-      "gemini-2.5-flash",
-      "gemini-1.5-flash",
-      "gemini-2.5-pro"
-    ];
-
-    let success = false;
-    let errDetail = "";
-
-    for (let model of candidateModels) {
-      try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${activeKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: systemPrompt }] }],
-            generationConfig: { maxOutputTokens: 250 }
-          })
-        });
-
-        const data = await response.json();
-        if (data.error) {
-          errDetail = data.error.message;
-          continue;
-        }
-
-        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (reply) {
-          botDiv.textContent = reply.trim();
-          playCoachReplySound(); // Cevap ekrana düştüğü an bildirim sesini çal
-          success = true;
-          break;
-        }
-      } catch (err) {
-        errDetail = err.message;
-      }
-    }
-
-    if (!success) {
-      botDiv.textContent = "Bağlantı kurulamadı: " + (errDetail || "Lütfen internet bağlantını veya API anahtarını kontrol et.");
-    }
-
-    sendBtn.disabled = false;
-    messagesBox.scrollTop = messagesBox.scrollHeight;
-  }
-
-  function getActiveApiKey() {
-    if (currentUser) {
-      const key = localStorage.getItem(getUserStorageKey('gemini_api_key'));
-      if (key) return key;
-    }
-    return localStorage.getItem('guest_gemini_api_key') || localStorage.getItem('gemini_api_key') || "";
-  }
-
-  // BAŞLANGIÇ
-  window.addEventListener('DOMContentLoaded', () => {
-    initCountdown();
-    if (localStorage.getItem('theme_preference') === 'dark') {
-      document.body.classList.add('dark-mode');
-      document.querySelector('.theme-toggle-btn').textContent = '☀️ Gündüz Modu';
-    }
-
-    const savedSession = localStorage.getItem('active_session_user');
-    if (savedSession) {
-      try {
-        currentUser = JSON.parse(savedSession);
-        checkApiKeyAndNavigate();
-      } catch (e) {
-        showScreen('authScreen');
-      }
-    } else {
-      showScreen('authScreen');
-    }
-  });
-
-  function showScreen(screenId) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    const target = document.getElementById(screenId);
-    if (target) target.classList.add('active');
-  }
-
-  function switchAuthTab(mode) {
-    currentAuthMode = mode;
-    document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
-    document.getElementById('tabRegister').classList.toggle('active', mode === 'register');
-    document.getElementById('btnAuthSubmit').textContent = mode === 'login' ? 'Giriş Yap ➡️' : 'Hesap Oluştur ➡️';
-  }
-
-  function handleAuthSubmit() {
-    const email = document.getElementById('authEmail').value.trim();
-    const pass = document.getElementById('authPassword').value.trim();
-    if (!email || !pass) return alert("Lütfen e-posta ve şifre girin.");
-
-    let users = {};
-    try { users = JSON.parse(localStorage.getItem('app_registered_users') || "{}"); } catch(e) { users = {}; }
-
-    if (currentAuthMode === 'register') {
-      if (users[email]) {
-        alert("Bu e-posta ile kayıtlı hesap var.");
-        switchAuthTab('login');
-        return;
-      }
-      users[email] = { password: pass };
-      localStorage.setItem('app_registered_users', JSON.stringify(users));
-      alert("Hesabınız oluşturuldu!");
-    } else {
-      if (!users[email] || users[email].password !== pass) return alert("Hatalı e-posta veya şifre.");
-    }
-
-    currentUser = { email: email, isGuest: false };
-    localStorage.setItem('active_session_user', JSON.stringify(currentUser));
-    checkApiKeyAndNavigate();
-  }
-
-  function loginAsGuest() {
-    currentUser = { email: "Misafir Kullanıcı", isGuest: true };
-    localStorage.setItem('active_session_user', JSON.stringify(currentUser));
-    checkApiKeyAndNavigate();
-  }
-
-  function logoutUser() {
-    stopNoise();
-    localStorage.removeItem('active_session_user');
-    currentUser = null;
-    showScreen('authScreen');
-  }
-
-  function getUserStorageKey(key) {
-    const prefix = (!currentUser || currentUser.isGuest) ? 'guest' : currentUser.email;
-    return `${prefix}_${key}`;
-  }
-
-  function checkApiKeyAndNavigate() {
-    document.getElementById('currentUserLabel').textContent = currentUser ? currentUser.email : "Misafir";
-    const key = localStorage.getItem(getUserStorageKey('gemini_api_key'));
-    if (key) {
-      showScreen('mainScreen');
-      loadExistingPlan();
-    } else {
-      showScreen('setupScreen');
-    }
-  }
-
-  function saveApiKeyAndProceed() {
-    const key = document.getElementById('initialApiKey').value.trim();
-    if (!key) return alert("Lütfen API anahtarını girin.");
-    localStorage.setItem(getUserStorageKey('gemini_api_key'), key);
-    showScreen('mainScreen');
-    loadExistingPlan();
-  }
-
-  function promptChangeApiKey() {
-    const oldKey = localStorage.getItem(getUserStorageKey('gemini_api_key')) || "";
-    const newKey = prompt("Yeni Gemini API anahtarınızı girin:", oldKey);
-    if (newKey !== null && newKey.trim() !== "") {
-      localStorage.setItem(getUserStorageKey('gemini_api_key'), newKey.trim());
-      alert("API anahtarınız güncellendi!");
-    }
-  }
-
-  function loadExistingPlan() {
-    const savedPlan = localStorage.getItem(getUserStorageKey('study_plan'));
-    if (savedPlan) {
-      try {
-        renderCards(JSON.parse(savedPlan));
-        loadCheckboxes();
-        loadQuestionsAndNotes();
-        updateProgress();
-        document.getElementById('output').style.display = 'block';
-      } catch(e) {}
-    } else {
-      document.getElementById('output').style.display = 'none';
-    }
-  }
-
-  function addRow() {
-    const div = document.createElement('div');
-    div.className = 'row';
-    div.innerHTML = `
-      <input type="text" class="course-name" placeholder="Ders Adı">
-      <input type="text" class="course-link" placeholder="YouTube Playlist Linki">
-      <button type="button" class="btn-del" onclick="removeRow(this)">✕</button>
-    `;
-    document.getElementById('courseList').appendChild(div);
-  }
-
-  function removeRow(btn) {
-    const rows = document.querySelectorAll('#courseList .row');
-    if (rows.length > 1) btn.parentElement.remove();
-    else alert("En az bir ders kalmalıdır.");
-  }
-
-  async function generatePlan() {
-    const apiKey = getActiveApiKey();
-    const days = parseInt(document.getElementById('days').value.trim(), 10);
-    const names = document.querySelectorAll('.course-name');
-    const links = document.querySelectorAll('.course-link');
-
-    if (!apiKey) {
-      alert("API anahtarı bulunamadı.");
-      showScreen('setupScreen');
-      return;
-    }
-    if (!days || days <= 0) return alert("Geçerli bir gün sayısı girin.");
-
-    let courses = [];
-    for (let i = 0; i < names.length; i++) {
-      const name = names[i].value.trim();
-      const link = links[i].value.trim();
-      if (name) courses.push(`- Ders Adı: ${name}, Playlist Linki: ${link || 'Link girilmedi'}`);
-    }
-
-    if (courses.length === 0) return alert("En az bir ders girmelisin.");
-
-    const btn = document.getElementById('btnSubmit');
-    const loading = document.getElementById('loadingText');
-    const output = document.getElementById('output');
-
-    btn.disabled = true;
-    loading.style.display = 'block';
-    output.style.display = 'none';
-
-    const prompt = `Sen profesyonel bir KPSS ve sınav koçusun.
-Öğrencinin sınava tam ${days} günü kaldı.
-Dersler ve oynatma listeleri:
-${courses.join('\n')}
-
-GÖREVİN:
-Her gün için görevleri dağıt. İlgili ders için verilen playlist linkini doğrudan görev objesindeki "link" parametresine yerleştir.
-Bana ASLA düz paragraf yazma. SADECE geçerli bir JSON dizisi üret.
-
-Format şu JSON şemasında olmalıdır:
-[
-  {
-    "gun": 1,
-    "odak": "Matematik & Tarih",
-    "gorevler": [
-      {
-        "baslik": "Matematik: Temel Kavramlar 1. ve 2. Video izle",
-        "link": "https://www.youtube.com/... "
-      },
-      {
-        "baslik": "Soru Çözümü: 30 Soru çöz",
-        "link": ""
-      }
-    ]
-  }
-]
-Eğer link verilmemişse "link" alanını boş string ("") bırak. Yalnızca geçerli JSON döndür.`;
-
-    const candidateModels = [
-      "gemini-2.5-flash",
-      "gemini-1.5-flash",
-      "gemini-2.5-pro"
-    ];
-
-    let success = false;
-    let lastError = "";
-
-    for (let model of candidateModels) {
-      try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-        });
-
-        const data = await response.json();
-        if (data.error) {
-          lastError = data.error.message;
-          continue;
-        }
-
-        let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!text) continue;
-
-        text = text.replace(/```json/g, '').replace(/
+    .chat-send-btn { background:

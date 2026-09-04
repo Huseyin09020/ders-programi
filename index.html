@@ -318,4 +318,1025 @@
       gap: 6px;
     }
     .chat-input-area input { flex: 1; padding: 8px 12px; font-size: 13px; }
-    .chat-send-btn { background:
+    .chat-send-btn { background: var(--primary); color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+    /* GİZLİLİK MODAL */
+    .privacy-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .privacy-overlay.active { display: flex; }
+    .privacy-modal {
+      background: var(--card-bg);
+      border: 1px solid var(--paper-border);
+      border-radius: 16px;
+      max-width: 480px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+    .privacy-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 16px; color: var(--text); font-weight: bold; }
+    .privacy-content { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+    .privacy-badge-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
+    .privacy-badge-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--text); }
+    .privacy-actions { display: flex; gap: 10px; }
+    .btn-consent-accept { flex: 1; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+    .privacy-footer-link {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 14px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .version-tag { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<div class="privacy-overlay" id="privacyOverlay">
+  <div class="privacy-modal">
+    <div class="privacy-header">
+      <span>🛡️</span>
+      <span>Gizlilik ve Veri Güvenliği</span>
+    </div>
+    <div class="privacy-content">
+      <p>Bu uygulama tamamen öğrenci odaklıdır. Bilgileriniz sunucularda toplanmaz:</p>
+      <ul class="privacy-badge-list">
+        <li><span>🔒</span><span><strong>Verileriniz Satılmaz / Saklanmaz:</strong> Veritabanımız yoktur, verileriniz tamamen size aittir.</span></li>
+        <li><span>📱</span><span><strong>Yalnızca Kendi Cihazınızda Kalır:</strong> Programınız ve notlarınız sadece bu tarayıcının yerel hafızasında tutulur.</span></li>
+        <li><span>🤖</span><span><strong>Doğrudan Google İletişimi:</strong> API anahtarınız aracı olmadan doğrudan Google AI ile görüşür.</span></li>
+      </ul>
+      <p style="font-size: 12px;">Yerel hafıza çerezlerini kabul ediyor musunuz?</p>
+    </div>
+    <div class="privacy-actions">
+      <button class="btn-consent-accept" onclick="acceptPrivacyConsent()">✅ Kabul Ediyorum ve Devam Et</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<button class="ai-bubble-btn" id="aiBubbleBtn" onclick="toggleChatWindow()">
+  💬 <span>Sınav Koçum</span>
+</button>
+
+<div class="ai-chat-window" id="aiChatWindow">
+  <div class="chat-header">
+    <span>🤖 KPSS & Sınav Koçun</span>
+    <button class="chat-close-btn" onclick="toggleChatWindow()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-msg bot">
+      Selam! Çalışma planını ve ilerlemeni buradan takip ediyorum. Kafana takılan soruları, moral durumunu veya dersleri sorabilirsin!
+    </div>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" id="chatInput" placeholder="Mesajını yaz..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+    <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">Gönder</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="top-bar-tools">
+    <button class="theme-toggle-btn" onclick="toggleTheme()">🌙 Karanlık Mod</button>
+  </div>
+
+  <div class="countdown-card" id="countdownCard">
+    <div class="countdown-title">🎯 KPSS HEDEF SINAVINA KALAN SÜRE</div>
+    <div class="countdown-timer" id="countdownTimer">Hesaplanıyor...</div>
+  </div>
+
+  <div id="authScreen" class="screen active">
+    <div class="header">
+      <h1>👋 Sınav Ajandasına Hoş Geldin</h1>
+      <p>İlerlemelerini kaydetmek için giriş yap veya misafir olarak devam et.</p>
+    </div>
+    <div class="auth-box">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Giriş Yap</button>
+        <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Kayıt Ol</button>
+      </div>
+      <div class="form-group">
+        <label for="authEmail">E-posta:</label>
+        <input type="email" id="authEmail" placeholder="ornek@mail.com">
+      </div>
+      <div class="form-group">
+        <label for="authPassword">Şifre:</label>
+        <input type="password" id="authPassword" placeholder="******">
+      </div>
+      <button type="button" class="btn-main" id="btnAuthSubmit" onclick="handleAuthSubmit()">Giriş Yap ➡️</button>
+      <button type="button" class="btn-secondary" onclick="loginAsGuest()">👤 Misafir Olarak Devam Et</button>
+    </div>
+  </div>
+
+  <div id="setupScreen" class="screen">
+    <div class="header">
+      <h1>🔑 API Anahtarı Kurulumu</h1>
+      <p>Yapay zekanın planını hazırlayabilmesi için ücretsiz Google API anahtarını tanımla.</p>
+    </div>
+    <div class="guide-box">
+      <div class="guide-title">1 Dakikada Ücretsiz API Anahtarı Nasıl Alınır?</div>
+      <ul class="guide-steps">
+        <li><span class="guide-num">1</span> Google AI Studio sayfasına git: <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com/app/apikey</a></li>
+        <li><span class="guide-num">2</span> <strong>"Create API key"</strong> butonuna tıkla.</li>
+        <li><span class="guide-num">3</span> Kodu kopyalayıp aşağıdaki kutucuğa yapıştır.</li>
+      </ul>
+    </div>
+    <div class="form-group">
+      <label for="initialApiKey">Gemini API Anahtarın:</label>
+      <input type="password" id="initialApiKey" placeholder="API Anahtarını buraya yapıştır">
+    </div>
+    <button type="button" class="btn-main" onclick="saveApiKeyAndProceed()">Kaydet ve Ajandaya Başla ➡️</button>
+  </div>
+
+  <div id="mainScreen" class="screen">
+    <div class="user-badge-bar">
+      <span>Giriş yapılan hesap: <strong id="currentUserLabel">Misafir</strong></span>
+      <button class="btn-logout" onclick="logoutUser()">Çıkış Yap 🚪</button>
+    </div>
+
+    <div class="header">
+      <h1>📖 Kişisel Çalışma Ajandası Ultimate</h1>
+      <p>Hedef gününü ve derslerini gir; programın videolarla bağlansın.</p>
+    </div>
+
+    <div class="template-banner">
+      <div class="template-info">
+        ✨ <strong>KPSS Full Paket:</strong> Tarih, Coğrafya, Matematik, Türkçe, Vatandaşlık ve Güncel Bilgiler hazır.
+      </div>
+      <button type="button" class="template-btn" onclick="loadKpssTemplate()">⚡ Paketi Tek Tıkla Yükle</button>
+    </div>
+
+    <div class="form-group">
+      <label for="days">Sınava Kalan Gün Sayısı:</label>
+      <input type="number" id="days" placeholder="Örn: 46" min="1">
+    </div>
+
+    <div class="form-group">
+      <label>Dersler ve Playlist Linkleri:</label>
+      <div id="courseList">
+        <div class="row">
+          <input type="text" class="course-name" placeholder="Ders Adı (Örn: KPSS Matematik)">
+          <input type="text" class="course-link" placeholder="YouTube Playlist Linki">
+          <button type="button" class="btn-del" onclick="removeRow(this)">✕</button>
+        </div>
+      </div>
+      <button type="button" class="btn-add" onclick="addRow()">+ Ders Ekle</button>
+    </div>
+
+    <button type="button" class="btn-main" id="btnSubmit" onclick="generatePlan()">✨ Yeni Ajanda Planı Çıkar</button>
+
+    <div class="loading" id="loadingText">
+      ✍️ Videolar günlere paylaştırılıyor, ajandan hazırlanıyor...
+    </div>
+
+    <div class="pomodoro-card">
+      <div class="pomo-settings">
+        <div class="pomo-input-group">
+          <label for="customWorkMin">Çalışma:</label>
+          <input type="number" id="customWorkMin" value="25" min="1" max="180" onchange="onPomoSettingChange()"> dk
+        </div>
+        <div class="pomo-input-group">
+          <label for="customBreakMin">Mola:</label>
+          <input type="number" id="customBreakMin" value="5" min="1" max="60" onchange="onPomoSettingChange()"> dk
+        </div>
+      </div>
+      <div class="pomo-time" id="timerDisplay">25:00</div>
+      <div class="pomo-btns">
+        <button class="pomo-btn pomo-start" id="timerToggle" onclick="toggleTimer()">Başlat</button>
+        <button class="pomo-btn pomo-reset" onclick="resetTimer()">Sıfırla</button>
+      </div>
+
+      <div class="noise-controls">
+        <button class="btn-noise" id="btnRain" onclick="toggleNoise('rain')">🌧️ Yağmur</button>
+        <button class="btn-noise" id="btnForest" onclick="toggleNoise('forest')">🌲 Doğa</button>
+        <button class="btn-noise" id="btnWaves" onclick="toggleNoise('waves')">🌊 Sahil</button>
+      </div>
+    </div>
+
+    <div class="stats-container">
+      <div class="stat-box">
+        <div class="stat-num" id="progressPctText">%0</div>
+        <div class="stat-label">Görev İlerlemesi</div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="totalQuestionsCount">0</div>
+        <div class="stat-label">Toplam Çözülen Soru</div>
+      </div>
+    </div>
+
+    <div id="output">
+      <div class="output-top" style="margin-top: 24px;">
+        <h2>📌 Ajanda Görev Kartların</h2>
+        <div class="top-actions">
+          <button class="btn-print" onclick="window.print()">🖨️ Yazdır / PDF</button>
+          <button class="btn-change-key" onclick="promptChangeApiKey()">🔑 Anahtar Değiştir</button>
+          <button class="btn-clear" onclick="clearSavedData()">🗑️ Planı Sıfırla</button>
+        </div>
+      </div>
+      <div class="agenda-grid" id="agendaGrid"></div>
+    </div>
+  </div>
+  
+  <div class="privacy-footer-link" onclick="openPrivacyModal()">🔒 Gizlilik & Veri Güvenliği Politikası</div>
+  <div class="version-tag">Sürüm: v23 (Donma Korumalı & Ultra Hafif)</div>
+</div>
+
+<script>
+  let currentUser = null;
+  let currentAuthMode = 'login';
+
+  function checkPrivacyConsent() {
+    if (!localStorage.getItem('app_user_privacy_consent')) {
+      document.getElementById('privacyOverlay').classList.add('active');
+    }
+  }
+
+  function acceptPrivacyConsent() {
+    localStorage.setItem('app_user_privacy_consent', 'accepted');
+    document.getElementById('privacyOverlay').classList.remove('active');
+    playDinkSound();
+    showToast('🛡️ Tercihleriniz kaydedildi!');
+  }
+
+  function openPrivacyModal() {
+    document.getElementById('privacyOverlay').classList.add('active');
+  }
+
+  const KPSS_TEMPLATE_COURSES = [
+    { name: "KPSS Tarih", link: "https://youtube.com/playlist?list=PL5kIOunpmSBM_vApgXxIQZx5PnegGbWFF&si=fbK1K6Qe5fCo-skL" },
+    { name: "KPSS Coğrafya", link: "https://youtube.com/playlist?list=PLnBnugScc-7ImTQrm8DvvMFHByN5Pg31V&si=P4Q8ZCiMypVorCQm" },
+    { name: "KPSS Matematik", link: "https://youtube.com/playlist?list=PLSYiXUktJiZcHBH7nQfHJ74vBlC19YzAb&si=9T3MvufkzrULvqiC" },
+    { name: "KPSS Türkçe", link: "https://youtube.com/playlist?list=PL5kIOunpmSBMBPYmrPkd0JikOPIfQW-Sn&si=wXSRVEHxIyDytzaa" },
+    { name: "KPSS Vatandaşlık", link: "https://youtube.com/playlist?list=PL5kIOunpmSBO2LLEQwCB9pJFT87wJsVSE&si=h16-fokNiZhw0vvY" },
+    { name: "KPSS Güncel Bilgiler", link: "https://youtube.com/playlist?list=PL8xiaE-wCWlYjIVE5G7WX3-JpqzitzWAA&si=M5x52H5JJHD8Wx36" }
+  ];
+
+  function loadKpssTemplate() {
+    const list = document.getElementById('courseList');
+    list.innerHTML = '';
+    KPSS_TEMPLATE_COURSES.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'row';
+      div.innerHTML = `
+        <input type="text" class="course-name" value="${c.name}">
+        <input type="text" class="course-link" value="${c.link}">
+        <button type="button" class="btn-del" onclick="removeRow(this)">✕</button>
+      `;
+      list.appendChild(div);
+    });
+    if (!document.getElementById('days').value) document.getElementById('days').value = 46;
+    playDinkSound();
+    showToast('⚡ 6 Derslik KPSS Paketi yüklendi!');
+  }
+
+  function initCountdown() {
+    let targetDate = localStorage.getItem('exam_target_date');
+    if (!targetDate) {
+      const d = new Date();
+      d.setDate(d.getDate() + 46);
+      targetDate = d.getTime();
+      localStorage.setItem('exam_target_date', targetDate);
+    } else {
+      targetDate = parseInt(targetDate, 10);
+    }
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+      if (diff <= 0) {
+        document.getElementById('countdownTimer').textContent = "Sınav Günü Geldi!";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+      document.getElementById('countdownTimer').textContent = `${days} Gün ${hours} Saat ${mins} Dk ${secs} Sn`;
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('theme_preference', isDark ? 'dark' : 'light');
+    document.querySelector('.theme-toggle-btn').textContent = isDark ? '☀️ Gündüz Modu' : '🌙 Karanlık Mod';
+  }
+
+  // ULTRA HAFİF SES MOTORU (CPU YORMAYAN DONMA KORUMALI)
+  let audioCtx = null;
+  let activeNoiseSource = null;
+  let activeNoiseGain = null;
+  let currentNoiseType = null;
+
+  function getAudioContext() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
+  function playDinkSound() {
+    try {
+      const ctx = getAudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.2, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.3);
+    } catch(e){}
+  }
+
+  function playPlanCreatedSound() {
+    try {
+      const ctx = getAudioContext();
+      [523, 659, 784].forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const t = ctx.currentTime + (idx * 0.1);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, t);
+        gain.gain.setValueAtTime(0.18, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.35);
+      });
+    } catch(e){}
+  }
+
+  function playCoachReplySound() {
+    try {
+      const ctx = getAudioContext();
+      const now = ctx.currentTime;
+      const osc1 = ctx.createOscillator();
+      const gain1 = ctx.createGain();
+      osc1.frequency.setValueAtTime(520, now);
+      gain1.gain.setValueAtTime(0.2, now);
+      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+      osc1.connect(gain1);
+      gain1.connect(ctx.destination);
+      osc1.start(now);
+      osc1.stop(now + 0.1);
+
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.frequency.setValueAtTime(880, now + 0.08);
+      gain2.gain.setValueAtTime(0.25, now + 0.08);
+      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc2.connect(gain2);
+      gain2.connect(ctx.destination);
+      osc2.start(now + 0.08);
+      osc2.stop(now + 0.25);
+    } catch(e){}
+  }
+
+  function playPomodoroAlarmSound() {
+    try {
+      const ctx = getAudioContext();
+      for (let i = 0; i < 3; i++) {
+        const t = ctx.currentTime + (i * 0.2);
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(880, t);
+        gain.gain.setValueAtTime(0.15, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.14);
+      }
+    } catch(e){}
+  }
+
+  // Hafif Ambiyans Sentezleyici (Tek parça buffer, sıfır işlemci yükü)
+  function toggleNoise(type) {
+    const ctx = getAudioContext();
+    if (currentNoiseType === type) {
+      stopNoise();
+      return;
+    }
+    stopNoise();
+    currentNoiseType = type;
+
+    const btn = document.getElementById(`btn${type.charAt(0).toUpperCase() + type.slice(1)}`);
+    if (btn) btn.classList.add('active');
+
+    // Sadece 1 saniyelik küçük buffer (Asla kasmayan temiz döngü)
+    const bufferSize = ctx.sampleRate;
+    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = Math.random() * 2 - 1;
+    }
+
+    activeNoiseSource = ctx.createBufferSource();
+    activeNoiseSource.buffer = noiseBuffer;
+    activeNoiseSource.loop = true;
+
+    const filter = ctx.createBiquadFilter();
+    activeNoiseGain = ctx.createGain();
+
+    if (type === 'rain') {
+      filter.type = 'bandpass';
+      filter.frequency.value = 800;
+      activeNoiseGain.gain.value = 0.05;
+    } else if (type === 'forest') {
+      filter.type = 'lowpass';
+      filter.frequency.value = 320;
+      activeNoiseGain.gain.value = 0.04;
+    } else if (type === 'waves') {
+      filter.type = 'lowpass';
+      filter.frequency.value = 240;
+      activeNoiseGain.gain.value = 0.06;
+    }
+
+    activeNoiseSource.connect(filter);
+    filter.connect(activeNoiseGain);
+    activeNoiseGain.connect(ctx.destination);
+    activeNoiseSource.start();
+  }
+
+  function stopNoise() {
+    if (activeNoiseSource) {
+      try { activeNoiseSource.stop(); activeNoiseSource.disconnect(); } catch(e){}
+      activeNoiseSource = null;
+    }
+    currentNoiseType = null;
+    document.querySelectorAll('.btn-noise').forEach(b => b.classList.remove('active'));
+  }
+
+  function showToast(msg) {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = msg;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
+  }
+
+  // KOÇLUK SOHBET
+  function toggleChatWindow() {
+    const win = document.getElementById('aiChatWindow');
+    win.classList.toggle('open');
+    if (win.classList.contains('open')) {
+      getAudioContext();
+      setTimeout(() => document.getElementById('chatInput').focus(), 150);
+    }
+  }
+
+  async function sendChatMessage() {
+    const input = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('chatSendBtn');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    getAudioContext();
+
+    const messagesBox = document.getElementById('chatMessages');
+    const userDiv = document.createElement('div');
+    userDiv.className = 'chat-msg user';
+    userDiv.textContent = msg;
+    messagesBox.appendChild(userDiv);
+    input.value = '';
+    messagesBox.scrollTop = messagesBox.scrollHeight;
+
+    const botDiv = document.createElement('div');
+    botDiv.className = 'chat-msg bot';
+    botDiv.textContent = 'Koçun düşünüyor... ✍️';
+    messagesBox.appendChild(botDiv);
+    messagesBox.scrollTop = messagesBox.scrollHeight;
+
+    const activeKey = getActiveApiKey();
+    if (!activeKey) {
+      botDiv.textContent = "API anahtarı bulunamadı. Lütfen önce anahtarınızı tanımlayın.";
+      return;
+    }
+
+    sendBtn.disabled = true;
+
+    let planSummary = "Plan henüz çıkarılmadı.";
+    try {
+      const rawPlan = localStorage.getItem(getUserStorageKey('study_plan'));
+      if (rawPlan) {
+        const parsed = JSON.parse(rawPlan);
+        planSummary = `Toplam ${parsed.length} günlük KPSS çalışma planı mevcut.`;
+      }
+    } catch(e){}
+
+    const systemPrompt = `Sen samimi ve motive edici bir KPSS koçusun.
+Öğrenci durumu: ${planSummary}
+Öğrenci sorusu: "${msg}"
+Kural: Samimi bir dille, motive edici, en fazla 2-3 cümlelik çok net ve pratik bir tavsiye ver.`;
+
+    const candidateModels = ["gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.5-pro"];
+    let success = false;
+    let errDetail = "";
+
+    for (let model of candidateModels) {
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${activeKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: systemPrompt }] }],
+            generationConfig: { maxOutputTokens: 250 }
+          })
+        });
+
+        const data = await response.json();
+        if (data.error) {
+          errDetail = data.error.message;
+          continue;
+        }
+
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (reply) {
+          botDiv.textContent = reply.trim();
+          playCoachReplySound();
+          success = true;
+          break;
+        }
+      } catch (err) {
+        errDetail = err.message;
+      }
+    }
+
+    if (!success) {
+      botDiv.textContent = "Bağlantı kurulamadı: " + (errDetail || "Lütfen internet bağlantını veya anahtarını kontrol et.");
+    }
+
+    sendBtn.disabled = false;
+    messagesBox.scrollTop = messagesBox.scrollHeight;
+  }
+
+  function getActiveApiKey() {
+    if (currentUser) {
+      const key = localStorage.getItem(getUserStorageKey('gemini_api_key'));
+      if (key) return key;
+    }
+    return localStorage.getItem('guest_gemini_api_key') || localStorage.getItem('gemini_api_key') || "";
+  }
+
+  // BAŞLANGIÇ
+  window.addEventListener('DOMContentLoaded', () => {
+    checkPrivacyConsent();
+    initCountdown();
+    if (localStorage.getItem('theme_preference') === 'dark') {
+      document.body.classList.add('dark-mode');
+      document.querySelector('.theme-toggle-btn').textContent = '☀️ Gündüz Modu';
+    }
+
+    const savedSession = localStorage.getItem('active_session_user');
+    if (savedSession) {
+      try {
+        currentUser = JSON.parse(savedSession);
+        checkApiKeyAndNavigate();
+      } catch (e) {
+        showScreen('authScreen');
+      }
+    } else {
+      showScreen('authScreen');
+    }
+  });
+
+  function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const target = document.getElementById(screenId);
+    if (target) target.classList.add('active');
+  }
+
+  function switchAuthTab(mode) {
+    currentAuthMode = mode;
+    document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
+    document.getElementById('tabRegister').classList.toggle('active', mode === 'register');
+    document.getElementById('btnAuthSubmit').textContent = mode === 'login' ? 'Giriş Yap ➡️' : 'Hesap Oluştur ➡️';
+  }
+
+  function handleAuthSubmit() {
+    const email = document.getElementById('authEmail').value.trim();
+    const pass = document.getElementById('authPassword').value.trim();
+    if (!email || !pass) return alert("Lütfen e-posta ve şifre girin.");
+
+    let users = {};
+    try { users = JSON.parse(localStorage.getItem('app_registered_users') || "{}"); } catch(e) { users = {}; }
+
+    if (currentAuthMode === 'register') {
+      if (users[email]) {
+        alert("Bu e-posta ile kayıtlı hesap var.");
+        switchAuthTab('login');
+        return;
+      }
+      users[email] = { password: pass };
+      localStorage.setItem('app_registered_users', JSON.stringify(users));
+      alert("Hesabınız oluşturuldu!");
+    } else {
+      if (!users[email] || users[email].password !== pass) return alert("Hatalı e-posta veya şifre.");
+    }
+
+    currentUser = { email: email, isGuest: false };
+    localStorage.setItem('active_session_user', JSON.stringify(currentUser));
+    checkApiKeyAndNavigate();
+  }
+
+  function loginAsGuest() {
+    currentUser = { email: "Misafir Kullanıcı", isGuest: true };
+    localStorage.setItem('active_session_user', JSON.stringify(currentUser));
+    checkApiKeyAndNavigate();
+  }
+
+  function logoutUser() {
+    stopNoise();
+    localStorage.removeItem('active_session_user');
+    currentUser = null;
+    showScreen('authScreen');
+  }
+
+  function getUserStorageKey(key) {
+    const prefix = (!currentUser || currentUser.isGuest) ? 'guest' : currentUser.email;
+    return `${prefix}_${key}`;
+  }
+
+  function checkApiKeyAndNavigate() {
+    document.getElementById('currentUserLabel').textContent = currentUser ? currentUser.email : "Misafir";
+    const key = localStorage.getItem(getUserStorageKey('gemini_api_key'));
+    if (key) {
+      showScreen('mainScreen');
+      loadExistingPlan();
+    } else {
+      showScreen('setupScreen');
+    }
+  }
+
+  function saveApiKeyAndProceed() {
+    const key = document.getElementById('initialApiKey').value.trim();
+    if (!key) return alert("Lütfen API anahtarını girin.");
+    localStorage.setItem(getUserStorageKey('gemini_api_key'), key);
+    showScreen('mainScreen');
+    loadExistingPlan();
+  }
+
+  function promptChangeApiKey() {
+    const oldKey = localStorage.getItem(getUserStorageKey('gemini_api_key')) || "";
+    const newKey = prompt("Yeni Gemini API anahtarınızı girin:", oldKey);
+    if (newKey !== null && newKey.trim() !== "") {
+      localStorage.setItem(getUserStorageKey('gemini_api_key'), newKey.trim());
+      alert("API anahtarınız güncellendi!");
+    }
+  }
+
+  function loadExistingPlan() {
+    const savedPlan = localStorage.getItem(getUserStorageKey('study_plan'));
+    if (savedPlan) {
+      try {
+        renderCards(JSON.parse(savedPlan));
+        loadCheckboxes();
+        loadQuestionsAndNotes();
+        updateProgress();
+        document.getElementById('output').style.display = 'block';
+      } catch(e) {}
+    } else {
+      document.getElementById('output').style.display = 'none';
+    }
+  }
+
+  function addRow() {
+    const div = document.createElement('div');
+    div.className = 'row';
+    div.innerHTML = `
+      <input type="text" class="course-name" placeholder="Ders Adı">
+      <input type="text" class="course-link" placeholder="YouTube Playlist Linki">
+      <button type="button" class="btn-del" onclick="removeRow(this)">✕</button>
+    `;
+    document.getElementById('courseList').appendChild(div);
+  }
+
+  function removeRow(btn) {
+    const rows = document.querySelectorAll('#courseList .row');
+    if (rows.length > 1) btn.parentElement.remove();
+    else alert("En az bir ders kalmalıdır.");
+  }
+
+  async function generatePlan() {
+    const apiKey = getActiveApiKey();
+    const days = parseInt(document.getElementById('days').value.trim(), 10);
+    const names = document.querySelectorAll('.course-name');
+    const links = document.querySelectorAll('.course-link');
+
+    if (!apiKey) {
+      alert("API anahtarı bulunamadı.");
+      showScreen('setupScreen');
+      return;
+    }
+    if (!days || days <= 0) return alert("Geçerli bir gün sayısı girin.");
+
+    let courses = [];
+    for (let i = 0; i < names.length; i++) {
+      const name = names[i].value.trim();
+      const link = links[i].value.trim();
+      if (name) courses.push(`- Ders Adı: ${name}, Playlist Linki: ${link || 'Link girilmedi'}`);
+    }
+
+    if (courses.length === 0) return alert("En az bir ders girmelisin.");
+
+    const btn = document.getElementById('btnSubmit');
+    const loading = document.getElementById('loadingText');
+    const output = document.getElementById('output');
+
+    btn.disabled = true;
+    loading.style.display = 'block';
+    output.style.display = 'none';
+
+    const prompt = `Sen profesyonel bir KPSS koçusun. Sınava ${days} gün kaldı.
+Dersler:
+${courses.join('\n')}
+
+JSON formatında plan üret:
+[{"gun": 1, "odak": "Matematik", "gorevler": [{"baslik": "1. Video izle", "link": "https://..."}]}]
+Sadece geçerli JSON ver.`;
+
+    const candidateModels = ["gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.5-pro"];
+    let success = false;
+    let lastError = "";
+
+    for (let model of candidateModels) {
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+
+        const data = await response.json();
+        if (data.error) {
+          lastError = data.error.message;
+          continue;
+        }
+
+        let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!text) continue;
+
+        text = text.replace(/```json/g, '').replace(/```/g, '').trim();
+        const planData = JSON.parse(text);
+
+        localStorage.setItem(getUserStorageKey('study_plan'), JSON.stringify(planData));
+        localStorage.removeItem(getUserStorageKey('checkbox_states'));
+        localStorage.removeItem(getUserStorageKey('questions_and_notes'));
+
+        renderCards(planData);
+        updateProgress();
+        output.style.display = 'block';
+        playPlanCreatedSound();
+        showToast('🚀 Çalışma planın başarıyla oluşturuldu!');
+        success = true;
+        break;
+      } catch (err) {
+        lastError = err.message;
+      }
+    }
+
+    if (!success) alert("Hata oluştu: " + lastError);
+
+    btn.disabled = false;
+    loading.style.display = 'none';
+  }
+
+  function renderCards(planData) {
+    const grid = document.getElementById('agendaGrid');
+    grid.innerHTML = '';
+
+    planData.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'agenda-card';
+
+      const tasksHtml = item.gorevler.map((g, idx) => {
+        const title = typeof g === 'object' ? g.baslik : g;
+        const link = typeof g === 'object' && g.link ? g.link : '';
+
+        return `
+          <li class="task-item" id="task_${item.gun}_${idx}">
+            <div class="task-row">
+              <input type="checkbox" data-id="chk_${item.gun}_${idx}" onchange="handleCheck(this)">
+              <span class="task-title">${title}</span>
+            </div>
+            ${link ? `<a href="${link}" target="_blank" rel="noopener" class="video-link-btn">▶ Videoyu Aç</a>` : ''}
+          </li>
+        `;
+      }).join('');
+
+      card.innerHTML = `
+        <div class="card-head">
+          <span class="card-title">📌 Gün ${item.gun}</span>
+          <span class="card-badge">${item.odak}</span>
+        </div>
+        <ul class="task-list">
+          ${tasksHtml}
+        </ul>
+        <div class="card-footer">
+          <div class="q-tracker">
+            <span>📝 Soru:</span>
+            <input type="number" min="0" placeholder="Doğru" data-day="${item.gun}" class="q-input q-correct" oninput="saveQuestionsAndNotes()">
+            <input type="number" min="0" placeholder="Yanlış" data-day="${item.gun}" class="q-input q-wrong" oninput="saveQuestionsAndNotes()">
+          </div>
+          <textarea class="card-note" data-day="${item.gun}" placeholder="📌 Bu güne özel not ekle..." oninput="saveQuestionsAndNotes()"></textarea>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function handleCheck(chk) {
+    const parent = chk.closest('.task-item');
+    if (chk.checked) {
+      parent.classList.add('done');
+      playDinkSound();
+      showToast('🎉 Harika! Görev tamamlandı.');
+    } else {
+      parent.classList.remove('done');
+    }
+    saveCheckboxes();
+    updateProgress();
+  }
+
+  function saveCheckboxes() {
+    const states = {};
+    document.querySelectorAll('.task-item input[type="checkbox"]').forEach(c => {
+      states[c.dataset.id] = c.checked;
+    });
+    localStorage.setItem(getUserStorageKey('checkbox_states'), JSON.stringify(states));
+  }
+
+  function loadCheckboxes() {
+    const saved = localStorage.getItem(getUserStorageKey('checkbox_states'));
+    if (!saved) return;
+    try {
+      const states = JSON.parse(saved);
+      document.querySelectorAll('.task-item input[type="checkbox"]').forEach(c => {
+        if (states[c.dataset.id]) {
+          c.checked = true;
+          c.closest('.task-item').classList.add('done');
+        }
+      });
+    } catch(e) {}
+  }
+
+  function saveQuestionsAndNotes() {
+    const data = {};
+    document.querySelectorAll('.agenda-card').forEach(card => {
+      const d = card.querySelector('.q-correct').dataset.day;
+      const c = parseInt(card.querySelector('.q-correct').value, 10) || 0;
+      const w = parseInt(card.querySelector('.q-wrong').value, 10) || 0;
+      const note = card.querySelector('.card-note').value;
+      data[d] = { correct: c, wrong: w, note: note };
+    });
+    localStorage.setItem(getUserStorageKey('questions_and_notes'), JSON.stringify(data));
+    updateQuestionStats();
+  }
+
+  function loadQuestionsAndNotes() {
+    const saved = localStorage.getItem(getUserStorageKey('questions_and_notes'));
+    if (!saved) return;
+    try {
+      const data = JSON.parse(saved);
+      Object.keys(data).forEach(day => {
+        const item = data[day];
+        const cInput = document.querySelector(`.q-correct[data-day="${day}"]`);
+        const wInput = document.querySelector(`.q-wrong[data-day="${day}"]`);
+        const nInput = document.querySelector(`.card-note[data-day="${day}"]`);
+        if (cInput && item.correct) cInput.value = item.correct;
+        if (wInput && item.wrong) wInput.value = item.wrong;
+        if (nInput && item.note) nInput.value = item.note;
+      });
+      updateQuestionStats();
+    } catch(e) {}
+  }
+
+  function updateQuestionStats() {
+    let total = 0;
+    document.querySelectorAll('.q-input').forEach(inp => {
+      total += parseInt(inp.value, 10) || 0;
+    });
+    document.getElementById('totalQuestionsCount').textContent = total;
+  }
+
+  function updateProgress() {
+    const all = document.querySelectorAll('.task-item input[type="checkbox"]');
+    if (all.length === 0) return;
+    const done = document.querySelectorAll('.task-item input[type="checkbox"]:checked');
+    const pct = Math.round((done.length / all.length) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressPctText').textContent = `%${pct}`;
+  }
+
+  function clearSavedData() {
+    if (confirm("Bu hesaba ait çalışma planını silmek istediğinize emin misiniz?")) {
+      localStorage.removeItem(getUserStorageKey('study_plan'));
+      localStorage.removeItem(getUserStorageKey('checkbox_states'));
+      localStorage.removeItem(getUserStorageKey('questions_and_notes'));
+      document.getElementById('output').style.display = 'none';
+      document.getElementById('agendaGrid').innerHTML = '';
+      updateProgress();
+      updateQuestionStats();
+    }
+  }
+
+  // POMODORO SAYAÇ
+  let timerInterval = null;
+  let isRunning = false;
+  let isWorkMode = true;
+  let timeLeft = 25 * 60;
+
+  function getWorkSeconds() {
+    const val = parseInt(document.getElementById('customWorkMin').value, 10);
+    return (val > 0 ? val : 25) * 60;
+  }
+
+  function getBreakSeconds() {
+    const val = parseInt(document.getElementById('customBreakMin').value, 10);
+    return (val > 0 ? val : 5) * 60;
+  }
+
+  function onPomoSettingChange() {
+    if (!isRunning) {
+      timeLeft = isWorkMode ? getWorkSeconds() : getBreakSeconds();
+      updateTimerDisplay();
+    }
+  }
+
+  function toggleTimer() {
+    const btn = document.getElementById('timerToggle');
+    if (isRunning) {
+      clearInterval(timerInterval);
+      btn.textContent = 'Devam Et';
+      isRunning = false;
+    } else {
+      isRunning = true;
+      btn.textContent = 'Durdur';
+      timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          isRunning = false;
+          btn.textContent = 'Başlat';
+          playPomodoroAlarmSound();
+
+          if (isWorkMode) {
+            showToast('☕ Çalışma bitti, mola vakti!');
+            isWorkMode = false;
+            timeLeft = getBreakSeconds();
+          } else {
+            showToast('📚 Mola bitti, derse başla!');
+            isWorkMode = true;
+            timeLeft = getWorkSeconds();
+          }
+          updateTimerDisplay();
+        }
+      }, 1000);
+    }
+  }
+
+  function resetTimer() {
+    clearInterval(timerInterval);
+    isRunning = false;
+    isWorkMode = true;
+    document.getElementById('timerToggle').textContent = 'Başlat';
+    timeLeft = getWorkSeconds();
+    updateTimerDisplay();
+  }
+
+  function updateTimerDisplay() {
+    const min = Math.floor(timeLeft / 60);
+    const sec = timeLeft % 60;
+    document.getElementById('timerDisplay').textContent = 
+      `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+  }
+</script>
+
+</body>
+</html>

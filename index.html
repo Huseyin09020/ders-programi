@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#4338ca">
-  <title>Kişisel Sınav Ajandası Ultimate v47</title>
+  <title>Kişisel Sınav Ajandası Ultimate v47.1</title>
   <style>
     :root {
       --primary: #4338ca;
@@ -132,6 +132,7 @@
       margin-top: 8px;
     }
 
+    /* KESİN GÖRÜNÜRLÜK ÇÖZÜMÜ */
     .screen { display: none !important; }
     .screen.active { display: block !important; }
 
@@ -305,7 +306,6 @@
       border-radius: 8px; font-size: 13px; font-weight: 700;
     }
 
-    /* SOL ALT ÜÇLÜ BALONCUKLAR */
     .floating-bubbles {
       position: fixed;
       left: 20px;
@@ -435,7 +435,7 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- SOL ALT ÜÇLÜ BALONCUKLAR (POMODORO, KOÇ, GEMINI LİNKİ) -->
+<!-- SOL ALT ÜÇLÜ BALONCUKLAR -->
 <div class="floating-bubbles">
   <button class="bubble-btn pomo" onclick="togglePomodoroPopup()">
     ⏱️ <span>Pomodoro</span>
@@ -503,7 +503,7 @@
   </div>
 
   <!-- GİRİŞ EKRANI -->
-  <div id="authScreen" class="screen active">
+  <div id="authScreen" class="screen">
     <div class="header">
       <h1>👋 Sınav Ajandasına Hoş Geldin</h1>
       <p>Önce giriş yap veya misafir olarak devam et.</p>
@@ -580,7 +580,7 @@
     <button type="button" class="btn-secondary" onclick="playClickSound(); showScreen('modeSelectScreen')">⬅️ Geri Dön</button>
   </div>
 
-  <!-- MANUEL TAKVİMLİ DERS KURULUM EKRANI (12 AY EKLENDİ) -->
+  <!-- MANUEL TAKVİMLİ DERS KURULUM EKRANI -->
   <div id="manualBuilderScreen" class="screen">
     <div class="header">
       <h1>📅 Dersleri, Ayı ve Günleri Seç</h1>
@@ -597,7 +597,7 @@
     <button type="button" class="btn-secondary" onclick="playClickSound(); showScreen('manualLevelScreen')">⬅️ Seviye Seçimine Dön</button>
   </div>
 
-  <!-- YAPAY ZEKA KURULUM EKRANI (KPSS HAZIR PAKETİ & 1.5-FLASH-8B EKONOMİK KOTA MOTORU) -->
+  <!-- YAPAY ZEKA KURULUM EKRANI -->
   <div id="setupScreen" class="screen">
     <div class="header">
       <h1>🔑 Yapay Zeka Plan Motoru</h1>
@@ -670,14 +670,12 @@
   </div>
   
   <div class="privacy-footer-link" onclick="openPrivacyModal()">🔒 Gizlilik & Veri Güvenliği Politikası</div>
-  <div class="version-tag">Sürüm: v46 (Ekonomik Kota Koruma, Tik-Tak Sesleri & 12 Ay Tam Destek)</div>
+  <div class="version-tag">Sürüm: v47.1 (Ekran Geçiş Hataları Giderildi)</div>
 </div>
 
 <script>
   let currentUser = null;
   let currentAuthMode = 'login';
-  let activeGenerationMode = 'ai';
-  let selectedStudentLevel = 'YKS';
 
   let audioCtx = null;
 
@@ -704,7 +702,6 @@
     } catch(e){}
   }
 
-  // Pomodoro Tik-Tak Sesi
   function playTickSound() {
     try {
       const ctx = ensureAudioUnlocked();
@@ -860,13 +857,12 @@
     botDiv.textContent = 'Koçun düşünüyor... ✍️';
     messagesBox.appendChild(botDiv);
 
-    const activeKey = localStorage.getItem('global_gemini_api_key'] || localStorage.getItem('global_gemini_api_key') || "";
+    const activeKey = localStorage.getItem('global_gemini_api_key') || "";
     if (!activeKey) {
       botDiv.innerHTML = "⚠️ <strong>API Anahtarı Yok:</strong> Yapay zeka modundan anahtar tanımlamalısınız.";
       return;
     }
 
-    // Ekonomik ve kota dostu model havuzu
     const candidateModels = ["gemini-1.5-flash-8b", "gemini-1.5-flash", "gemini-2.5-flash"];
     let success = false;
 
@@ -891,7 +887,7 @@
     }
 
     if (!success) {
-      botDiv.innerHTML = "⚠️ <strong>Kota Sınırı:</strong> Ücretsiz günlük istek sınırına ulaşıldı. Lütfen biraz bekleyin veya Manuel Modu kullanın.";
+      botDiv.innerHTML = "⚠️ <strong>Kota Sınırı:</strong> Günlük istek sınırına ulaşıldı. Lütfen bekleyin.";
     }
   }
 

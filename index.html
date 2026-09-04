@@ -96,7 +96,7 @@
 
     .form-group { margin-bottom: 16px; }
     label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; color: var(--text); }
-    input, textarea {
+    input, textarea, select {
       width: 100%;
       padding: 11px 14px;
       border: 1.5px solid var(--paper-border);
@@ -105,31 +105,6 @@
       outline: none;
       background: var(--paper);
       color: var(--text);
-    }
-
-    .template-banner {
-      background: #f0fdf4;
-      border: 1.5px dashed #22c55e;
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    body.dark-mode .template-banner { background: rgba(34, 197, 94, 0.1); border-color: #16a34a; }
-    .template-info { font-size: 13px; color: var(--text); font-weight: 600; }
-    .template-btn {
-      background: #16a34a;
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
     }
 
     .btn-main {
@@ -157,29 +132,6 @@
       margin-top: 8px;
     }
 
-    .youtube-action-bar {
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
-      flex-wrap: wrap;
-    }
-    .youtube-direct-btn {
-      flex: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      background: #ff0000;
-      color: #ffffff !important;
-      text-decoration: none;
-      padding: 9px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
-      transition: opacity 0.2s;
-    }
-    .youtube-direct-btn:hover { opacity: 0.9; }
-
     .screen { display: none !important; }
     .screen.active { display: block !important; }
 
@@ -195,50 +147,6 @@
     .auth-tab { flex: 1; border: none; background: none; padding: 8px; font-weight: 700; color: var(--text-muted); cursor: pointer; font-size: 14px; }
     .auth-tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
 
-    .guide-box {
-      background: var(--paper);
-      border: 1.5px solid var(--paper-border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
-    }
-    .guide-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
-    .guide-steps { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: var(--text-muted); }
-    .guide-num { background: #e0e7ff; color: var(--primary); font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
-
-    .user-badge-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--paper);
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-bottom: 18px;
-      font-size: 13px;
-      border: 1px solid var(--paper-border);
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .user-actions-group { display: flex; gap: 8px; align-items: center; }
-    .btn-reset-key-top {
-      background: #fee2e2;
-      border: 1px solid #fca5a5;
-      color: #dc2626;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .btn-logout { background: none; border: none; color: #dc2626; font-weight: 700; cursor: pointer; font-size: 13px; }
-
-    .row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 8px; margin-bottom: 8px; align-items: center; }
-    .btn-del { background: #fee2e2; color: #dc2626; border: none; padding: 10px 14px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-    .btn-add { background: #e0e7ff; color: var(--primary); border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; }
-
-    .loading { display: none; text-align: center; margin-top: 20px; padding: 16px; background: #eef2ff; border-radius: 10px; color: var(--primary); font-weight: 600; font-size: 14px; }
-
-    /* İKİYE BÖLÜNMÜŞ SEÇİM KARTI (YAPAY ZEKA VS MANUEL) */
     .mode-selection-box {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -264,6 +172,83 @@
     }
     .mode-card h3 { font-size: 16px; color: var(--text); margin-bottom: 8px; font-weight: 800; }
     .mode-card p { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+
+    /* SEVİYE SEÇİM EKRANI */
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .level-btn {
+      background: var(--paper);
+      border: 1.5px solid var(--paper-border);
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .level-btn:hover, .level-btn.selected {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* MANUEL DERS KUTULARI */
+    .manual-course-box {
+      background: var(--paper);
+      border: 1.5px solid var(--paper-border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .manual-course-top {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .manual-course-top input { font-weight: 700; }
+    .manual-row-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    @media (max-width: 500px) {
+      .manual-row-grid { grid-template-columns: 1fr; }
+    }
+
+    .user-badge-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--paper);
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      font-size: 13px;
+      border: 1px solid var(--paper-border);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .btn-reset-key-top {
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #dc2626;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-logout { background: none; border: none; color: #dc2626; font-weight: 700; cursor: pointer; font-size: 13px; }
+
+    .loading { display: none; text-align: center; margin-top: 20px; padding: 16px; background: #eef2ff; border-radius: 10px; color: var(--primary); font-weight: 600; font-size: 14px; }
 
     /* POMODORO */
     .pomodoro-card {
@@ -421,7 +406,6 @@
     .chat-input-area input { flex: 1; padding: 8px 12px; font-size: 13px; }
     .chat-send-btn { background: var(--primary); color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; }
 
-    /* GİZLİLİK MODAL (KABUL ET / REDDET) */
     .privacy-overlay {
       position: fixed;
       inset: 0;
@@ -446,7 +430,6 @@
     .privacy-content { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
     .privacy-actions { display: flex; gap: 10px; }
     .btn-consent-accept { flex: 1; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
-    .btn-consent-reject { flex: 1; background: #fee2e2; color: #dc2626; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
 
     #confettiCanvas {
       position: fixed;
@@ -473,7 +456,6 @@
 
 <canvas id="confettiCanvas"></canvas>
 
-<!-- GİZLİLİK MODALI (KABUL ET / REDDET) -->
 <div class="privacy-overlay" id="privacyOverlay">
   <div class="privacy-modal">
     <div class="privacy-header">
@@ -481,12 +463,10 @@
       <span>Gizlilik ve Yerel Hafıza Politikası</span>
     </div>
     <div class="privacy-content">
-      <p>Bu uygulama tamamen öğrenci dostudur. Hiçbir veriniz harici sunucularda toplanmaz. Sadece soru takibiniz ve planınız kendi cihazınızda (LocalStorage) saklanır.</p>
-      <p style="margin-top: 8px; font-size: 12px;">Yerel hafıza kullanımını onaylıyor musunuz?</p>
+      <p>Bu uygulama tamamen öğrenci dostudur. Bilgileriniz harici sunucularda toplanmaz, yalnızca kendi cihazınızın yerel belleğinde saklanır.</p>
     </div>
     <div class="privacy-actions">
-      <button class="btn-consent-accept" onclick="acceptPrivacyConsent()">✅ Kabul Et</button>
-      <button class="btn-consent-reject" onclick="rejectPrivacyConsent()">❌ Reddet</button>
+      <button class="btn-consent-accept" onclick="acceptPrivacyConsent()">✅ Kabul Ediyorum</button>
     </div>
   </div>
 </div>
@@ -504,7 +484,7 @@
   </div>
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg bot">
-      Selam! Çalışma planını, netlerini ve ilerlemeni buradan takip ediyorum. Takıldığın konuları veya moral durumunu bana yazabilirsin!
+      Selam! Çalışma planını ve ilerlemeni buradan takip ediyorum. Soru sorabilir veya koçluk alabilirsin!
     </div>
   </div>
   <div class="chat-input-area">
@@ -553,7 +533,7 @@
     </div>
   </div>
 
-  <!-- PLAN OLUŞTURMA YÖNTEMİ SEÇİM EKRANI (YAPAY ZEKA VS MANUEL) -->
+  <!-- MOD SEÇİMİ (YAPAY ZEKA VS MANUEL) -->
   <div id="modeSelectScreen" class="screen">
     <div class="header">
       <h1>⚙️ Çalışma Planı Nasıl Oluşturulsun?</h1>
@@ -562,16 +542,52 @@
     <div class="mode-selection-box">
       <div class="mode-card" onclick="selectMode('ai')">
         <h3>🤖 Yapay Zeka ile Oluştur</h3>
-        <p>Google Gemini yapay zekası derslerinizi ve sürenizi analiz ederek size özel profesyonel bir günlük program çıkarsın.</p>
+        <p>Google Gemini yapay zekası derslerinizi analiz ederek size özel profesyonel bir program çıkarsın.</p>
       </div>
       <div class="mode-card" onclick="selectMode('manual')">
         <h3>✍️ Manuel Kendi Planımı Oluştur</h3>
-        <p>API anahtarı gerektirmez. Kendi derslerinizi, günlerinizi ve görevlerinizi tamamen kendi kontrolünüzle ekleyin.</p>
+        <p>API anahtarı gerektirmez. Seviyenizi seçin, derslerinizi ve hangi gün çalışacağınızı kendiniz belirleyin.</p>
       </div>
     </div>
   </div>
 
-  <!-- API KURULUM EKRANI (YAPAY ZEKA İÇİN GÜVENLİK ANLATIMLI) -->
+  <!-- MANUEL SEVİYE VE ÖĞRENCİ TİPİ SEÇİMİ -->
+  <div id="manualLevelScreen" class="screen">
+    <div class="header">
+      <h1>🎓 Hangi Sınav veya Sınıf Düzeyindesin?</h1>
+      <p>Sana en uygun çalışma şablonunu hazırlayabilmemiz için seviyeni seç.</p>
+    </div>
+    <div class="level-grid">
+      <button type="button" class="level-btn" onclick="selectStudentLevel('LGS')">LGS Öğrencisi</button>
+      <button type="button" class="level-btn" onclick="selectStudentLevel('9. Sınıf')">9. Sınıf</button>
+      <button type="button" class="level-btn" onclick="selectStudentLevel('10. Sınıf')">10. Sınıf</button>
+      <button type="button" class="level-btn" onclick="selectStudentLevel('11. Sınıf')">11. Sınıf</button>
+      <button type="button" class="level-btn" onclick="selectStudentLevel('YKS (TYT-AYT)')">YKS Öğrencisi</button>
+      <button type="button" class="level-btn" onclick="selectStudentLevel('KPSS')">KPSS Öğrencisi</button>
+    </div>
+    <button type="button" class="btn-secondary" onclick="showScreen('modeSelectScreen')">⬅️ Geri Dön</button>
+  </div>
+
+  <!-- MANUEL DETAYLI DERS & AY & GÜN KURULUM EKRANI -->
+  <div id="manualBuilderScreen" class="screen">
+    <div class="header">
+      <h1>📅 Dersleri, Ayları ve Günleri Belirle</h1>
+      <p id="studentLevelTitleText">Seçilen Seviye: <strong>YKS</strong></p>
+    </div>
+
+    <div class="form-group">
+      <label>Ders Kutucukları (İstediğin ders adını değiştirebilirsin):</label>
+      <div id="manualCourseContainer">
+        <!-- Dinamik Kutular Buraya Gelecek -->
+      </div>
+      <button type="button" class="btn-add" onclick="addManualCourseBox()" style="margin-top: 8px;">+ Başka Ders Kutusu Ekle</button>
+    </div>
+
+    <button type="button" class="btn-main" onclick="generateManualPlanFinal()">✨ Programı ve Takvimi Oluştur</button>
+    <button type="button" class="btn-secondary" onclick="showScreen('manualLevelScreen')">⬅️ Seviye Seçimine Dön</button>
+  </div>
+
+  <!-- API KURULUM EKRANI -->
   <div id="setupScreen" class="screen">
     <div class="header">
       <h1>🔑 Yapay Zeka & API Güvenlik Bilgilendirmesi</h1>
@@ -603,7 +619,7 @@
     <div class="user-badge-bar">
       <span>Giriş yapılan hesap: <strong id="currentUserLabel">Misafir</strong></span>
       <div class="user-actions-group">
-        <button type="button" class="btn-reset-key-top" onclick="resetApiKeyAndGoSetup()" id="btnResetApiKey">🔑 API Sıfırla</button>
+        <button type="button" class="btn-reset-key-top" onclick="resetApiKeyAndGoSetup()">🔑 API Sıfırla</button>
         <button type="button" class="btn-logout" onclick="logoutUser()">Çıkış Yap 🚪</button>
       </div>
     </div>
@@ -614,19 +630,19 @@
     </div>
 
     <!-- 6 DERSLİK KPSS PAKETİ -->
-    <div class="template-banner">
+    <div class="template-banner" id="kpssTemplateBanner">
       <div class="template-info">
         ✨ <strong>KPSS Full Paket:</strong> Tarih, Coğrafya, Matematik, Türkçe, Vatandaşlık ve Güncel Bilgiler hazır.
       </div>
       <button type="button" class="template-btn" onclick="loadKpssTemplate()">⚡ Paketi Tek Tıkla Yükle</button>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" id="daysInputWrapper">
       <label for="days">Sınava Kalan Gün Sayısı:</label>
-      <input type="number" id="days" placeholder="Örn: 46" min="1">
+      <input type="number" id="days" placeholder="Örn: 46" min="1" value="30">
     </div>
 
-    <div class="form-group">
+    <div class="form-group" id="aiCourseListWrapper">
       <label>Dersler ve Playlist Linkleri:</label>
       <div id="courseList">
         <div class="row">
@@ -644,7 +660,7 @@
       </div>
     </div>
 
-    <button type="button" class="btn-main" id="btnSubmitPlan" onclick="handleGenerateAction()">✨ Ajanda Planı Çıkar</button>
+    <button type="button" class="btn-main" id="btnSubmitPlan" onclick="handleGenerateAction()">✨ Yeni Ajanda Planı Çıkar</button>
 
     <div class="loading" id="loadingText">
       ✍️ Plan hazırlanıyor, lütfen bekleyin...
@@ -696,49 +712,41 @@
     <!-- NET HESAPLAMA VE DENEME TAKİP MODÜLÜ -->
     <div class="net-calculator-box">
       <div class="net-header">
-        <span>📊 KPSS Net Hesaplama & Deneme Takibi</span>
+        <span>📊 Sınav Net Hesaplama & Deneme Takibi</span>
         <button class="btn-add" style="margin:0; padding:4px 10px;" onclick="calculateAndSaveNet()">Neti Kaydet</button>
       </div>
       <div class="net-grid">
         <div class="net-item">
-          <div class="net-item-title">Türkçe (30)</div>
+          <div class="net-item-title">1. Ders / Türkçe</div>
           <div class="net-inputs">
-            <input type="number" id="net_turkce_d" placeholder="D" min="0" max="30" oninput="liveCalcNet()">
-            <input type="number" id="net_turkce_y" placeholder="Y" min="0" max="30" oninput="liveCalcNet()">
+            <input type="number" id="net_turkce_d" placeholder="D" min="0" max="40" oninput="liveCalcNet()">
+            <input type="number" id="net_turkce_y" placeholder="Y" min="0" max="40" oninput="liveCalcNet()">
           </div>
         </div>
         <div class="net-item">
-          <div class="net-item-title">Matematik (30)</div>
+          <div class="net-item-title">2. Ders / Matematik</div>
           <div class="net-inputs">
-            <input type="number" id="net_mat_d" placeholder="D" min="0" max="30" oninput="liveCalcNet()">
-            <input type="number" id="net_mat_y" placeholder="Y" min="0" max="30" oninput="liveCalcNet()">
+            <input type="number" id="net_mat_d" placeholder="D" min="0" max="40" oninput="liveCalcNet()">
+            <input type="number" id="net_mat_y" placeholder="Y" min="0" max="40" oninput="liveCalcNet()">
           </div>
         </div>
         <div class="net-item">
-          <div class="net-item-title">Tarih (27)</div>
+          <div class="net-item-title">3. Ders / Fen / Tarih</div>
           <div class="net-inputs">
-            <input type="number" id="net_tarih_d" placeholder="D" min="0" max="27" oninput="liveCalcNet()">
-            <input type="number" id="net_tarih_y" placeholder="Y" min="0" max="27" oninput="liveCalcNet()">
+            <input type="number" id="net_tarih_d" placeholder="D" min="0" max="30" oninput="liveCalcNet()">
+            <input type="number" id="net_tarih_y" placeholder="Y" min="0" max="30" oninput="liveCalcNet()">
           </div>
         </div>
         <div class="net-item">
-          <div class="net-item-title">Coğrafya (18)</div>
+          <div class="net-item-title">4. Ders / Coğrafya</div>
           <div class="net-inputs">
-            <input type="number" id="net_cog_d" placeholder="D" min="0" max="18" oninput="liveCalcNet()">
-            <input type="number" id="net_cog_y" placeholder="Y" min="0" max="18" oninput="liveCalcNet()">
-          </div>
-        </div>
-        <div class="net-item">
-          <div class="net-item-title">Vatandaşlık & Güncel (15)</div>
-          <div class="net-inputs">
-            <input type="number" id="net_vat_d" placeholder="D" min="0" max="15" oninput="liveCalcNet()">
-            <input type="number" id="net_vat_y" placeholder="Y" min="0" max="15" oninput="liveCalcNet()">
+            <input type="number" id="net_cog_d" placeholder="D" min="0" max="20" oninput="liveCalcNet()">
+            <input type="number" id="net_cog_y" placeholder="Y" min="0" max="20" oninput="liveCalcNet()">
           </div>
         </div>
       </div>
       <div class="net-result-bar">
-        <span>GY: <strong id="resGY">0.00</strong> Net | GK: <strong id="resGK">0.00</strong> Net</span>
-        <span>TOPLAM: <strong id="resTotal" style="font-size:18px;">0.00</strong> Net</span>
+        <span>TOPLAM NET: <strong id="resTotal" style="font-size:18px;">0.00</strong> Net</span>
       </div>
     </div>
 
@@ -757,7 +765,7 @@
   </div>
   
   <div class="privacy-footer-link" onclick="openPrivacyModal()">🔒 Gizlilik & Veri Güvenliği Politikası</div>
-  <div class="version-tag">Sürüm: v32 (Yapay Zeka vs Manuel Seçim Modu & Çerez Reddetme)</div>
+  <div class="version-tag">Sürüm: v33 (Manuel Gelişmiş Ay & Gün Seçici Entegrasyonu)</div>
 </div>
 
 <script>
@@ -766,6 +774,7 @@
   let dailyTargetQuestions = 100;
   let targetCelebrated = false;
   let activeGenerationMode = 'ai'; // 'ai' veya 'manual'
+  let selectedStudentLevel = 'YKS';
 
   // ÇİFT GERİ SAYIM
   function initDualCountdowns() {
@@ -849,18 +858,12 @@
     const getVal = id => parseFloat(document.getElementById(id).value) || 0;
     const calc = (d, y) => Math.max(0, d - (y * 0.25));
 
-    const netTurkce = calc(getVal('net_turkce_d'), getVal('net_turkce_y'));
-    const netMat = calc(getVal('net_mat_d'), getVal('net_mat_y'));
-    const netTarih = calc(getVal('net_tarih_d'), getVal('net_tarih_y'));
-    const netCog = calc(getVal('net_cog_d'), getVal('net_cog_y'));
-    const netVat = calc(getVal('net_vat_d'), getVal('net_vat_y'));
+    const tD = calc(getVal('net_turkce_d'), getVal('net_turkce_y'));
+    const mD = calc(getVal('net_mat_d'), getVal('net_mat_y'));
+    const tD2 = calc(getVal('net_tarih_d'), getVal('net_tarih_y'));
+    const cD = calc(getVal('net_cog_d'), getVal('net_cog_y'));
 
-    const gy = netTurkce + netMat;
-    const gk = netTarih + netCog + netVat;
-    const total = gy + gk;
-
-    document.getElementById('resGY').textContent = gy.toFixed(2);
-    document.getElementById('resGK').textContent = gk.toFixed(2);
+    const total = tD + mD + tD2 + cD;
     document.getElementById('resTotal').textContent = total.toFixed(2);
   }
 
@@ -869,7 +872,7 @@
     const total = document.getElementById('resTotal').textContent;
     localStorage.setItem(getUserStorageKey('last_saved_net'), total);
     playPlanCreatedSound();
-    showToast(`🎉 Deneme Netiniz (${total}) Başarıyla Kaydedildi!`);
+    showToast(`🎉 Deneme Netiniz (${total}) Kaydedildi!`);
   }
 
   function checkPrivacyConsent() {
@@ -883,12 +886,6 @@
     document.getElementById('privacyOverlay').classList.remove('active');
     playDinkSound();
     showToast('🛡️ Tercihleriniz kaydedildi!');
-  }
-
-  function rejectPrivacyConsent() {
-    localStorage.setItem('app_user_privacy_consent', 'rejected');
-    document.getElementById('privacyOverlay').classList.remove('active');
-    showToast('🛡️ Çerezler reddedildi. Misafir modu aktif.');
   }
 
   function openPrivacyModal() {
@@ -929,7 +926,7 @@
     document.querySelector('.theme-toggle-btn').textContent = isDark ? '☀️ Gündüz Modu' : '🌙 Karanlık Mod';
   }
 
-  // --- SES MOTORU ---
+  // --- AKOR SES MOTORU ---
   let audioCtx = null;
   let activeNoiseSource = null;
   let activeNoiseGain = null;
@@ -1145,7 +1142,7 @@
 
     const activeKey = getActiveApiKey();
     if (!activeKey) {
-      botDiv.innerHTML = "⚠️ <strong>API Anahtarı Yok:</strong> Manuel moddasınız veya anahtar girilmemiş. Yapay zeka koçu için anahtar tanımlamalısınız.";
+      botDiv.innerHTML = "⚠️ <strong>API Anahtarı Yok:</strong> Manuel moddasınız veya anahtar girilmemiş.";
       return;
     }
 
@@ -1156,17 +1153,12 @@
       const rawPlan = localStorage.getItem(getUserStorageKey('study_plan'));
       if (rawPlan) {
         const parsed = JSON.parse(rawPlan);
-        planSummary = `Öğrencinin ${parsed.length} günlük KPSS çalışma planı var.`;
+        planSummary = `Öğrencinin ${parsed.length} günlük çalışma planı var.`;
       }
     } catch(e){}
 
     const lastNet = localStorage.getItem(getUserStorageKey('last_saved_net')) || "Girilmedi";
-
-    const promptText = `Sen profesyonel, motive edici bir KPSS koçusun.
-Öğrencinin plan durumu: ${planSummary}
-Son deneme neti: ${lastNet}
-Öğrencinin mesajı: "${msg}"
-Kural: En fazla 2-3 cümlelik çok net ve pratik tavsiye ver.`;
+    const promptText = `Sen profesyonel bir koçsun. Öğrenci düzeyi: ${selectedStudentLevel}, Son net: ${lastNet}. Soru: "${msg}". 2-3 cümlelik net tavsiye ver.`;
 
     const candidateModels = ["gemini-3.6-flash", "gemini-1.5-flash", "gemini-2.5-flash"];
     let success = false;
@@ -1287,7 +1279,6 @@ Kural: En fazla 2-3 cümlelik çok net ve pratik tavsiye ver.`;
 
   function checkSessionAndNavigate() {
     document.getElementById('currentUserLabel').textContent = currentUser ? currentUser.email : "Misafir";
-    // Giriş yapınca doğrudan Mod Seçim Ekranına yönlendiriyoruz (Yapay Zeka vs Manuel)
     showScreen('modeSelectScreen');
   }
 
@@ -1296,23 +1287,151 @@ Kural: En fazla 2-3 cümlelik çok net ve pratik tavsiye ver.`;
     if (mode === 'ai') {
       const key = getActiveApiKey();
       if (key) {
+        // Yapay zeka modunda standart AI ekranı
+        setupMainScreenForAI();
         showScreen('mainScreen');
         loadExistingPlan();
       } else {
         showScreen('setupScreen');
       }
     } else {
-      // Manuel Mod: API gerektirmez, direkt ana ekrana geçer
-      showScreen('mainScreen');
-      loadExistingPlan();
-      showToast('✍️ Manuel Mod aktif. Planınızı kendiniz oluşturabilirsiniz.');
+      // Manuel mod seçilince seviye seçimine yönlendir
+      showScreen('manualLevelScreen');
     }
+  }
+
+  function selectStudentLevel(level) {
+    selectedStudentLevel = level;
+    document.getElementById('studentLevelTitleText').innerHTML = `Seçilen Düzey: <strong>${level}</strong>`;
+    
+    // Manuel ders oluşturucu kutularını ilk kez doldur
+    const container = document.getElementById('manualCourseContainer');
+    container.innerHTML = '';
+    
+    // Varsayılan örnek dersler ekleyelim
+    const defaultCourses = level === 'LGS' ? ['Matematik', 'Türkçe', 'İnkılap', 'Fen Bilimleri', 'İngilizce'] : ['Matematik', 'Türkçe', 'Tarih', 'Coğrafya', 'Fizik'];
+    defaultCourses.forEach(c => addManualCourseBox(c));
+
+    showScreen('manualBuilderScreen');
+  }
+
+  function addManualCourseBox(defaultName = 'Yeni Ders') {
+    const container = document.getElementById('manualCourseContainer');
+    const div = document.createElement('div');
+    div.className = 'manual-course-box';
+    div.innerHTML = `
+      <div class="manual-course-top">
+        <input type="text" class="manual-c-name" value="${defaultName}" placeholder="Ders Adı (Değiştirebilirsin)">
+        <button type="button" class="btn-del" onclick="this.closest('.manual-course-box').remove()">✕</button>
+      </div>
+      <div class="manual-row-grid">
+        <div>
+          <label style="font-size:11px; margin-bottom:2px;">Çalışılacak Ay:</label>
+          <select class="manual-c-month">
+            <option value="Eylül">Eylül</option>
+            <option value="Ekim">Ekim</option>
+            <option value="Kasım">Kasım</option>
+            <option value="Aralık">Aralık</option>
+            <option value="Ocak">Ocak</option>
+            <option value="Şubat">Şubat</option>
+            <option value="Mart">Mart</option>
+            <option value="Nisan">Nisan</option>
+            <option value="Mayıs">Mayıs</option>
+            <option value="Haziran">Haziran</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px; margin-bottom:2px;">Hangi Günler (Örn: 1,3,8 veya 1-15):</label>
+          <input type="text" class="manual-c-days" placeholder="Örn: 1, 3, 5, 8">
+        </div>
+      </div>
+    `;
+    container.appendChild(div);
+  }
+
+  function generateManualPlanFinal() {
+    const boxes = document.querySelectorAll('.manual-course-box');
+    if (boxes.length === 0) return alert("En az bir ders kutusu eklemelisiniz.");
+
+    let planData = [];
+    let allDaysSet = new Set();
+
+    boxes.forEach(box => {
+      const cName = box.querySelector('.manual-c-name').value.trim() || "Ders";
+      const cMonth = box.querySelector('.manual-c-month').value;
+      const daysStr = box.querySelector('.manual-c-days').value.trim();
+      
+      // Günleri ayrıştır (Örn: "1, 3, 8" veya aralık)
+      let daysArr = [];
+      if (daysStr) {
+        daysStr.split(',').forEach(part => {
+          part = part.trim();
+          if (part.includes('-')) {
+            let [start, end] = part.split('-').map(Number);
+            for (let i = start; i <= end; i++) daysArr.push(i);
+          } else if (!isNaN(part) && part !== "") {
+            daysArr.push(Number(part));
+          }
+        });
+      }
+
+      // Eğer gün girilmemişse varsayılan 1. gün diyelim
+      if (daysArr.length === 0) daysArr = [1];
+
+      daysArr.forEach(dayNum => {
+        allDaysSet.add(dayNum);
+        // İlgili güne dersi ekle
+        let existingDay = planData.find(p => p.gun === dayNum);
+        if (!existingDay) {
+          existingDay = { gun: dayNum, odak: `${cMonth} Ayı Çalışması`, gorevler: [] };
+          planData.push(existingDay);
+        }
+        existingDay.gorevler.push({ baslik: `${cName} (${cMonth} Ayı): Konu Çalışması ve Soru Çözümü`, link: "" });
+      });
+    });
+
+    // Gün sırasına göre sırala
+    planData.sort((a, b) => a.gun - b.gun);
+
+    if (planData.length === 0) return alert("Lütfen geçerli gün numaraları girin.");
+
+    localStorage.setItem(getUserStorageKey('study_plan'), JSON.stringify(planData));
+    localStorage.removeItem(getUserStorageKey('checkbox_states'));
+    localStorage.removeItem(getUserStorageKey('questions_and_notes'));
+
+    setupMainScreenForManual();
+    renderCards(planData);
+    updateProgress();
+    showScreen('mainScreen');
+    document.getElementById('output').style.display = 'block';
+    playPlanCreatedSound();
+    showToast('✨ Manuel çalışma programınız başarıyla oluşturuldu!');
+  }
+
+  function setupMainScreenForAI() {
+    document.getElementById('kpssTemplateBanner').style.display = 'flex';
+    document.getElementById('daysInputWrapper').style.display = 'block';
+    document.getElementById('aiCourseListWrapper').style.display = 'block';
+    document.getElementById('btnSubmitPlan').style.display = 'block';
+    document.getElementById('btnSubmitPlan').textContent = "✨ Yapay Zeka ile Plan Çıkar";
+    document.getElementById('btnResetKeyBottom').style.display = 'inline-block';
+    document.getElementById('btnResetApiKey').style.display = 'inline-block';
+  }
+
+  function setupMainScreenForManual() {
+    document.getElementById('kpssTemplateBanner').style.display = 'none';
+    document.getElementById('daysInputWrapper').style.display = 'none';
+    document.getElementById('aiCourseListWrapper').style.display = 'none';
+    document.getElementById('btnSubmitPlan').style.display = 'none';
+    document.getElementById('btnResetKeyBottom').style.display = 'none';
+    document.getElementById('btnResetApiKey').style.display = 'none';
   }
 
   function saveApiKeyAndProceed() {
     const key = document.getElementById('initialApiKey').value.trim();
     if (!key) return alert("Lütfen API anahtarını girin.");
     setActiveApiKey(key);
+    setupMainScreenForAI();
     showScreen('mainScreen');
     loadExistingPlan();
     showToast('🔑 API Anahtarınız başarıyla tanımlandı!');
@@ -1321,8 +1440,6 @@ Kural: En fazla 2-3 cümlelik çok net ve pratik tavsiye ver.`;
   function handleGenerateAction() {
     if (activeGenerationMode === 'ai') {
       generatePlanAI();
-    } else {
-      generatePlanManual();
     }
   }
 
@@ -1358,49 +1475,6 @@ Kural: En fazla 2-3 cümlelik çok net ve pratik tavsiye ver.`;
     else alert("En az bir ders kalmalıdır.");
   }
 
-  // MANUEL PLAN OLUŞTURUCU (API İSTEMEZ)
-  function generatePlanManual() {
-    const days = parseInt(document.getElementById('days').value.trim(), 10);
-    const names = document.querySelectorAll('.course-name');
-    const links = document.querySelectorAll('.course-link');
-
-    if (!days || days <= 0) return alert("Geçerli bir gün sayısı girin.");
-
-    let courses = [];
-    for (let i = 0; i < names.length; i++) {
-      const name = names[i].value.trim();
-      const link = links[i].value.trim();
-      if (name) courses.push({ name, link: link || '' });
-    }
-
-    if (courses.length === 0) return alert("En az bir ders girmelisin.");
-
-    let planData = [];
-    for (let d = 1; d <= days; d++) {
-      let courseObj = courses[(d - 1) % courses.length];
-      let isReview = (d % 7 === 0);
-      planData.push({
-        gun: d,
-        odak: isReview ? "Haftalık Genel Tekrar & Deneme" : courseObj.name,
-        gorevler: [
-          { baslik: isReview ? "Önceki haftanın genel tekrarını yap ve 1 adet deneme çöz." : `${courseObj.name}: Konu Çalışması ve Soru Çözümü`, link: courseObj.link },
-          { baslik: "Günün soru hedefini tamamla", link: "" }
-        ]
-      });
-    }
-
-    localStorage.setItem(getUserStorageKey('study_plan'), JSON.stringify(planData));
-    localStorage.removeItem(getUserStorageKey('checkbox_states'));
-    localStorage.removeItem(getUserStorageKey('questions_and_notes'));
-
-    renderCards(planData);
-    updateProgress();
-    document.getElementById('output').style.display = 'block';
-    playPlanCreatedSound();
-    showToast('✨ Manuel çalışma planınız başarıyla oluşturuldu!');
-  }
-
-  // YAPAY ZEKA İLE PLAN OLUŞTURUCU
   async function generatePlanAI() {
     const apiKey = getActiveApiKey();
     const days = parseInt(document.getElementById('days').value.trim(), 10);
@@ -1408,7 +1482,7 @@ Kural: En fazla 2-3 cümlelik çok net ve pratik tavsiye ver.`;
     const links = document.querySelectorAll('.course-link');
 
     if (!apiKey) {
-      alert("Yapay Zeka modu için API anahtarı gereklidir. Lütfen API Sıfırla butonunu kullanın.");
+      alert("API anahtarı bulunamadı.");
       showScreen('setupScreen');
       return;
     }
@@ -1431,11 +1505,11 @@ Kural: En fazla 2-3 cümlelik çok net ve pratik tavsiye ver.`;
     loading.style.display = 'block';
     output.style.display = 'none';
 
-    const prompt = `Sen profesyonel bir KPSS koçusun. Sınava tam ${days} gün kaldı.
+    const prompt = `Sen profesyonel bir koçusun. Sınava tam ${days} gün kaldı.
 Dersler:
 ${courses.join('\n')}
 
-ÖZEL KURAL: Her 7. günü video izleme yerine "Haftalık Genel Tekrar ve Branş/Genel Deneme Çözümü" olarak ayarla!
+ÖZEL KURAL: Her 7. günü video izleme yerine "Haftalık Genel Tekrar ve Deneme Çözümü" olarak ayarla!
 JSON formatında tam plan üret:
 [{"gun": 1, "odak": "Matematik", "gorevler": [{"baslik": "1. Video izle", "link": "https://..."}]}]
 Sadece geçerli JSON ver.`;
@@ -1664,7 +1738,7 @@ Sadece geçerli JSON ver.`;
     isWorkMode = true;
     timeLeft = 130 * 60;
     document.getElementById('timerToggle').textContent = 'Durdur';
-    showToast('📝 130 Dakikalık Gerçek KPSS Provası Başladı! Başarılar!');
+    showToast('📝 130 Dakikalık Sınav Provası Başladı! Başarılar!');
     runTimerInterval();
   }
 
@@ -1693,7 +1767,7 @@ Sadece geçerli JSON ver.`;
         playPomodoroAlarmSound();
 
         if (isWorkMode) {
-          showToast('☕ Çalışma/Sınav bitti, mola vakti!');
+          showToast('☕ Süre bitti, mola vakti!');
           isWorkMode = false;
           timeLeft = getBreakSeconds();
         } else {

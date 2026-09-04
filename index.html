@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#4338ca">
-  <title>Kişisel Sınav Ajandası Ultimate v45</title>
+  <title>Kişisel Sınav Ajandası Ultimate v46</title>
   <style>
     :root {
       --primary: #4338ca;
@@ -147,7 +147,6 @@
     .auth-tab { flex: 1; border: none; background: none; padding: 8px; font-weight: 700; color: var(--text-muted); cursor: pointer; font-size: 14px; }
     .auth-tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
 
-    /* DİKKAT ÇEKİCİ BİLGİLENDİRİCİ REHBER PANELİ */
     .guide-banner-card {
       background: linear-gradient(135deg, #eef2ff, #f3e8ff);
       border: 2px solid var(--primary);
@@ -210,7 +209,6 @@
       border-color: var(--primary);
     }
 
-    /* HAZIR PAKET MODALI */
     .template-modal-overlay {
       position: fixed;
       inset: 0;
@@ -300,7 +298,6 @@
     }
     .btn-logout { background: none; border: none; color: #dc2626; font-weight: 700; cursor: pointer; font-size: 13px; }
 
-    /* YouTube Hızlı Butonları */
     .youtube-action-bar { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
     .youtube-direct-btn {
       flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
@@ -308,7 +305,7 @@
       border-radius: 8px; font-size: 13px; font-weight: 700;
     }
 
-    /* SOL ALT BALONCUKLAR */
+    /* SOL ALT ÜÇLÜ BALONCUKLAR (POMODORO, KOÇ, ASİSTAN) */
     .floating-bubbles {
       position: fixed;
       left: 20px;
@@ -326,6 +323,7 @@
     }
     .bubble-btn:hover { transform: scale(1.05); }
     .bubble-btn.pomo { background: linear-gradient(135deg, #0284c7, #10b981); }
+    .bubble-btn.assistant { background: linear-gradient(135deg, #f59e0b, #ef4444); }
 
     .pomodoro-popup-window {
       position: fixed; left: 20px; bottom: 80px; width: 320px;
@@ -377,7 +375,6 @@
 
     #confettiCanvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 99999; }
 
-    /* v45 ŞEKİLLİ ŞUKULLU GÖREV KARTLARI */
     .agenda-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
     .agenda-card {
       background: var(--paper); border: 1.5px solid var(--paper-border); border-top: 5px solid var(--primary);
@@ -407,7 +404,7 @@
 
 <canvas id="confettiCanvas"></canvas>
 
-<!-- 1. ADIM: ÇEREZ PENCERESİ -->
+<!-- ÇEREZ PENCERESİ -->
 <div class="privacy-overlay" id="privacyOverlay">
   <div class="privacy-modal">
     <div class="privacy-header">
@@ -437,13 +434,16 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- SOL ALT BALONCUKLAR -->
+<!-- SOL ALT ÜÇLÜ BALONCUKLAR -->
 <div class="floating-bubbles">
   <button class="bubble-btn pomo" onclick="togglePomodoroPopup()">
     ⏱️ <span>Pomodoro</span>
   </button>
   <button class="bubble-btn" onclick="toggleChatWindow()">
     💬 <span>Sınav Koçum</span>
+  </button>
+  <button class="bubble-btn assistant" onclick="toggleChatWindow(); document.getElementById('chatInput').value='Merhaba, sana nasıl ulaşabilirim?';">
+    ✨ <span>AI Asistan</span>
   </button>
 </div>
 
@@ -471,12 +471,12 @@
 
 <div class="ai-chat-window" id="aiChatWindow">
   <div class="chat-header">
-    <span>🤖 Sınav Koçun</span>
+    <span>🤖 Sınav Koçun & AI Asistan</span>
     <button class="chat-close-btn" onclick="toggleChatWindow()">✕</button>
   </div>
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg bot">
-      Selam! Çalışma planını, netlerini ve ilerlemeni buradan takip ediyorum. Soru sorabilirsin!
+      Selam! Ben senin AI Asistanın ve Sınav Koçunum. Buradan bana her şeyi sorabilirsin! 💡
     </div>
   </div>
   <div class="chat-input-area">
@@ -525,7 +525,7 @@
     </div>
   </div>
 
-  <!-- 2. ADIM: DİKKAT ÇEKİCİ BİLGİLENDİRİCİ REHBER & MOD SEÇİM EKRANI -->
+  <!-- BİLGİLENDİRİCİ REHBER & MOD SEÇİM EKRANI -->
   <div id="modeSelectScreen" class="screen">
     <div class="header">
       <h1>📚 Uygulama Rehberi ve Plan Seçimi</h1>
@@ -541,7 +541,7 @@
         </li>
         <li class="guide-step-item">
           <div class="guide-badge">2</div>
-          <div><strong>Ders & Gün Atama:</strong> Manuel modda ders kutularının adını dilediğin gibi değiştirip, takvimden çalışacağın günleri (1'den 31'e) seçersin.</div>
+          <div><strong>Ders & Gün Atama:</strong> Manuel modda ders kutularının adını değiştirip, takvimden çalışacağın günleri seçersin. Yapay zeka modunda ise ders adları ve YouTube playlist linkleriyle saniyeler içinde plan çıkarırsın.</div>
         </li>
         <li class="guide-step-item">
           <div class="guide-badge">3</div>
@@ -557,7 +557,7 @@
       </div>
       <div class="mode-card" onclick="playClickSound(); selectMode('manual')">
         <h3>✍️ Manuel Kendi Planımı Oluştur</h3>
-        <p>API gerektirmez. Seviyeni seçip, takvimden günleri tıklayarak programını tamamen kendin kurarsın.</p>
+        <p>API anahtarı gerektirmez. Seviyeni seçip, takvim üzerinden günleri tıklayarak programını tamamen kendin kurarsın.</p>
       </div>
     </div>
   </div>
@@ -596,13 +596,19 @@
     <button type="button" class="btn-secondary" onclick="playClickSound(); showScreen('manualLevelScreen')">⬅️ Seviye Seçimine Dön</button>
   </div>
 
-  <!-- YAPAY ZEKA KURULUM EKRANI (LİNK + DERS ADI DESTEKLİ) -->
+  <!-- YAPAY ZEKA KURULUM EKRANI (LİNK + DERS ADI + HAZIR KPSS PAKETİ DESTEKLİ) -->
   <div id="setupScreen" class="screen">
     <div class="header">
       <h1>🔑 Yapay Zeka Plan Motoru</h1>
       <p>Derslerinizi ve YouTube playlist linklerinizi girerek akıllı ajandanızı oluşturun.</p>
     </div>
     
+    <!-- KPSS HAZIR PAKET BANNERI (YAPAY ZEKA İÇİN) -->
+    <div class="template-banner" id="kpssAiTemplateBanner" style="background:#f0fdf4; border:1.5px dashed #22c55e; border-radius:10px; padding:12px 16px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <div style="font-size:13px; font-weight:600;">✨ <strong>KPSS Full Paket:</strong> Tarih, Coğrafya, Matematik ve Türkçe linkleri hazır.</div>
+      <button type="button" class="template-btn" style="background:#16a34a; color:white; border:none; padding:8px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;" onclick="playClickSound(); loadKpssTemplateAI()">⚡ Tek Tıkla Doldur</button>
+    </div>
+
     <div class="form-group">
       <label for="initialApiKey">Gemini API Anahtarın:</label>
       <input type="password" id="initialApiKey" placeholder="API Anahtarını buraya yapıştır">
@@ -615,7 +621,7 @@
 
     <div class="form-group">
       <label>Dersler ve Playlist Linkleri:</label>
-      <div id="courseList">
+      <div id="courseListAI">
         <div class="row" style="display:grid; grid-template-columns: 1fr 2fr auto; gap:8px; margin-bottom:8px;">
           <input type="text" class="course-name" placeholder="Ders Adı (Örn: Matematik)">
           <input type="text" class="course-link" placeholder="YouTube Playlist Linki">
@@ -664,7 +670,7 @@
   </div>
   
   <div class="privacy-footer-link" onclick="openPrivacyModal()">🔒 Gizlilik & Veri Güvenliği Politikası</div>
-  <div class="version-tag">Sürüm: v45 (Dikkat Çekici Rehber Panel, Sıralı Akış & Gelişmiş AI Motoru)</div>
+  <div class="version-tag">Sürüm: v46 (Tam Destek, Yapay Zeka KPSS Paketi & Tik-Tak Sesleri)</div>
 </div>
 
 <script>
@@ -698,7 +704,24 @@
     } catch(e){}
   }
 
-  // Hafif Titreşimli "Dıngg~" Başarı Sesi
+  // Pomodoro Tik-Tak Sesi
+  function playTickSound() {
+    try {
+      const ctx = ensureAudioUnlocked();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(800, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.02);
+      gain.gain.setValueAtTime(0.04, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.04);
+    } catch(e){}
+  }
+
   function playDinggCompleteSound() {
     try {
       const ctx = ensureAudioUnlocked();
@@ -837,10 +860,29 @@
     botDiv.textContent = 'Koçun düşünüyor... ✍️';
     messagesBox.appendChild(botDiv);
 
-    setTimeout(() => {
-      botDiv.textContent = "Harika gidiyorsun! Hedefine odaklan ve günlük sorularını aksatma. Başaracaksın! 🎯";
-      playDinggCompleteSound();
-    }, 800);
+    const activeKey = localStorage.getItem('global_gemini_api_key') || "";
+    if (!activeKey) {
+      botDiv.innerHTML = "⚠️ <strong>API Anahtarı Yok:</strong> Yapay zeka modundan anahtar tanımlamalısınız.";
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${activeKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents: [{ parts: [{ text: `Sen profesyonel bir koçsun. Soru: "${msg}". 2-3 cümlelik net tavsiye ver.` }] }] })
+      });
+      const data = await response.json();
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (reply) {
+        botDiv.textContent = reply.trim();
+        playDinggCompleteSound();
+      } else {
+        botDiv.textContent = "Yanıt alınamadı, lütfen tekrar deneyin.";
+      }
+    } catch(err) {
+      botDiv.textContent = "Bağlantı hatası: " + err.message;
+    }
   }
 
   window.addEventListener('DOMContentLoaded', () => {
@@ -912,7 +954,6 @@
       renderCards(JSON.parse(savedPlan));
       loadCheckboxesAndQuestions();
     } else {
-      // Sıralı akış: Çerezlerden sonra Bilgilendirici Rehber & Mod Seçimi
       showScreen('modeSelectScreen');
     }
   }
@@ -920,12 +961,7 @@
   function selectMode(mode) {
     activeGenerationMode = mode;
     if (mode === 'ai') {
-      const key = localStorage.getItem('global_gemini_api_key') || "";
-      if (key) {
-        showScreen('setupScreen');
-      } else {
-        showScreen('setupScreen');
-      }
+      showScreen('setupScreen');
     } else {
       showScreen('manualLevelScreen');
     }
@@ -985,6 +1021,9 @@
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
             <label style="font-size:12px; margin:0; font-weight:700;">📅 Ay:</label>
             <select class="manual-c-month" style="width:130px; padding:4px 8px; font-size:12px;">
+              <option value="Ocak">Ocak</option><option value="Şubat">Şubat</option><option value="Mart">Mart</option>
+              <option value="Nisan">Nisan</option><option value="Mayıs">Mayıs</option><option value="Haziran">Haziran</option>
+              <option value="Temmuz">Temmuz</option><option value="Ağustos">Ağustos</option><option value="Eylül">Eylül</option>
               <option value="Ekim">Ekim</option><option value="Kasım">Kasım</option><option value="Aralık">Aralık</option>
             </select>
           </div>
@@ -995,7 +1034,6 @@
       container.appendChild(div);
     });
     showScreen('manualBuilderScreen');
-    showToast(`⚡ ${selectedStudentLevel} Paketi Aktarıldı!`);
   }
 
   function addManualCourseBox(defaultName = 'Yeni Ders') {
@@ -1075,11 +1113,34 @@
     showScreen('mainScreen');
     renderCards(planData);
     playDinggCompleteSound();
-    showToast('✨ Programınız başarıyla oluşturuldu!');
+  }
+
+  // Yapay Zeka Hazır KPSS Paketi Doldurma
+  function loadKpssTemplateAI() {
+    const list = document.getElementById('courseListAI');
+    list.innerHTML = '';
+    const kpssAI = [
+      { name: "KPSS Tarih", link: "https://youtube.com/playlist?list=PL5kIOunpmSBM_vApgXxIQZx5PnegGbWFF" },
+      { name: "KPSS Coğrafya", link: "https://youtube.com/playlist?list=PLnBnugScc-7ImTQrm8DvvMFHByN5Pg31V" },
+      { name: "KPSS Matematik", link: "https://youtube.com/playlist?list=PLSYiXUktJiZcHBH7nQfHJ74vBlC19YzAb" },
+      { name: "KPSS Türkçe", link: "https://youtube.com/playlist?list=PL5kIOunpmSBMBPYmrPkd0JikOPIfQW-Sn" }
+    ];
+    kpssAI.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'row';
+      div.style.cssText = "display:grid; grid-template-columns: 1fr 2fr auto; gap:8px; margin-bottom:8px;";
+      div.innerHTML = `
+        <input type="text" class="course-name" value="${c.name}">
+        <input type="text" class="course-link" value="${c.link}">
+        <button type="button" class="btn-del" onclick="playClickSound(); this.closest('.row').remove()">✕</button>
+      `;
+      list.appendChild(div);
+    });
+    showToast('⚡ KPSS Full Paket AI Alanına Yüklendi!');
   }
 
   function addRowAI() {
-    const list = document.getElementById('courseList');
+    const list = document.getElementById('courseListAI');
     const div = document.createElement('div');
     div.className = 'row';
     div.style.cssText = "display:grid; grid-template-columns: 1fr 2fr auto; gap:8px; margin-bottom:8px;";
@@ -1094,10 +1155,10 @@
   async function generatePlanAI() {
     const apiKey = document.getElementById('initialApiKey').value.trim();
     const days = parseInt(document.getElementById('days').value.trim(), 10);
-    const names = document.querySelectorAll('.course-name');
-    const links = document.querySelectorAll('.course-link');
+    const names = document.querySelectorAll('#courseListAI .course-name');
+    const links = document.querySelectorAll('#courseListAI .course-link');
 
-    if (!apiKey) return alert("Lütfen Gemini API anahtarınızı girin.");
+    if (!apiKey) return alert("Lütfen Gemini API anahtarını girin.");
     localStorage.setItem('global_gemini_api_key', apiKey);
 
     let courses = [];
@@ -1113,24 +1174,36 @@
 
     const prompt = `Sen profesyonel bir koçusun. Sınava tam ${days} gün kaldı. Dersler:\n${courses.join('\n')}\nJSON formatında tam plan üret: [{"gun": 1, "odak": "Matematik", "gorevler": [{"baslik": "1. Video izle", "link": "https://..."}]}] Sadece geçerli JSON ver.`;
 
-    try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-      });
-      const data = await response.json();
-      let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      text = text.replace(/```json/g, '').replace(/```/g, '').trim();
-      const planData = JSON.parse(text);
+    const candidateModels = ["gemini-1.5-flash", "gemini-2.5-flash", "gemini-3.6-flash"];
+    let success = false;
 
-      localStorage.setItem(getUserStorageKey('study_plan'), JSON.stringify(planData));
-      showScreen('mainScreen');
-      renderCards(planData);
-      playDinggCompleteSound();
-      showToast('🚀 Yapay Zeka planınız oluşturuldu!');
-    } catch(err) {
-      alert("Yapay Zeka oluşturma hatası: " + err.message);
+    for (let model of candidateModels) {
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+        const data = await response.json();
+        if (data.error) continue;
+
+        let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!text) continue;
+
+        text = text.replace(/```json/g, '').replace(/```/g, '').trim();
+        const planData = JSON.parse(text);
+
+        localStorage.setItem(getUserStorageKey('study_plan'), JSON.stringify(planData));
+        showScreen('mainScreen');
+        renderCards(planData);
+        playDinggCompleteSound();
+        success = true;
+        break;
+      } catch(err) {}
+    }
+
+    if (!success) {
+      alert("Yapay Zeka oluşturma hatası veya kota sınırı. Lütfen tekrar deneyin.");
     }
     loading.style.display = 'none';
   }
@@ -1241,9 +1314,10 @@
     }
   }
 
-  // POMODORO
+  // POMODORO & TIK-TAK SESİ
   let timerInterval = null;
   let isRunning = false;
+  let timeLeft = 25 * 60;
 
   function toggleTimer() {
     const btn = document.getElementById('timerToggle');
@@ -1254,10 +1328,10 @@
     } else {
       isRunning = true;
       btn.textContent = '⏸ Durdur';
-      let timeLeft = 25 * 60;
       timerInterval = setInterval(() => {
         if (timeLeft > 0) {
           timeLeft--;
+          playTickSound(); // Her saniye tik-tak sesi
           const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
           const s = (timeLeft % 60).toString().padStart(2, '0');
           document.getElementById('timerDisplay').textContent = `${m}:${s}`;
@@ -1275,6 +1349,7 @@
     clearInterval(timerInterval);
     isRunning = false;
     document.getElementById('timerToggle').textContent = '▶ Başlat';
+    timeLeft = 25 * 60;
     document.getElementById('timerDisplay').textContent = '25:00';
   }
 </script>

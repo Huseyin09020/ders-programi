@@ -94,8 +94,9 @@
       transition: all 0.2s;
     }
 
-    .screen { display: none; }
-    .screen.active { display: block; }
+    /* EKRAN KONTROLLERİ */
+    .screen { display: none !important; }
+    .screen.active { display: block !important; }
 
     .auth-box {
       max-width: 420px;
@@ -256,7 +257,7 @@
     }
     .video-link-btn:hover { background: #fecaca; }
 
-    /* SAĞ ÜST BİLDİRİM TOAST */
+    /* BİLDİRİM TOAST */
     .toast-container {
       position: fixed;
       top: 20px;
@@ -290,7 +291,7 @@
 
 <div class="container">
 
-  <!-- GİRİŞ / KAYIT / MİSAFİR -->
+  <!-- EKRAN 1: GİRİŞ / KAYIT / MİSAFİR -->
   <div id="authScreen" class="screen active">
     <div class="header">
       <h1>👋 Sınav Ajandasına Hoş Geldin</h1>
@@ -314,7 +315,7 @@
     </div>
   </div>
 
-  <!-- API KURULUM -->
+  <!-- EKRAN 2: API KURULUM REHBERİ -->
   <div id="setupScreen" class="screen">
     <div class="header">
       <h1>🔑 API Anahtarı Kurulumu</h1>
@@ -344,7 +345,7 @@
     <button type="button" class="btn-main" onclick="saveApiKeyAndProceed()">Kaydet ve Ajandaya Başla ➡️</button>
   </div>
 
-  <!-- ANA AJANDA -->
+  <!-- EKRAN 3: ANA AJANDA VE DERS PLANI -->
   <div id="mainScreen" class="screen">
     <div class="user-badge-bar">
       <span>Giriş yapılan hesap: <strong id="currentUserLabel">Misafir</strong></span>
@@ -422,14 +423,13 @@
     </div>
   </div>
   
-  <div class="version-tag">Sürüm: v11 (Video Linkleri + Dınk Sesi + Bildirim)</div>
+  <div class="version-tag">Sürüm: v12 (Ekran Geçiş Düzeltmesi)</div>
 </div>
 
 <script>
   let currentUser = null;
   let currentAuthMode = 'login';
 
-  // SES EFEKTİ (Dınk Tınısı)
   function playDinkSound() {
     try {
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -437,8 +437,8 @@
       const gain = audioCtx.createGain();
 
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
-      osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.08); // A5 ("dınk" hissi)
+      osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.08);
 
       gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
@@ -451,7 +451,6 @@
     } catch(e) {}
   }
 
-  // SAĞ ÜST BİLDİRİM TOAST
   function showToast(msg) {
     const container = document.getElementById('toastContainer');
     const toast = document.createElement('div');
@@ -464,8 +463,12 @@
   window.addEventListener('DOMContentLoaded', () => {
     const savedSession = localStorage.getItem('active_session_user');
     if (savedSession) {
-      currentUser = JSON.parse(savedSession);
-      checkApiKeyAndNavigate();
+      try {
+        currentUser = JSON.parse(savedSession);
+        checkApiKeyAndNavigate();
+      } catch (e) {
+        showScreen('authScreen');
+      }
     } else {
       showScreen('authScreen');
     }
@@ -473,7 +476,8 @@
 
   function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(screenId).classList.add('active');
+    const target = document.getElementById(screenId);
+    if (target) target.classList.add('active');
   }
 
   function switchAuthTab(mode) {
@@ -488,7 +492,11 @@
     const pass = document.getElementById('authPassword').value.trim();
     if (!email || !pass) return alert("Lütfen e-posta ve şifre girin.");
 
-    const users = JSON.parse(localStorage.getItem('app_registered_users') || "{}");
+    let users = {};
+    try {
+      users = JSON.parse(localStorage.getItem('app_registered_users') || "{}");
+    } catch(e) { users = {}; }
+
     if (currentAuthMode === 'register') {
       if (users[email]) {
         alert("Bu e-posta ile kayıtlı hesap var. Giriş yapabilirsiniz.");
@@ -520,12 +528,12 @@
   }
 
   function getUserStorageKey(key) {
-    const prefix = currentUser.isGuest ? 'guest' : currentUser.email;
+    const prefix = (!currentUser || currentUser.isGuest) ? 'guest' : currentUser.email;
     return `${prefix}_${key}`;
   }
 
   function checkApiKeyAndNavigate() {
-    document.getElementById('currentUserLabel').textContent = currentUser.email;
+    document.getElementById('currentUserLabel').textContent = currentUser ? currentUser.email : "Misafir";
     const key = localStorage.getItem(getUserStorageKey('gemini_api_key'));
     if (key) {
       showScreen('mainScreen');
@@ -555,10 +563,12 @@
   function loadExistingPlan() {
     const savedPlan = localStorage.getItem(getUserStorageKey('study_plan'));
     if (savedPlan) {
-      renderCards(JSON.parse(savedPlan));
-      loadCheckboxes();
-      updateProgress();
-      document.getElementById('output').style.display = 'block';
+      try {
+        renderCards(JSON.parse(savedPlan));
+        loadCheckboxes();
+        updateProgress();
+        document.getElementById('output').style.display = 'block';
+      } catch(e) {}
     } else {
       document.getElementById('output').style.display = 'none';
     }
@@ -660,4 +670,198 @@ Eğer link verilmemişse "link" alanını boş string ("") bırak. Yalnızca ge�
         let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
         if (!text) continue;
 
-        text = text.replace(/```json/g, '').replace(/
+        text = text.replace(/```json/g, '').replace(/```/g, '').trim();
+        const planData = JSON.parse(text);
+
+        localStorage.setItem(getUserStorageKey('study_plan'), JSON.stringify(planData));
+        localStorage.removeItem(getUserStorageKey('checkbox_states'));
+
+        renderCards(planData);
+        updateProgress();
+        output.style.display = 'block';
+        success = true;
+        break;
+      } catch (err) {
+        lastError = err.message;
+      }
+    }
+
+    if (!success) alert("Hata oluştu: " + lastError);
+
+    btn.disabled = false;
+    loading.style.display = 'none';
+  }
+
+  function renderCards(planData) {
+    const grid = document.getElementById('agendaGrid');
+    grid.innerHTML = '';
+
+    planData.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'agenda-card';
+
+      const tasksHtml = item.gorevler.map((g, idx) => {
+        const title = typeof g === 'object' ? g.baslik : g;
+        const link = typeof g === 'object' && g.link ? g.link : '';
+
+        return `
+          <li class="task-item" id="task_${item.gun}_${idx}">
+            <div class="task-row">
+              <input type="checkbox" data-id="chk_${item.gun}_${idx}" onchange="handleCheck(this)">
+              <span class="task-title">${title}</span>
+            </div>
+            ${link ? `<a href="${link}" target="_blank" rel="noopener" class="video-link-btn">▶ Videoyu Aç</a>` : ''}
+          </li>
+        `;
+      }).join('');
+
+      card.innerHTML = `
+        <div class="card-head">
+          <span class="card-title">📌 Gün ${item.gun}</span>
+          <span class="card-badge">${item.odak}</span>
+        </div>
+        <ul class="task-list">
+          ${tasksHtml}
+        </ul>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function handleCheck(chk) {
+    const parent = chk.closest('.task-item');
+    if (chk.checked) {
+      parent.classList.add('done');
+      playDinkSound();
+      showToast('🎉 Harika! Görev tamamlandı.');
+    } else {
+      parent.classList.remove('done');
+    }
+
+    saveCheckboxes();
+    updateProgress();
+  }
+
+  function saveCheckboxes() {
+    const states = {};
+    document.querySelectorAll('.task-item input[type="checkbox"]').forEach(c => {
+      states[c.dataset.id] = c.checked;
+    });
+    localStorage.setItem(getUserStorageKey('checkbox_states'), JSON.stringify(states));
+  }
+
+  function loadCheckboxes() {
+    const saved = localStorage.getItem(getUserStorageKey('checkbox_states'));
+    if (!saved) return;
+    try {
+      const states = JSON.parse(saved);
+      document.querySelectorAll('.task-item input[type="checkbox"]').forEach(c => {
+        if (states[c.dataset.id]) {
+          c.checked = true;
+          c.closest('.task-item').classList.add('done');
+        }
+      });
+    } catch(e) {}
+  }
+
+  function updateProgress() {
+    const all = document.querySelectorAll('.task-item input[type="checkbox"]');
+    if (all.length === 0) return;
+    const done = document.querySelectorAll('.task-item input[type="checkbox"]:checked');
+    const pct = Math.round((done.length / all.length) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = `%${pct} Tamamlandı (${done.length}/${all.length} Görev)`;
+  }
+
+  function clearSavedData() {
+    if (confirm("Bu hesaba ait çalışma planını silmek istediğinize emin misiniz?")) {
+      localStorage.removeItem(getUserStorageKey('study_plan'));
+      localStorage.removeItem(getUserStorageKey('checkbox_states'));
+      document.getElementById('output').style.display = 'none';
+      document.getElementById('agendaGrid').innerHTML = '';
+    }
+  }
+
+  // POMODORO MANTIĞI
+  let timerInterval = null;
+  let isRunning = false;
+  let isWorkMode = true;
+  let timeLeft = 25 * 60;
+
+  function getWorkSeconds() {
+    const val = parseInt(document.getElementById('customWorkMin').value, 10);
+    return (val > 0 ? val : 25) * 60;
+  }
+
+  function getBreakSeconds() {
+    const val = parseInt(document.getElementById('customBreakMin').value, 10);
+    return (val > 0 ? val : 5) * 60;
+  }
+
+  function onPomoSettingChange() {
+    if (!isRunning) {
+      timeLeft = isWorkMode ? getWorkSeconds() : getBreakSeconds();
+      updateTimerDisplay();
+    }
+  }
+
+  function toggleTimer() {
+    const btn = document.getElementById('timerToggle');
+    if (isRunning) {
+      clearInterval(timerInterval);
+      btn.textContent = 'Devam Et';
+      isRunning = false;
+    } else {
+      isRunning = true;
+      btn.textContent = 'Durdur';
+      timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          isRunning = false;
+          btn.textContent = 'Başlat';
+
+          if (isWorkMode) {
+            playDinkSound();
+            showToast('☕ Çalışma bitti, mola vakti!');
+            isWorkMode = false;
+            document.getElementById('pomoStateLabel').textContent = '☕ DİNLENME / MOLA';
+            document.getElementById('pomoStateLabel').style.color = '#059669';
+            timeLeft = getBreakSeconds();
+          } else {
+            playDinkSound();
+            showToast('📚 Mola bitti, derse başla!');
+            isWorkMode = true;
+            document.getElementById('pomoStateLabel').textContent = '📚 ÇALIŞMA ZAMANI';
+            document.getElementById('pomoStateLabel').style.color = '#64748b';
+            timeLeft = getWorkSeconds();
+          }
+          updateTimerDisplay();
+        }
+      }, 1000);
+    }
+  }
+
+  function resetTimer() {
+    clearInterval(timerInterval);
+    isRunning = false;
+    isWorkMode = true;
+    document.getElementById('timerToggle').textContent = 'Başlat';
+    document.getElementById('pomoStateLabel').textContent = '📚 ÇALIŞMA ZAMANI';
+    document.getElementById('pomoStateLabel').style.color = '#64748b';
+    timeLeft = getWorkSeconds();
+    updateTimerDisplay();
+  }
+
+  function updateTimerDisplay() {
+    const min = Math.floor(timeLeft / 60);
+    const sec = timeLeft % 60;
+    document.getElementById('timerDisplay').textContent = 
+      `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+  }
+</script>
+
+</body>
+</html>

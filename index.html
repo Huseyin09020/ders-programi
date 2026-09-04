@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#4338ca">
-  <title>Kişisel Sınav Ajandası Ultimate</title>
+  <title>Kişisel Sınav Ajandası Ultimate v42</title>
   <style>
     :root {
       --primary: #4338ca;
@@ -146,19 +146,6 @@
     .auth-tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1.5px solid var(--paper-border); padding-bottom: 8px; }
     .auth-tab { flex: 1; border: none; background: none; padding: 8px; font-weight: 700; color: var(--text-muted); cursor: pointer; font-size: 14px; }
     .auth-tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
-
-    /* BİLGİLENDİRİCİ REHBER EKRANI */
-    .guide-intro-box {
-      background: var(--paper);
-      border: 1.5px solid var(--paper-border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-    .guide-intro-box h3 { color: var(--text); margin-bottom: 8px; font-weight: 800; }
 
     .mode-selection-box {
       display: grid;
@@ -311,7 +298,7 @@
 
     .loading { display: none; text-align: center; margin-top: 20px; padding: 16px; background: #eef2ff; border-radius: 10px; color: var(--primary); font-weight: 600; font-size: 14px; }
 
-    /* SOL ALT BALONCUKLAR (POMODORO VE KOÇ) */
+    /* SOL ALT BALONCUKLAR (POMODORO & KOÇ) */
     .floating-bubbles {
       position: fixed;
       left: 20px;
@@ -334,7 +321,9 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      transition: transform 0.2s;
     }
+    .bubble-btn:hover { transform: scale(1.05); }
     .bubble-btn.pomo {
       background: linear-gradient(135deg, #0284c7, #10b981);
     }
@@ -431,7 +420,6 @@
     .privacy-content { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
     .privacy-actions { display: flex; gap: 10px; }
     .btn-consent-accept { flex: 1; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
-    .btn-consent-reject { flex: 1; background: #fee2e2; color: #dc2626; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
 
     #confettiCanvas {
       position: fixed;
@@ -443,6 +431,38 @@
       z-index: 99999;
     }
 
+    /* v42 MODERN VE ŞEKİLLİ ŞUKULLU GÖREV KARTLARI */
+    .agenda-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+    .agenda-card {
+      background: var(--paper);
+      border: 1.5px solid var(--paper-border);
+      border-top: 5px solid var(--primary);
+      border-radius: 14px;
+      padding: 18px 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .agenda-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+    }
+    .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--paper-border); }
+    .card-title { font-weight: 800; color: var(--text); font-size: 16px; letter-spacing: -0.3px; }
+    .card-badge { font-size: 11px; background: var(--highlight); color: #854d0e; padding: 4px 10px; border-radius: 6px; font-weight: 700; }
+
+    .task-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .task-item { font-size: 13px; display: flex; flex-direction: column; gap: 5px; color: var(--text); background: var(--card-bg); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--paper-border); box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); }
+    .task-row { display: flex; align-items: flex-start; gap: 8px; }
+    .task-item.done .task-title { text-decoration: line-through; opacity: 0.45; }
+    .task-item input[type="checkbox"] { width: 16px; height: 16px; margin-top: 2px; cursor: pointer; accent-color: var(--primary); }
+    
+    .video-link-btn { align-self: flex-start; margin-left: 24px; display: inline-flex; align-items: center; gap: 4px; background: #fee2e2; color: #dc2626; text-decoration: none; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; }
+
+    .card-footer { margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--paper-border); display: flex; flex-direction: column; gap: 8px; }
+    .q-tracker { display: flex; gap: 8px; align-items: center; font-size: 12px; font-weight: 600; }
+    .q-tracker input { width: 60px; padding: 6px; text-align: center; font-size: 12px; border-radius: 6px; }
+    .card-note { font-size: 12px; padding: 8px; border-radius: 6px; resize: vertical; min-height: 44px; background: var(--card-bg); border: 1px solid var(--paper-border); }
+
     .privacy-footer-link {
       font-size: 11px;
       color: var(--text-muted);
@@ -451,32 +471,28 @@
       cursor: pointer;
       text-decoration: underline;
     }
-    .version-tag { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px; }
+    .version-tag { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px; font-weight: 700; }
   </style>
 </head>
 <body>
 
 <canvas id="confettiCanvas"></canvas>
 
-<!-- 1. ADIM: ÇEREZ PENCERESİ -->
 <div class="privacy-overlay" id="privacyOverlay">
   <div class="privacy-modal">
     <div class="privacy-header">
       <span>🛡️</span>
-      <span>Gizlilik ve Çerez Tercihi</span>
+      <span>Gizlilik ve Yerel Hafıza Politikası</span>
     </div>
     <div class="privacy-content">
-      <p>Bu uygulama hiçbir verinizi sunucularda toplamaz; tüm programınız cihazınızın yerel hafızasında saklanır.</p>
-      <p style="margin-top: 8px; font-size: 12px;">Yerel hafıza kullanımını onaylıyor musunuz?</p>
+      <p>Bu uygulama tamamen öğrenci dostudur. Verileriniz sunucularda toplanmaz, cihazınızın yerel hafızasında saklanır.</p>
     </div>
     <div class="privacy-actions">
-      <button class="btn-consent-accept" onclick="acceptPrivacyConsent()">✅ Kabul Et</button>
-      <button class="btn-consent-reject" onclick="rejectPrivacyConsent()">❌ Reddet</button>
+      <button class="btn-consent-accept" onclick="acceptPrivacyConsent()">✅ Kabul Ediyorum</button>
     </div>
   </div>
 </div>
 
-<!-- HAZIR ŞABLON MODALI -->
 <div class="template-modal-overlay" id="templateModalOverlay">
   <div class="template-modal-box">
     <h3 id="templateModalTitle">✨ Hazır Paket Bulundu!</h3>
@@ -490,7 +506,7 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- SOL ALT İKİLİ BALONCUK (POMODORO & KOÇ) -->
+<!-- SOL ALT İKİLİ BALONCUK (GİRİŞ ŞARTI OLMADAN ÇALIŞAN POMODORO & KOÇ) -->
 <div class="floating-bubbles">
   <button class="bubble-btn pomo" onclick="togglePomodoroPopup()">
     ⏱️ <span>Pomodoro</span>
@@ -500,7 +516,6 @@
   </button>
 </div>
 
-<!-- POMODORO AÇILIR PENCERESİ -->
 <div class="pomodoro-popup-window" id="pomodoroPopupWindow">
   <div class="chat-header" style="margin-bottom:12px;">
     <span>⏱️ Odaklanma Zamanlayıcısı</span>
@@ -528,7 +543,6 @@
   </div>
 </div>
 
-<!-- EĞİTİM KOÇU PENCERESİ -->
 <div class="ai-chat-window" id="aiChatWindow">
   <div class="chat-header">
     <span>🤖 KPSS & Sınav Koçun</span>
@@ -585,16 +599,16 @@
     </div>
   </div>
 
-  <!-- 2. ADIM: BİLGİLENDİRİCİ REHBER & MOD SEÇİM EKRANI -->
+  <!-- BİLGİLENDİRİCİ REHBER & MOD SEÇİMİ -->
   <div id="modeSelectScreen" class="screen">
     <div class="header">
       <h1>📚 Uygulama Rehberi ve Plan Seçimi</h1>
       <p>Hedefine en uygun çalışma yöntemini seçerek ajandanı kurmaya başla.</p>
     </div>
     
-    <div class="guide-intro-box">
-      <h3>💡 Bu Uygulama Ne İşe Yarar?</h3>
-      <p>Sınav hazırlık sürecinde günlerini, ayarlarını, çözdüğün soru sayılarını ve deneme netlerini tek bir yerde toplaman için tasarlandı. Hiçbir verin internete yüklenmez, tamamen senin kontrolündedir.</p>
+    <div class="guide-intro-box" style="background:var(--paper); border:1.5px solid var(--paper-border); border-radius:12px; padding:20px; margin-bottom:20px; font-size:13px; color:var(--text-muted);">
+      <h3 style="color:var(--text); margin-bottom:8px; font-weight:800;">💡 Bu Uygulama Ne İşe Yarar?</h3>
+      <p>Sınav hazırlık sürecinde günlerini, ayarlarını, çözdüğün soru sayılarını ve deneme netlerini tek bir yerde toplaman için tasarlandı. Verilerin tamamen senin cihazında saklanır.</p>
     </div>
 
     <div class="mode-selection-box">
@@ -602,14 +616,14 @@
         <h3>🤖 Yapay Zeka ile Oluştur</h3>
         <p>Google Gemini altyapısını kullanarak gün sayına ve derslerine özel akıllı bir program üretir.</p>
         <ul>
-          <li><strong>Nasıl Çalışır?</strong> Ücretsiz bir API anahtarı girersin. Yapay zeka senin için günlük video görevleri planlar ve koçluk yapar.</li>
+          <li><strong>Nasıl Çalışır?</strong> Ücretsiz API anahtarı girersin. Yapay zeka senin için günlük görevler planlar.</li>
         </ul>
       </div>
       <div class="mode-card" onclick="playClickSound(); selectMode('manual')">
         <h3>✍️ Manuel Kendi Planımı Oluştur</h3>
-        <p>API anahtarı gerektirmez. Seviyeni seçip, takvimden günleri tıklayarak programını tamamen kendin kurarsın.</p>
+        <p>API anahtarı gerektirmez. Seviyeni seçip, takvim üzerinden günleri tıklayarak programını tamamen kendin kurarsın.</p>
         <ul>
-          <li><strong>Nasıl Çalışır?</strong> Sınıf/Sınav düzeyini seçersin, derslerin adını düzenleyip çalışacağın günleri görsel takvimden seçersin.</li>
+          <li><strong>Nasıl Çalışır?</strong> Seviyeni seçersin, ders adını değiştirip çalışacağın günleri görsel takvimden seçersin.</li>
         </ul>
       </div>
     </div>
@@ -689,7 +703,6 @@
       <p>Hedef gününü ve derslerini gir; programın videolarla bağlansın.</p>
     </div>
 
-    <!-- 6 DERSLİK KPSS PAKETİ -->
     <div class="template-banner" id="kpssTemplateBanner">
       <div class="template-info">
         ✨ <strong>KPSS Full Paket:</strong> Tarih, Coğrafya, Matematik, Türkçe, Vatandaşlık ve Güncel Bilgiler hazır.
@@ -799,7 +812,7 @@
   </div>
   
   <div class="privacy-footer-link" onclick="openPrivacyModal()">🔒 Gizlilik & Veri Güvenliği Politikası</div>
-  <div class="version-tag">Sürüm: v39 (Bağımsız Pomodoro Baloncuğu & Dinamik Tıklama Sesleri)</div>
+  <div class="version-tag">Sürüm: v42 (Modern Şekilli Görev Kartları & Gelişmiş Tıklama Sesleri)</div>
 </div>
 
 <script>
@@ -979,28 +992,6 @@
     animate();
   }
 
-  // NET HESAPLAYICI
-  function liveCalcNet() {
-    const getVal = id => parseFloat(document.getElementById(id).value) || 0;
-    const calc = (d, y) => Math.max(0, d - (y * 0.25));
-
-    const tD = calc(getVal('net_turkce_d'), getVal('net_turkce_y'));
-    const mD = calc(getVal('net_mat_d'), getVal('net_mat_y'));
-    const tD2 = calc(getVal('net_tarih_d'), getVal('net_tarih_y'));
-    const cD = calc(getVal('net_cog_d'), getVal('net_cog_y'));
-
-    const total = tD + mD + tD2 + cD;
-    document.getElementById('resTotal').textContent = total.toFixed(2);
-  }
-
-  function calculateAndSaveNet() {
-    liveCalcNet();
-    const total = document.getElementById('resTotal').textContent;
-    localStorage.setItem(getUserStorageKey('last_saved_net'), total);
-    playPlanCreatedSound();
-    showToast(`🎉 Deneme Netiniz (${total}) Kaydedildi!`);
-  }
-
   function checkPrivacyConsent() {
     if (!localStorage.getItem('app_user_privacy_consent')) {
       document.getElementById('privacyOverlay').classList.add('active');
@@ -1012,12 +1003,6 @@
     document.getElementById('privacyOverlay').classList.remove('active');
     playClickSound();
     showToast('🛡️ Tercihleriniz kaydedildi!');
-  }
-
-  function rejectPrivacyConsent() {
-    localStorage.setItem('app_user_privacy_consent', 'rejected');
-    document.getElementById('privacyOverlay').classList.remove('active');
-    showToast('🛡️ Çerezler reddedildi.');
   }
 
   function openPrivacyModal() {
@@ -1066,7 +1051,6 @@
     document.querySelector('.theme-toggle-btn').textContent = isDark ? '☀️ Gündüz Modu' : '🌙 Karanlık Mod';
   }
 
-  // --- API YÖNETİMİ ---
   function getActiveApiKey() {
     return localStorage.getItem('global_gemini_api_key') || 
            localStorage.getItem('gemini_api_key') || 
@@ -1091,7 +1075,6 @@
     }
   }
 
-  // BALONCUKLAR (POMODORO & KOÇ)
   function togglePomodoroPopup() {
     playClickSound();
     const win = document.getElementById('pomodoroPopupWindow');
@@ -1188,7 +1171,6 @@
     messagesBox.scrollTop = messagesBox.scrollHeight;
   }
 
-  // OTURUM YÖNETİMİ
   window.addEventListener('DOMContentLoaded', () => {
     checkPrivacyConsent();
     initDualCountdowns();

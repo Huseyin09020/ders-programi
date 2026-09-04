@@ -112,6 +112,37 @@
       box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.12);
     }
 
+    /* HAZIR PAKET BANNER */
+    .template-banner {
+      background: #f0fdf4;
+      border: 1.5px dashed #22c55e;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    body.dark-mode .template-banner {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: #16a34a;
+    }
+    .template-info { font-size: 13px; color: var(--text); font-weight: 600; }
+    .template-btn {
+      background: #16a34a;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .template-btn:hover { background: #15803d; transform: scale(1.02); }
+
     .btn-main {
       width: 100%;
       background: linear-gradient(135deg, var(--primary), #6366f1);
@@ -250,7 +281,7 @@
     .toast { background: #10b981; color: white; padding: 12px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.15); animation: slideIn 0.3s ease; }
     @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-    /* KOÇLUK BALONCUĞU */
+    /* KOÇ BALONCUĞU */
     .ai-bubble-btn {
       position: fixed;
       left: 20px;
@@ -426,6 +457,14 @@
       <p>Hedef gününü ve derslerini gir; programın videolarla bağlansın.</p>
     </div>
 
+    <!-- 6 DERSLİK KPSS PAKETİ BANNERI -->
+    <div class="template-banner">
+      <div class="template-info">
+        ✨ <strong>KPSS Full Paket:</strong> Tarih, Coğrafya, Matematik, Türkçe, Vatandaşlık ve Güncel Bilgiler hazır.
+      </div>
+      <button type="button" class="template-btn" onclick="loadKpssTemplate()">⚡ Paketi Tek Tıkla Yükle</button>
+    </div>
+
     <div class="form-group">
       <label for="days">Sınava Kalan Gün Sayısı:</label>
       <input type="number" id="days" placeholder="Örn: 46" min="1">
@@ -449,7 +488,7 @@
       ✍️ Videolar günlere paylaştırılıyor, ajandan hazırlanıyor...
     </div>
 
-    <!-- POMODORO VE YENİ DOĞAL ORTAM SESLERİ -->
+    <!-- POMODORO VE DOĞAL SESLER -->
     <div class="pomodoro-card">
       <div class="pomo-settings">
         <div class="pomo-input-group">
@@ -467,7 +506,6 @@
         <button class="pomo-btn pomo-reset" onclick="resetTimer()">Sıfırla</button>
       </div>
 
-      <!-- YENİLENEN SES BUTONLARI -->
       <div class="noise-controls">
         <button class="btn-noise" id="btnRain" onclick="toggleNoise('rain')">🌧️ Sakin Yağmur</button>
         <button class="btn-noise" id="btnForest" onclick="toggleNoise('forest')">🌲 Doğa & Gök Gürültüsü</button>
@@ -502,12 +540,45 @@
     </div>
   </div>
   
-  <div class="version-tag">Sürüm: v16 (Doğa & Gök Gürültüsü + Martılı Sahil + Sakin Yağmur)</div>
+  <div class="version-tag">Sürüm: v18 (KPSS 6 Ders Full Paket + Güncel Bilgiler)</div>
 </div>
 
 <script>
   let currentUser = null;
   let currentAuthMode = 'login';
+
+  // 6 DERSLİK FULL KPSS PAKETİ
+  const KPSS_TEMPLATE_COURSES = [
+    { name: "KPSS Tarih", link: "https://youtube.com/playlist?list=PL5kIOunpmSBM_vApgXxIQZx5PnegGbWFF&si=fbK1K6Qe5fCo-skL" },
+    { name: "KPSS Coğrafya", link: "https://youtube.com/playlist?list=PLnBnugScc-7ImTQrm8DvvMFHByN5Pg31V&si=P4Q8ZCiMypVorCQm" },
+    { name: "KPSS Matematik", link: "https://youtube.com/playlist?list=PLSYiXUktJiZcHBH7nQfHJ74vBlC19YzAb&si=9T3MvufkzrULvqiC" },
+    { name: "KPSS Türkçe", link: "https://youtube.com/playlist?list=PL5kIOunpmSBMBPYmrPkd0JikOPIfQW-Sn&si=wXSRVEHxIyDytzaa" },
+    { name: "KPSS Vatandaşlık", link: "https://youtube.com/playlist?list=PL5kIOunpmSBO2LLEQwCB9pJFT87wJsVSE&si=h16-fokNiZhw0vvY" },
+    { name: "KPSS Güncel Bilgiler", link: "https://youtube.com/playlist?list=PL8xiaE-wCWlYjIVE5G7WX3-JpqzitzWAA&si=M5x52H5JJHD8Wx36" }
+  ];
+
+  function loadKpssTemplate() {
+    const list = document.getElementById('courseList');
+    list.innerHTML = '';
+    
+    KPSS_TEMPLATE_COURSES.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'row';
+      div.innerHTML = `
+        <input type="text" class="course-name" value="${c.name}">
+        <input type="text" class="course-link" value="${c.link}">
+        <button type="button" class="btn-del" onclick="removeRow(this)">✕</button>
+      `;
+      list.appendChild(div);
+    });
+
+    if (!document.getElementById('days').value) {
+      document.getElementById('days').value = 46;
+    }
+
+    playDinkSound();
+    showToast('⚡ 6 Derslik KPSS Full Paketi yüklendi!');
+  }
 
   function initCountdown() {
     let targetDate = localStorage.getItem('exam_target_date');
@@ -544,7 +615,7 @@
     document.querySelector('.theme-toggle-btn').textContent = isDark ? '☀️ Gündüz Modu' : '🌙 Karanlık Mod';
   }
 
-  // --- GELİŞMİŞ DOĞAL SES SENTEZLEYİCİ ---
+  // DOĞAL SES SENTEZLEYİCİ
   let audioCtx = null;
   let activeNoiseHandles = [];
   let currentNoise = null;
@@ -573,7 +644,6 @@
     osc.stop(ctx.currentTime + 0.35);
   }
 
-  // MARTI SESİ ÜRETİCİ
   function triggerSeagullSound() {
     if (currentNoise !== 'waves') return;
     const ctx = getAudioContext();
@@ -582,7 +652,6 @@
     const now = ctx.currentTime;
 
     osc.type = 'sawtooth';
-    // Martı çığlığı frekans eğrisi
     osc.frequency.setValueAtTime(900, now);
     osc.frequency.linearRampToValueAtTime(1400, now + 0.15);
     osc.frequency.exponentialRampToValueAtTime(800, now + 0.5);
@@ -604,7 +673,6 @@
     osc.stop(now + 0.55);
   }
 
-  // GÖK GÜRÜLTÜSÜ GÜMBÜRTÜSÜ
   function triggerThunderSound() {
     if (currentNoise !== 'forest') return;
     const ctx = getAudioContext();
@@ -634,7 +702,6 @@
     thunder.stop(now + 2.5);
   }
 
-  // KUŞ CIVILTISI
   function triggerBirdChirp() {
     if (currentNoise !== 'forest') return;
     const ctx = getAudioContext();
@@ -668,7 +735,6 @@
     const btn = document.getElementById(`btn${type.charAt(0).toUpperCase() + type.slice(1)}`);
     if (btn) btn.classList.add('active');
 
-    // 1. Temel Gürültü Sentezi
     const bufferSize = ctx.sampleRate * 2;
     const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = noiseBuffer.getChannelData(0);
@@ -679,7 +745,6 @@
     noiseSource.loop = true;
 
     if (type === 'rain') {
-      // YAVAŞ & BELİRGİN YAĞMUR DAMLALARI
       const filter = ctx.createBiquadFilter();
       filter.type = 'bandpass';
       filter.frequency.value = 850;
@@ -688,9 +753,8 @@
       const gain = ctx.createGain();
       gain.gain.value = 0.055;
 
-      // Yavaş ritmik damla dalgalanması
       const lfo = ctx.createOscillator();
-      lfo.frequency.value = 1.2; // Yavaş vuruş
+      lfo.frequency.value = 1.2;
       const lfoGain = ctx.createGain();
       lfoGain.gain.value = 0.02;
       lfo.connect(lfoGain);
@@ -705,10 +769,9 @@
       activeNoiseHandles.push(noiseSource, lfo);
 
     } else if (type === 'forest') {
-      // DOĞA, ORMAN UĞULTUSU + GÖK GÜRÜLTÜSÜ + KUŞ CIVILTISI
       const filter = ctx.createBiquadFilter();
       filter.type = 'lowpass';
-      filter.frequency.value = 350; // Ağaç yaprak hışırtısı
+      filter.frequency.value = 350;
 
       const gain = ctx.createGain();
       gain.gain.value = 0.045;
@@ -719,7 +782,6 @@
       noiseSource.start();
       activeNoiseHandles.push(noiseSource);
 
-      // Periyodik gök gürültüsü ve kuş sesleri
       triggerThunderSound();
       thunderInterval = setInterval(() => {
         if (Math.random() > 0.4) triggerThunderSound();
@@ -730,7 +792,6 @@
       }, 4500);
 
     } else if (type === 'waves') {
-      // DALGALAR + MARTI
       const filter = ctx.createBiquadFilter();
       filter.type = 'lowpass';
       filter.frequency.value = 280;
@@ -738,9 +799,8 @@
       const gain = ctx.createGain();
       gain.gain.value = 0.06;
 
-      // Dalga yükselip alçalması (LFO)
       const lfo = ctx.createOscillator();
-      lfo.frequency.value = 0.12; // 8 saniyede bir kıyıya vuran dalga
+      lfo.frequency.value = 0.12;
       const lfoGain = ctx.createGain();
       lfoGain.gain.value = 0.045;
       lfo.connect(lfoGain);
@@ -754,7 +814,6 @@
 
       activeNoiseHandles.push(noiseSource, lfo);
 
-      // Martı sesleri (periyodik)
       setTimeout(triggerSeagullSound, 1500);
       seagullInterval = setInterval(() => {
         if (Math.random() > 0.35) triggerSeagullSound();
@@ -786,7 +845,7 @@
     setTimeout(() => toast.remove(), 2500);
   }
 
-  // KOÇLUK SOHBET FONKSİYONLARI (HIZLI YANITLI)
+  // KOÇLUK SOHBET
   function toggleChatWindow() {
     const win = document.getElementById('aiChatWindow');
     win.classList.toggle('open');
@@ -838,7 +897,7 @@ KURALLAR:
 2. Gereksiz uzun edebiyat yapma, doğrudan soruya odaklan.`;
 
     const candidateModels = [
-      "gemini-3.6-flash-lite", // En hızlı yanıt veren hafif model
+      "gemini-3.6-flash-lite",
       "gemini-3.6-flash",
       "gemini-2.5-pro",
       "gemini-2.0-flash"

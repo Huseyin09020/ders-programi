@@ -147,6 +147,19 @@
     .auth-tab { flex: 1; border: none; background: none; padding: 8px; font-weight: 700; color: var(--text-muted); cursor: pointer; font-size: 14px; }
     .auth-tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
 
+    /* BİLGİLENDİRİCİ REHBER EKRANI */
+    .guide-intro-box {
+      background: var(--paper);
+      border: 1.5px solid var(--paper-border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .guide-intro-box h3 { color: var(--text); margin-bottom: 8px; font-weight: 800; }
+
     .mode-selection-box {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -196,6 +209,31 @@
       color: white;
       border-color: var(--primary);
     }
+
+    .template-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      z-index: 10001;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .template-modal-overlay.active { display: flex; }
+    .template-modal-box {
+      background: var(--card-bg);
+      border: 1px solid var(--paper-border);
+      border-radius: 16px;
+      max-width: 440px;
+      width: 100%;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .template-modal-box h3 { font-size: 18px; margin-bottom: 10px; color: var(--text); font-weight: 800; }
+    .template-modal-box p { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; }
+    .template-modal-btns { display: flex; gap: 10px; }
 
     .manual-course-box {
       background: var(--paper);
@@ -273,97 +311,17 @@
 
     .loading { display: none; text-align: center; margin-top: 20px; padding: 16px; background: #eef2ff; border-radius: 10px; color: var(--primary); font-weight: 600; font-size: 14px; }
 
-    /* POMODORO */
-    .pomodoro-card {
-      background: var(--paper);
-      border: 1.5px solid var(--paper-border);
-      border-radius: 12px;
-      padding: 16px;
-      margin-top: 20px;
-      text-align: center;
-    }
-    .pomo-settings { display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 8px; }
-    .pomo-input-group { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); }
-    .pomo-input-group input { width: 60px; padding: 4px; text-align: center; }
-    .pomo-time { font-size: 36px; font-weight: 800; color: var(--text); margin: 6px 0; font-variant-numeric: tabular-nums; }
-    .pomo-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-    .pomo-btn { border: none; padding: 7px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; }
-    .pomo-start { background: var(--primary); color: white; }
-    .pomo-reset { background: #e2e8f0; color: #475569; }
-    .pomo-exam-btn { background: #f59e0b; color: white; }
-
-    .noise-controls { display: flex; gap: 8px; margin-top: 12px; justify-content: center; }
-    .btn-noise { background: none; border: 1px solid var(--paper-border); padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; color: var(--text-muted); font-weight: 600; }
-    .btn-noise.active { background: var(--primary); color: white; border-color: var(--primary); }
-
-    .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-    .stat-box { background: var(--paper); padding: 14px; border-radius: 10px; border: 1px solid var(--paper-border); text-align: center; }
-    .stat-num { font-size: 20px; font-weight: 800; color: var(--primary); }
-    .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-    .progress-bar-bg { width: 100%; height: 10px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin-top: 8px; }
-    .progress-bar-fill { height: 100%; width: 0%; background: #10b981; transition: width 0.3s ease; }
-
-    /* NET HESAPLAMA */
-    .net-calculator-box {
-      background: var(--paper);
-      border: 1.5px solid var(--paper-border);
-      border-radius: 12px;
-      padding: 16px;
-      margin-top: 20px;
-    }
-    .net-header { font-size: 15px; font-weight: 800; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-    .net-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
-    .net-item { background: var(--card-bg); padding: 10px; border-radius: 8px; border: 1px solid var(--paper-border); font-size: 12px; }
-    .net-item-title { font-weight: 700; margin-bottom: 6px; color: var(--text); }
-    .net-inputs { display: flex; gap: 6px; }
-    .net-inputs input { width: 100%; padding: 4px; text-align: center; font-size: 12px; }
-    .net-result-bar {
-      margin-top: 14px;
-      padding: 12px;
-      background: #eef2ff;
-      border-radius: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    #output { margin-top: 30px; padding-top: 24px; border-top: 2px dashed var(--paper-border); display: none; }
-    .output-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
-    .output-top h2 { font-size: 20px; font-weight: 800; color: var(--text); }
-    .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-    .btn-print { background: #059669; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
-    .btn-clear { background: #ef4444; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
-    .btn-reset-key { background: #dc2626; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
-
-    .agenda-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
-    .agenda-card { background-color: var(--paper); border: 1px solid var(--paper-border); border-left: 5px solid #ef4444; border-radius: 10px; padding: 16px 14px; box-shadow: 2px 3px 6px rgba(0,0,0,0.04); }
-    .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1.5px solid var(--paper-border); }
-    .card-title { font-weight: 800; color: var(--text); font-size: 15px; }
-    .card-badge { font-size: 11px; background: var(--highlight); color: #854d0e; padding: 3px 8px; border-radius: 4px; font-weight: 700; }
-
-    .task-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .task-item { font-size: 13px; display: flex; flex-direction: column; gap: 5px; color: var(--text); background: var(--card-bg); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--paper-border); }
-    .task-row { display: flex; align-items: flex-start; gap: 8px; }
-    .task-item.done .task-title { text-decoration: line-through; opacity: 0.45; }
-    .task-item input[type="checkbox"] { width: auto; margin-top: 3px; cursor: pointer; }
-    
-    .video-link-btn { align-self: flex-start; margin-left: 24px; display: inline-flex; align-items: center; gap: 4px; background: #fee2e2; color: #dc2626; text-decoration: none; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
-
-    .card-footer { margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--paper-border); display: flex; flex-direction: column; gap: 8px; }
-    .q-tracker { display: flex; gap: 8px; align-items: center; font-size: 12px; font-weight: 600; }
-    .q-tracker input { width: 55px; padding: 4px 6px; text-align: center; font-size: 12px; }
-    .card-note { font-size: 12px; padding: 6px; border-radius: 6px; resize: vertical; min-height: 40px; background: var(--card-bg); }
-
-    .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-    .toast { background: #10b981; color: white; padding: 12px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-
-    /* KOÇ BALONCUĞU */
-    .ai-bubble-btn {
+    /* SOL ALT BALONCUKLAR (POMODORO VE KOÇ) */
+    .floating-bubbles {
       position: fixed;
       left: 20px;
       bottom: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 9990;
+    }
+    .bubble-btn {
       background: linear-gradient(135deg, var(--primary), #ec4899);
       color: white;
       border: none;
@@ -376,8 +334,28 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      z-index: 9990;
     }
+    .bubble-btn.pomo {
+      background: linear-gradient(135deg, #0284c7, #10b981);
+    }
+
+    /* POMODORO PENCERESİ */
+    .pomodoro-popup-window {
+      position: fixed;
+      left: 20px;
+      bottom: 80px;
+      width: 320px;
+      background: var(--card-bg);
+      border: 1.5px solid var(--paper-border);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      display: none;
+      flex-direction: column;
+      z-index: 9992;
+      overflow: hidden;
+      padding: 16px;
+    }
+    .pomodoro-popup-window.open { display: flex; }
 
     .ai-chat-window {
       position: fixed;
@@ -453,6 +431,7 @@
     .privacy-content { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
     .privacy-actions { display: flex; gap: 10px; }
     .btn-consent-accept { flex: 1; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+    .btn-consent-reject { flex: 1; background: #fee2e2; color: #dc2626; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
 
     #confettiCanvas {
       position: fixed;
@@ -479,27 +458,77 @@
 
 <canvas id="confettiCanvas"></canvas>
 
+<!-- 1. ADIM: ÇEREZ PENCERESİ -->
 <div class="privacy-overlay" id="privacyOverlay">
   <div class="privacy-modal">
     <div class="privacy-header">
       <span>🛡️</span>
-      <span>Gizlilik ve Yerel Hafıza Politikası</span>
+      <span>Gizlilik ve Çerez Tercihi</span>
     </div>
     <div class="privacy-content">
-      <p>Bu uygulama tamamen öğrenci dostudur. Verileriniz sunucularda toplanmaz, cihazınızın yerel hafızasında saklanır.</p>
+      <p>Bu uygulama hiçbir verinizi sunucularda toplamaz; tüm programınız cihazınızın yerel hafızasında saklanır.</p>
+      <p style="margin-top: 8px; font-size: 12px;">Yerel hafıza kullanımını onaylıyor musunuz?</p>
     </div>
     <div class="privacy-actions">
-      <button class="btn-consent-accept" onclick="acceptPrivacyConsent()">✅ Kabul Ediyorum</button>
+      <button class="btn-consent-accept" onclick="acceptPrivacyConsent()">✅ Kabul Et</button>
+      <button class="btn-consent-reject" onclick="rejectPrivacyConsent()">❌ Reddet</button>
+    </div>
+  </div>
+</div>
+
+<!-- HAZIR ŞABLON MODALI -->
+<div class="template-modal-overlay" id="templateModalOverlay">
+  <div class="template-modal-box">
+    <h3 id="templateModalTitle">✨ Hazır Paket Bulundu!</h3>
+    <p id="templateModalDesc">Bu sınav için daha önceden hazırlanmış full ders paketimiz var. Tek tıkla yüklemek ister misin?</p>
+    <div class="template-modal-btns">
+      <button class="btn-main" onclick="acceptTemplateModal()">Evet, Yükle 🚀</button>
+      <button class="btn-secondary" onclick="declineTemplateModal()">Hayır, Kendim Seçeyim</button>
     </div>
   </div>
 </div>
 
 <div class="toast-container" id="toastContainer"></div>
 
-<button class="ai-bubble-btn" id="aiBubbleBtn" onclick="toggleChatWindow()">
-  💬 <span>Sınav Koçum</span>
-</button>
+<!-- SOL ALT İKİLİ BALONCUK (POMODORO & KOÇ) -->
+<div class="floating-bubbles">
+  <button class="bubble-btn pomo" onclick="togglePomodoroPopup()">
+    ⏱️ <span>Pomodoro</span>
+  </button>
+  <button class="bubble-btn" onclick="toggleChatWindow()">
+    💬 <span>Sınav Koçum</span>
+  </button>
+</div>
 
+<!-- POMODORO AÇILIR PENCERESİ -->
+<div class="pomodoro-popup-window" id="pomodoroPopupWindow">
+  <div class="chat-header" style="margin-bottom:12px;">
+    <span>⏱️ Odaklanma Zamanlayıcısı</span>
+    <button class="chat-close-btn" onclick="togglePomodoroPopup()">✕</button>
+  </div>
+  <div class="pomo-settings">
+    <div class="pomo-input-group">
+      <label>Çalış:</label>
+      <input type="number" id="customWorkMin" value="25" min="1" max="180" onchange="playClickSound(); onPomoSettingChange()"> dk
+    </div>
+    <div class="pomo-input-group">
+      <label>Mola:</label>
+      <input type="number" id="customBreakMin" value="5" min="1" max="60" onchange="playClickSound(); onPomoSettingChange()"> dk
+    </div>
+  </div>
+  <div class="pomo-time" id="timerDisplay" style="text-align:center;">25:00</div>
+  <div class="pomo-btns" style="margin-top:10px;">
+    <button class="pomo-btn pomo-start" id="timerToggle" onclick="playClickSound(); toggleTimer()">Başlat</button>
+    <button class="pomo-btn pomo-reset" onclick="playClickSound(); resetTimer()">Sıfırla</button>
+    <button class="pomo-btn pomo-exam-btn" onclick="playClickSound(); start130MinExam()">📝 130 Dk Sınav</button>
+  </div>
+  <div class="noise-controls" style="margin-top:10px;">
+    <button class="btn-noise" id="btnRain" onclick="playClickSound(); toggleNoise('rain')">🌧️ Yağmur</button>
+    <button class="btn-noise" id="btnForest" onclick="playClickSound(); toggleNoise('forest')">🌲 Doğa</button>
+  </div>
+</div>
+
+<!-- EĞİTİM KOÇU PENCERESİ -->
 <div class="ai-chat-window" id="aiChatWindow">
   <div class="chat-header">
     <span>🤖 KPSS & Sınav Koçun</span>
@@ -512,13 +541,13 @@
   </div>
   <div class="chat-input-area">
     <input type="text" id="chatInput" placeholder="Mesajını yaz..." onkeydown="if(event.key==='Enter') sendChatMessage()">
-    <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">Gönder</button>
+    <button class="chat-send-btn" id="chatSendBtn" onclick="playClickSound(); sendChatMessage()">Gönder</button>
   </div>
 </div>
 
 <div class="container">
   <div class="top-bar-tools">
-    <button class="theme-toggle-btn" onclick="toggleTheme()">🌙 Karanlık Mod</button>
+    <button class="theme-toggle-btn" onclick="playClickSound(); toggleTheme()">🌙 Karanlık Mod</button>
   </div>
 
   <div class="countdown-wrapper">
@@ -540,8 +569,8 @@
     </div>
     <div class="auth-box">
       <div class="auth-tabs">
-        <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Giriş Yap</button>
-        <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Kayıt Ol</button>
+        <button class="auth-tab active" id="tabLogin" onclick="playClickSound(); switchAuthTab('login')">Giriş Yap</button>
+        <button class="auth-tab" id="tabRegister" onclick="playClickSound(); switchAuthTab('register')">Kayıt Ol</button>
       </div>
       <div class="form-group">
         <label for="authEmail">E-posta:</label>
@@ -551,32 +580,36 @@
         <label for="authPassword">Şifre:</label>
         <input type="password" id="authPassword" placeholder="******">
       </div>
-      <button type="button" class="btn-main" id="btnAuthSubmit" onclick="handleAuthSubmit()">Giriş Yap ➡️</button>
-      <button type="button" class="btn-secondary" onclick="loginAsGuest()">👤 Misafir Olarak Devam Et</button>
+      <button type="button" class="btn-main" id="btnAuthSubmit" onclick="playClickSound(); handleAuthSubmit()">Giriş Yap ➡️</button>
+      <button type="button" class="btn-secondary" onclick="playClickSound(); loginAsGuest()">👤 Misafir Olarak Devam Et</button>
     </div>
   </div>
 
-  <!-- MOD SEÇİMİ (YAPAY ZEKA VS MANUEL) -->
+  <!-- 2. ADIM: BİLGİLENDİRİCİ REHBER & MOD SEÇİM EKRANI -->
   <div id="modeSelectScreen" class="screen">
     <div class="header">
-      <h1>⚙️ Çalışma Planı Nasıl Oluşturulsun?</h1>
-      <p>Aşağıdaki yöntemlerden birini seçerek ajandanızı hemen kurun.</p>
+      <h1>📚 Uygulama Rehberi ve Plan Seçimi</h1>
+      <p>Hedefine en uygun çalışma yöntemini seçerek ajandanı kurmaya başla.</p>
     </div>
+    
+    <div class="guide-intro-box">
+      <h3>💡 Bu Uygulama Ne İşe Yarar?</h3>
+      <p>Sınav hazırlık sürecinde günlerini, ayarlarını, çözdüğün soru sayılarını ve deneme netlerini tek bir yerde toplaman için tasarlandı. Hiçbir verin internete yüklenmez, tamamen senin kontrolündedir.</p>
+    </div>
+
     <div class="mode-selection-box">
-      <div class="mode-card" onclick="selectMode('ai')">
+      <div class="mode-card" onclick="playClickSound(); selectMode('ai')">
         <h3>🤖 Yapay Zeka ile Oluştur</h3>
-        <p>Google Gemini yapay zekası derslerinizi analiz ederek özel program çıkarsın.</p>
+        <p>Google Gemini altyapısını kullanarak gün sayına ve derslerine özel akıllı bir program üretir.</p>
         <ul>
-          <li>API anahtarı gerektirir.</li>
-          <li>Günlük akıllı görevler sunar.</li>
+          <li><strong>Nasıl Çalışır?</strong> Ücretsiz bir API anahtarı girersin. Yapay zeka senin için günlük video görevleri planlar ve koçluk yapar.</li>
         </ul>
       </div>
-      <div class="mode-card" onclick="selectMode('manual')">
+      <div class="mode-card" onclick="playClickSound(); selectMode('manual')">
         <h3>✍️ Manuel Kendi Planımı Oluştur</h3>
-        <p>API gerektirmez. Seviyenizi seçin, ay ve günlere tıklayarak planınızı kendiniz kurun.</p>
+        <p>API anahtarı gerektirmez. Seviyeni seçip, takvimden günleri tıklayarak programını tamamen kendin kurarsın.</p>
         <ul>
-          <li>Tamamen şifresiz ve esnek.</li>
-          <li>Görsel takvimden gün seçme.</li>
+          <li><strong>Nasıl Çalışır?</strong> Sınıf/Sınav düzeyini seçersin, derslerin adını düzenleyip çalışacağın günleri görsel takvimden seçersin.</li>
         </ul>
       </div>
     </div>
@@ -589,14 +622,14 @@
       <p>Seviyenizi seçin.</p>
     </div>
     <div class="level-grid">
-      <button type="button" class="level-btn" onclick="selectStudentLevel('LGS')">LGS Öğrencisi</button>
-      <button type="button" class="level-btn" onclick="selectStudentLevel('9. Sınıf')">9. Sınıf</button>
-      <button type="button" class="level-btn" onclick="selectStudentLevel('10. Sınıf')">10. Sınıf</button>
-      <button type="button" class="level-btn" onclick="selectStudentLevel('11. Sınıf')">11. Sınıf</button>
-      <button type="button" class="level-btn" onclick="selectStudentLevel('YKS')">YKS Öğrencisi</button>
-      <button type="button" class="level-btn" onclick="selectStudentLevel('KPSS')">KPSS Öğrencisi</button>
+      <button type="button" class="level-btn" onclick="playClickSound(); selectStudentLevel('LGS')">LGS Öğrencisi</button>
+      <button type="button" class="level-btn" onclick="playClickSound(); selectStudentLevel('9. Sınıf')">9. Sınıf</button>
+      <button type="button" class="level-btn" onclick="playClickSound(); selectStudentLevel('10. Sınıf')">10. Sınıf</button>
+      <button type="button" class="level-btn" onclick="playClickSound(); selectStudentLevel('11. Sınıf')">11. Sınıf</button>
+      <button type="button" class="level-btn" onclick="playClickSound(); selectStudentLevel('YKS')">YKS Öğrencisi</button>
+      <button type="button" class="level-btn" onclick="playClickSound(); selectStudentLevel('KPSS')">KPSS Öğrencisi</button>
     </div>
-    <button type="button" class="btn-secondary" onclick="showScreen('modeSelectScreen')">⬅️ Geri Dön</button>
+    <button type="button" class="btn-secondary" onclick="playClickSound(); showScreen('modeSelectScreen')">⬅️ Geri Dön</button>
   </div>
 
   <!-- MANUEL TAKVİMLİ DERS KURULUM EKRANI -->
@@ -609,11 +642,11 @@
     <div class="form-group">
       <label>Ders Kutucukları (İsmini değiştirebilir, ay ve günlere tıklayarak çalışacağın günleri seçebilirsin):</label>
       <div id="manualCourseContainer"></div>
-      <button type="button" class="btn-add" onclick="addManualCourseBox()" style="margin-top: 8px;">+ Başka Ders Kutusu Ekle</button>
+      <button type="button" class="btn-add" onclick="playClickSound(); addManualCourseBox()" style="margin-top: 8px;">+ Başka Ders Kutusu Ekle</button>
     </div>
 
-    <button type="button" class="btn-main" onclick="generateManualPlanFinal()">✨ Seçilen Günlere Göre Programı Oluştur</button>
-    <button type="button" class="btn-secondary" onclick="showScreen('manualLevelScreen')">⬅️ Seviye Seçimine Dön</button>
+    <button type="button" class="btn-main" onclick="playClickSound(); generateManualPlanFinal()">✨ Seçilen Günlere Göre Programı Oluştur</button>
+    <button type="button" class="btn-secondary" onclick="playClickSound(); showScreen('manualLevelScreen')">⬅️ Seviye Seçimine Dön</button>
   </div>
 
   <!-- API KURULUM EKRANI -->
@@ -637,8 +670,8 @@
       <label for="initialApiKey">Gemini API Anahtarın:</label>
       <input type="password" id="initialApiKey" placeholder="API Anahtarını buraya yapıştır">
     </div>
-    <button type="button" class="btn-main" onclick="saveApiKeyAndProceed()">Anahtarı Kaydet ve Devam Et ➡️</button>
-    <button type="button" class="btn-secondary" onclick="showScreen('modeSelectScreen')">⬅️ Geri Dön</button>
+    <button type="button" class="btn-main" onclick="playClickSound(); saveApiKeyAndProceed()">Anahtarı Kaydet ve Devam Et ➡️</button>
+    <button type="button" class="btn-secondary" onclick="playClickSound(); showScreen('modeSelectScreen')">⬅️ Geri Dön</button>
   </div>
 
   <!-- ANA AJANDA -->
@@ -646,8 +679,8 @@
     <div class="user-badge-bar">
       <span>Giriş yapılan hesap: <strong id="currentUserLabel">Misafir</strong></span>
       <div class="user-actions-group">
-        <button type="button" class="btn-reset-key-top" onclick="resetApiKeyAndGoSetup()" id="btnResetApiKey">🔑 API Sıfırla</button>
-        <button type="button" class="btn-logout" onclick="logoutUser()">Çıkış Yap 🚪</button>
+        <button type="button" class="btn-reset-key-top" onclick="playClickSound(); resetApiKeyAndGoSetup()" id="btnResetApiKey">🔑 API Sıfırla</button>
+        <button type="button" class="btn-logout" onclick="playClickSound(); logoutUser()">Çıkış Yap 🚪</button>
       </div>
     </div>
 
@@ -661,7 +694,7 @@
       <div class="template-info">
         ✨ <strong>KPSS Full Paket:</strong> Tarih, Coğrafya, Matematik, Türkçe, Vatandaşlık ve Güncel Bilgiler hazır.
       </div>
-      <button type="button" class="template-btn" onclick="loadKpssTemplate()">⚡ Paketi Tek Tıkla Yükle</button>
+      <button type="button" class="template-btn" onclick="playClickSound(); loadKpssTemplate()">⚡ Paketi Tek Tıkla Yükle</button>
     </div>
 
     <div class="form-group" id="daysInputWrapper">
@@ -675,48 +708,22 @@
         <div class="row">
           <input type="text" class="course-name" placeholder="Ders Adı (Örn: KPSS Matematik)">
           <input type="text" class="course-link" placeholder="YouTube Playlist Linki">
-          <button type="button" class="btn-del" onclick="removeRow(this)">✕</button>
+          <button type="button" class="btn-del" onclick="playClickSound(); removeRow(this)">✕</button>
         </div>
       </div>
       
       <div class="youtube-action-bar">
-        <button type="button" class="btn-add" onclick="addRow()">+ Ders Ekle</button>
+        <button type="button" class="btn-add" onclick="playClickSound(); addRow()">+ Ders Ekle</button>
         <a href="https://www.youtube.com" target="_blank" rel="noopener" class="youtube-direct-btn">
           ▶ YouTube'u Aç
         </a>
       </div>
     </div>
 
-    <button type="button" class="btn-main" id="btnSubmitPlan" onclick="handleGenerateAction()">✨ Yeni Ajanda Planı Çıkar</button>
+    <button type="button" class="btn-main" id="btnSubmitPlan" onclick="playClickSound(); handleGenerateAction()">✨ Yeni Ajanda Planı Çıkar</button>
 
     <div class="loading" id="loadingText">
       ✍️ Plan hazırlanıyor, lütfen bekleyin...
-    </div>
-
-    <!-- POMODORO & 130 DK SINAV MODU -->
-    <div class="pomodoro-card">
-      <div class="pomo-settings">
-        <div class="pomo-input-group">
-          <label for="customWorkMin">Çalışma:</label>
-          <input type="number" id="customWorkMin" value="25" min="1" max="180" onchange="onPomoSettingChange()"> dk
-        </div>
-        <div class="pomo-input-group">
-          <label for="customBreakMin">Mola:</label>
-          <input type="number" id="customBreakMin" value="5" min="1" max="60" onchange="onPomoSettingChange()"> dk
-        </div>
-      </div>
-      <div class="pomo-time" id="timerDisplay">25:00</div>
-      <div class="pomo-btns">
-        <button class="pomo-btn pomo-start" id="timerToggle" onclick="toggleTimer()">Başlat</button>
-        <button class="pomo-btn pomo-reset" onclick="resetTimer()">Sıfırla</button>
-        <button class="pomo-btn pomo-exam-btn" onclick="start130MinExam()">📝 130 Dk Sınav Provası</button>
-      </div>
-
-      <div class="noise-controls">
-        <button class="btn-noise" id="btnRain" onclick="toggleNoise('rain')">🌧️ Yağmur</button>
-        <button class="btn-noise" id="btnForest" onclick="toggleNoise('forest')">🌲 Doğa</button>
-        <button class="btn-noise" id="btnWaves" onclick="toggleNoise('waves')">🌊 Sahil</button>
-      </div>
     </div>
 
     <div class="stats-container">
@@ -740,7 +747,7 @@
     <div class="net-calculator-box">
       <div class="net-header">
         <span>📊 Sınav Net Hesaplama & Deneme Takibi</span>
-        <button class="btn-add" style="margin:0; padding:4px 10px;" onclick="calculateAndSaveNet()">Neti Kaydet</button>
+        <button class="btn-add" style="margin:0; padding:4px 10px;" onclick="playClickSound(); calculateAndSaveNet()">Neti Kaydet</button>
       </div>
       <div class="net-grid">
         <div class="net-item">
@@ -782,9 +789,9 @@
       <div class="output-top" style="margin-top: 24px;">
         <h2>📌 Ajanda Görev Kartların</h2>
         <div class="top-actions">
-          <button class="btn-print" onclick="window.print()">🖨️ Yazdır / PDF</button>
-          <button class="btn-reset-key" onclick="resetApiKeyAndGoSetup()" id="btnResetKeyBottom">🔑 API Sıfırla</button>
-          <button class="btn-clear" onclick="clearSavedData()">🗑️ Planı Sıfırla</button>
+          <button class="btn-print" onclick="playClickSound(); window.print()">🖨️ Yazdır / PDF</button>
+          <button class="btn-reset-key" onclick="playClickSound(); resetApiKeyAndGoSetup()" id="btnResetKeyBottom">🔑 API Sıfırla</button>
+          <button class="btn-clear" onclick="playClickSound(); clearSavedData()">🗑️ Planı Sıfırla</button>
         </div>
       </div>
       <div class="agenda-grid" id="agendaGrid"></div>
@@ -792,7 +799,7 @@
   </div>
   
   <div class="privacy-footer-link" onclick="openPrivacyModal()">🔒 Gizlilik & Veri Güvenliği Politikası</div>
-  <div class="version-tag">Sürüm: v36 (Kararlı Koç & Kusursuz Mod Geçişleri)</div>
+  <div class="version-tag">Sürüm: v39 (Bağımsız Pomodoro Baloncuğu & Dinamik Tıklama Sesleri)</div>
 </div>
 
 <script>
@@ -802,6 +809,98 @@
   let targetCelebrated = false;
   let activeGenerationMode = 'ai';
   let selectedStudentLevel = 'YKS';
+
+  // --- DİNAMİK TIKLAMA SES MOTORU ---
+  let audioCtx = null;
+
+  function ensureAudioUnlocked() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    return audioCtx;
+  }
+
+  function playClickSound() {
+    try {
+      const ctx = ensureAudioUnlocked();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(520, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(740, ctx.currentTime + 0.06);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.13);
+    } catch(e){}
+  }
+
+  function playPlanCreatedSound() {
+    try {
+      const ctx = ensureAudioUnlocked();
+      [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const t = ctx.currentTime + (idx * 0.08);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, t);
+        gain.gain.setValueAtTime(0.2, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.45);
+      });
+    } catch(e){}
+  }
+
+  function playCoachReplySound() {
+    try {
+      const ctx = ensureAudioUnlocked();
+      const now = ctx.currentTime;
+      const osc1 = ctx.createOscillator();
+      const gain1 = ctx.createGain();
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(587.33, now);
+      gain1.gain.setValueAtTime(0.25, now);
+      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+      osc1.connect(gain1);
+      gain1.connect(ctx.destination);
+      osc1.start(now);
+      osc1.stop(now + 0.16);
+
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(880, now + 0.12);
+      gain2.gain.setValueAtTime(0.3, now + 0.12);
+      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+      osc2.connect(gain2);
+      gain2.connect(ctx.destination);
+      osc2.start(now + 0.12);
+      osc2.stop(now + 0.38);
+    } catch(e){}
+  }
+
+  function playPomodoroAlarmSound() {
+    try {
+      const ctx = ensureAudioUnlocked();
+      for (let i = 0; i < 3; i++) {
+        const t = ctx.currentTime + (i * 0.25);
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(783.99, t);
+        gain.gain.setValueAtTime(0.3, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.2);
+      }
+    } catch(e){}
+  }
 
   // ÇİFT GERİ SAYIM
   function initDualCountdowns() {
@@ -911,8 +1010,14 @@
   function acceptPrivacyConsent() {
     localStorage.setItem('app_user_privacy_consent', 'accepted');
     document.getElementById('privacyOverlay').classList.remove('active');
-    playDinkSound();
+    playClickSound();
     showToast('🛡️ Tercihleriniz kaydedildi!');
+  }
+
+  function rejectPrivacyConsent() {
+    localStorage.setItem('app_user_privacy_consent', 'rejected');
+    document.getElementById('privacyOverlay').classList.remove('active');
+    showToast('🛡️ Çerezler reddedildi.');
   }
 
   function openPrivacyModal() {
@@ -928,6 +1033,14 @@
     { name: "KPSS Güncel Bilgiler", link: "https://youtube.com/playlist?list=PL8xiaE-wCWlYjIVE5G7WX3-JpqzitzWAA&si=M5x52H5JJHD8Wx36" }
   ];
 
+  const LGS_TEMPLATE_COURSES = [
+    { name: "LGS Matematik", link: "" },
+    { name: "LGS Türkçe", link: "" },
+    { name: "LGS Fen Bilimleri", link: "" },
+    { name: "LGS T.C. İnkılap Tarihi", link: "" },
+    { name: "LGS İngilizce", link: "" }
+  ];
+
   function loadKpssTemplate() {
     const list = document.getElementById('courseList');
     list.innerHTML = '';
@@ -937,12 +1050,12 @@
       div.innerHTML = `
         <input type="text" class="course-name" value="${c.name}">
         <input type="text" class="course-link" value="${c.link}">
-        <button type="button" class="btn-del" onclick="removeRow(this)">✕</button>
+        <button type="button" class="btn-del" onclick="playClickSound(); removeRow(this)">✕</button>
       `;
       list.appendChild(div);
     });
     if (!document.getElementById('days').value) document.getElementById('days').value = 46;
-    playDinkSound();
+    playClickSound();
     showToast('⚡ 6 Derslik KPSS Paketi yüklendi!');
   }
 
@@ -951,163 +1064,6 @@
     const isDark = document.body.classList.contains('dark-mode');
     localStorage.setItem('theme_preference', isDark ? 'dark' : 'light');
     document.querySelector('.theme-toggle-btn').textContent = isDark ? '☀️ Gündüz Modu' : '🌙 Karanlık Mod';
-  }
-
-  // --- AKOR SES MOTORU ---
-  let audioCtx = null;
-  let activeNoiseSource = null;
-  let activeNoiseGain = null;
-  let currentNoiseType = null;
-
-  function ensureAudioUnlocked() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    return audioCtx;
-  }
-
-  function playDinkSound() {
-    try {
-      const ctx = ensureAudioUnlocked();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(440, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(660, ctx.currentTime + 0.1);
-      gain.gain.setValueAtTime(0.25, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.24);
-    } catch(e){}
-  }
-
-  function playPlanCreatedSound() {
-    try {
-      const ctx = ensureAudioUnlocked();
-      [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        const t = ctx.currentTime + (idx * 0.08);
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, t);
-        gain.gain.setValueAtTime(0.2, t);
-        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(t);
-        osc.stop(t + 0.45);
-      });
-    } catch(e){}
-  }
-
-  function playCoachReplySound() {
-    try {
-      const ctx = ensureAudioUnlocked();
-      const now = ctx.currentTime;
-      const osc1 = ctx.createOscillator();
-      const gain1 = ctx.createGain();
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(587.33, now);
-      gain1.gain.setValueAtTime(0.25, now);
-      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-      osc1.connect(gain1);
-      gain1.connect(ctx.destination);
-      osc1.start(now);
-      osc1.stop(now + 0.16);
-
-      const osc2 = ctx.createOscillator();
-      const gain2 = ctx.createGain();
-      osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(880, now + 0.12);
-      gain2.gain.setValueAtTime(0.3, now + 0.12);
-      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
-      osc2.connect(gain2);
-      gain2.connect(ctx.destination);
-      osc2.start(now + 0.12);
-      osc2.stop(now + 0.38);
-    } catch(e){}
-  }
-
-  function playPomodoroAlarmSound() {
-    try {
-      const ctx = ensureAudioUnlocked();
-      for (let i = 0; i < 3; i++) {
-        const t = ctx.currentTime + (i * 0.25);
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(783.99, t);
-        gain.gain.setValueAtTime(0.3, t);
-        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(t);
-        osc.stop(t + 0.2);
-      }
-    } catch(e){}
-  }
-
-  function toggleNoise(type) {
-    const ctx = ensureAudioUnlocked();
-    if (currentNoiseType === type) {
-      stopNoise();
-      return;
-    }
-    stopNoise();
-    currentNoiseType = type;
-
-    const btn = document.getElementById(`btn${type.charAt(0).toUpperCase() + type.slice(1)}`);
-    if (btn) btn.classList.add('active');
-
-    const bufferSize = ctx.sampleRate;
-    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const output = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) output[i] = Math.random() * 2 - 1;
-
-    activeNoiseSource = ctx.createBufferSource();
-    activeNoiseSource.buffer = noiseBuffer;
-    activeNoiseSource.loop = true;
-
-    const filter = ctx.createBiquadFilter();
-    activeNoiseGain = ctx.createGain();
-
-    if (type === 'rain') {
-      filter.type = 'bandpass';
-      filter.frequency.value = 800;
-      activeNoiseGain.gain.value = 0.05;
-    } else if (type === 'forest') {
-      filter.type = 'lowpass';
-      filter.frequency.value = 320;
-      activeNoiseGain.gain.value = 0.04;
-    } else if (type === 'waves') {
-      filter.type = 'lowpass';
-      filter.frequency.value = 240;
-      activeNoiseGain.gain.value = 0.06;
-    }
-
-    activeNoiseSource.connect(filter);
-    filter.connect(activeNoiseGain);
-    activeNoiseGain.connect(ctx.destination);
-    activeNoiseSource.start();
-  }
-
-  function stopNoise() {
-    if (activeNoiseSource) {
-      try { activeNoiseSource.stop(); activeNoiseSource.disconnect(); } catch(e){}
-      activeNoiseSource = null;
-    }
-    currentNoiseType = null;
-    document.querySelectorAll('.btn-noise').forEach(b => b.classList.remove('active'));
-  }
-
-  function showToast(msg) {
-    const container = document.getElementById('toastContainer');
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = msg;
-    container.appendChild(toast);
-    setTimeout(() => toast.remove(), 2500);
   }
 
   // --- API YÖNETİMİ ---
@@ -1135,8 +1091,15 @@
     }
   }
 
-  // KOÇLUK SOHBET (GÜNCELLENMİŞ STABİL GEMINI 3.6 FLASH)
+  // BALONCUKLAR (POMODORO & KOÇ)
+  function togglePomodoroPopup() {
+    playClickSound();
+    const win = document.getElementById('pomodoroPopupWindow');
+    win.classList.toggle('open');
+  }
+
   function toggleChatWindow() {
+    playClickSound();
     const win = document.getElementById('aiChatWindow');
     win.classList.toggle('open');
     if (win.classList.contains('open')) {
@@ -1187,7 +1150,7 @@
     const lastNet = localStorage.getItem(getUserStorageKey('last_saved_net')) || "Girilmedi";
     const promptText = `Sen profesyonel bir koçusun. Öğrenci düzeyi: ${selectedStudentLevel}, Son net: ${lastNet}. Soru: "${msg}". 2-3 cümlelik net tavsiye ver.`;
 
-    const candidateModels = ["gemini-3.6-flash", "gemini-1.5-flash", "gemini-2.5-flash"];
+    const candidateModels = ["gemini-1.5-flash", "gemini-2.5-flash", "gemini-3.6-flash"];
     let success = false;
     let rawErrorLogs = [];
 
@@ -1218,7 +1181,7 @@
     }
 
     if (!success) {
-      botDiv.innerHTML = `⚠️ <strong>Yanıt Alınamadı:</strong><br><small>${rawErrorLogs[0] || 'Kota sınırına takılmış olabilirsiniz.'}</small>`;
+      botDiv.innerHTML = `⚠️ <strong>İstek Sınırı (Kota) Aşıldı:</strong><br><small>Lütfen 30 saniye bekleyip tekrar deneyin.</small>`;
     }
 
     sendBtn.disabled = false;
@@ -1327,15 +1290,80 @@
 
   function selectStudentLevel(level) {
     selectedStudentLevel = level;
-    document.getElementById('studentLevelTitleText').innerHTML = `Seçilen Düzey: <strong>${level}</strong>`;
     
+    if (level === 'KPSS' || level === 'LGS') {
+      document.getElementById('templateModalTitle').textContent = `✨ ${level} İçin Hazır Paket Bulundu!`;
+      document.getElementById('templateModalDesc').textContent = `Bu sınav için daha önceden hazırlanmış full ders paketimiz var. Tek tıkla yüklemek ister misin?`;
+      document.getElementById('templateModalOverlay').classList.add('active');
+      return;
+    }
+
+    proceedToManualBuilder(level);
+  }
+
+  function acceptTemplateModal() {
+    document.getElementById('templateModalOverlay').classList.remove('active');
+    playClickSound();
+    if (selectedStudentLevel === 'KPSS') {
+      loadKpssTemplateManual(KPSS_TEMPLATE_COURSES);
+    } else if (selectedStudentLevel === 'LGS') {
+      loadKpssTemplateManual(LGS_TEMPLATE_COURSES);
+    }
+  }
+
+  function declineTemplateModal() {
+    document.getElementById('templateModalOverlay').classList.remove('active');
+    playClickSound();
+    proceedToManualBuilder(selectedStudentLevel);
+  }
+
+  function proceedToManualBuilder(level) {
+    document.getElementById('studentLevelTitleText').innerHTML = `Seçilen Düzey: <strong>${level}</strong>`;
     const container = document.getElementById('manualCourseContainer');
     container.innerHTML = '';
     
-    const defaultCourses = level === 'LGS' ? ['Matematik', 'Türkçe', 'İnkılap', 'Fen Bilimleri', 'İngilizce'] : ['Matematik', 'Türkçe', 'Tarih', 'Coğrafya', 'Fizik'];
+    const defaultCourses = level === 'LGS' ? ['Matematik', 'Türkçe', 'İnkılap', 'Fen Bilimleri', 'İngilizce'] : level === 'KPSS' ? ['Tarih', 'Coğrafya', 'Matematik', 'Türkçe', 'Vatandaşlık'] : ['Matematik', 'Türkçe', 'Tarih', 'Coğrafya', 'Fizik'];
     defaultCourses.forEach(c => addManualCourseBox(c));
 
     showScreen('manualBuilderScreen');
+  }
+
+  function loadKpssTemplateManual(templateArr) {
+    document.getElementById('studentLevelTitleText').innerHTML = `Seçilen Düzey: <strong>${selectedStudentLevel} (Hazır Paket)</strong>`;
+    const container = document.getElementById('manualCourseContainer');
+    container.innerHTML = '';
+    
+    templateArr.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'manual-course-box';
+      let daysCellsHtml = '';
+      for (let i = 1; i <= 31; i++) {
+        daysCellsHtml += `<div class="day-cell selected" onclick="playClickSound(); toggleManualDay(this)" data-day="${i}">${i}</div>`;
+      }
+      div.innerHTML = `
+        <div class="manual-course-top">
+          <input type="text" class="manual-c-name" value="${c.name}">
+          <button type="button" class="btn-del" onclick="playClickSound(); this.closest('.manual-course-box').remove()">✕</button>
+        </div>
+        <div class="calendar-picker-area">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <label style="font-size:12px; margin:0; font-weight:700;">Çalışılacak Ay:</label>
+            <select class="manual-c-month" style="width:140px; padding:4px 8px; font-size:12px;">
+              <option value="Ekim">Ekim</option>
+              <option value="Kasım">Kasım</option>
+              <option value="Aralık">Aralık</option>
+              <option value="Ocak">Ocak</option>
+              <option value="Şubat">Şubat</option>
+            </select>
+          </div>
+          <label style="font-size:12px; margin-bottom:4px; font-weight:700;">Çalışılacak Günler (Hazır seçildi):</label>
+          <div class="days-grid">${daysCellsHtml}</div>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+    showScreen('manualBuilderScreen');
+    showToast(`⚡ ${selectedStudentLevel} Hazır Paketi Takvime Aktarıldı!`);
   }
 
   function addManualCourseBox(defaultName = 'Yeni Ders') {
@@ -1345,13 +1373,13 @@
     
     let daysCellsHtml = '';
     for (let i = 1; i <= 31; i++) {
-      daysCellsHtml += `<div class="day-cell" onclick="toggleManualDay(this)" data-day="${i}">${i}</div>`;
+      daysCellsHtml += `<div class="day-cell" onclick="playClickSound(); toggleManualDay(this)" data-day="${i}">${i}</div>`;
     }
 
     div.innerHTML = `
       <div class="manual-course-top">
-        <input type="text" class="manual-c-name" value="${defaultName}" placeholder="Ders Adı (Tıklayıp değiştirebilirsin)">
-        <button type="button" class="btn-del" onclick="this.closest('.manual-course-box').remove()">✕</button>
+        <input type="text" class="manual-c-name" value="${defaultName}" placeholder="Ders Adı (Değiştirebilirsin)">
+        <button type="button" class="btn-del" onclick="playClickSound(); this.closest('.manual-course-box').remove()">✕</button>
       </div>
       <div class="calendar-picker-area">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
@@ -1372,9 +1400,7 @@
           </select>
         </div>
         <label style="font-size:12px; margin-bottom:4px; font-weight:700;">Çalışılacak Günleri Seç (Tıkla):</label>
-        <div class="days-grid">
-          ${daysCellsHtml}
-        </div>
+        <div class="days-grid">${daysCellsHtml}</div>
       </div>
     `;
     container.appendChild(div);
@@ -1496,7 +1522,7 @@
     div.innerHTML = `
       <input type="text" class="course-name" placeholder="Ders Adı">
       <input type="text" class="course-link" placeholder="YouTube Playlist Linki">
-      <button type="button" class="btn-del" onclick="removeRow(this)">✕</button>
+      <button type="button" class="btn-del" onclick="playClickSound(); removeRow(this)">✕</button>
     `;
     document.getElementById('courseList').appendChild(div);
   }
@@ -1546,7 +1572,7 @@ JSON formatında tam plan üret:
 [{"gun": 1, "odak": "Matematik", "gorevler": [{"baslik": "1. Video izle", "link": "https://..."}]}]
 Sadece geçerli JSON ver.`;
 
-    const candidateModels = ["gemini-3.6-flash", "gemini-1.5-flash", "gemini-2.5-flash"];
+    const candidateModels = ["gemini-1.5-flash", "gemini-2.5-flash", "gemini-3.6-flash"];
     let success = false;
     let lastError = "";
 
@@ -1607,7 +1633,7 @@ Sadece geçerli JSON ver.`;
         return `
           <li class="task-item" id="task_${item.gun}_${idx}">
             <div class="task-row">
-              <input type="checkbox" data-id="chk_${item.gun}_${idx}" onchange="handleCheck(this)">
+              <input type="checkbox" data-id="chk_${item.gun}_${idx}" onchange="playClickSound(); handleCheck(this)">
               <span class="task-title">${title}</span>
             </div>
             ${link ? `<a href="${link}" target="_blank" rel="noopener" class="video-link-btn">▶ Videoyu Aç</a>` : ''}
@@ -1640,7 +1666,6 @@ Sadece geçerli JSON ver.`;
     const parent = chk.closest('.task-item');
     if (chk.checked) {
       parent.classList.add('done');
-      playDinkSound();
       showToast('🎉 Harika! Görev tamamlandı.');
     } else {
       parent.classList.remove('done');
@@ -1770,7 +1795,7 @@ Sadece geçerli JSON ver.`;
     isWorkMode = true;
     timeLeft = 130 * 60;
     document.getElementById('timerToggle').textContent = 'Durdur';
-    showToast('📝 130 Dakikalık Sınav Provası Başladı! Başarılar!');
+    showToast('📝 130 Dakikalık Sınav Provası Başladı!');
     runTimerInterval();
   }
 

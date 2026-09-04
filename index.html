@@ -112,7 +112,6 @@
       box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.12);
     }
 
-    /* HAZIR PAKET BANNER */
     .template-banner {
       background: #f0fdf4;
       border: 1.5px dashed #22c55e;
@@ -457,7 +456,7 @@
       <p>Hedef gününü ve derslerini gir; programın videolarla bağlansın.</p>
     </div>
 
-    <!-- 6 DERSLİK KPSS PAKETİ BANNERI -->
+    <!-- 6 DERSLİK KPSS PAKETİ -->
     <div class="template-banner">
       <div class="template-info">
         ✨ <strong>KPSS Full Paket:</strong> Tarih, Coğrafya, Matematik, Türkçe, Vatandaşlık ve Güncel Bilgiler hazır.
@@ -488,7 +487,7 @@
       ✍️ Videolar günlere paylaştırılıyor, ajandan hazırlanıyor...
     </div>
 
-    <!-- POMODORO VE DOĞAL SESLER -->
+    <!-- POMODORO -->
     <div class="pomodoro-card">
       <div class="pomo-settings">
         <div class="pomo-input-group">
@@ -540,14 +539,13 @@
     </div>
   </div>
   
-  <div class="version-tag">Sürüm: v18 (KPSS 6 Ders Full Paket + Güncel Bilgiler)</div>
+  <div class="version-tag">Sürüm: v19 (Özel Ses Efektleri: Plan Fanfarı, Koç Mesaj Sesi, Pomodoro Alarmı)</div>
 </div>
 
 <script>
   let currentUser = null;
   let currentAuthMode = 'login';
 
-  // 6 DERSLİK FULL KPSS PAKETİ
   const KPSS_TEMPLATE_COURSES = [
     { name: "KPSS Tarih", link: "https://youtube.com/playlist?list=PL5kIOunpmSBM_vApgXxIQZx5PnegGbWFF&si=fbK1K6Qe5fCo-skL" },
     { name: "KPSS Coğrafya", link: "https://youtube.com/playlist?list=PLnBnugScc-7ImTQrm8DvvMFHByN5Pg31V&si=P4Q8ZCiMypVorCQm" },
@@ -615,7 +613,7 @@
     document.querySelector('.theme-toggle-btn').textContent = isDark ? '☀️ Gündüz Modu' : '🌙 Karanlık Mod';
   }
 
-  // DOĞAL SES SENTEZLEYİCİ
+  // --- GELİŞMİŞ SES MOTORU ---
   let audioCtx = null;
   let activeNoiseHandles = [];
   let currentNoise = null;
@@ -629,6 +627,7 @@
     return audioCtx;
   }
 
+  // 1. Görev Tikleme Sesi (Dınk)
   function playDinkSound() {
     const ctx = getAudioContext();
     const osc = ctx.createOscillator();
@@ -642,6 +641,63 @@
     gain.connect(ctx.destination);
     osc.start();
     osc.stop(ctx.currentTime + 0.35);
+  }
+
+  // 2. Plan Başarıyla Oluşunca Çalan Zafer Akoru (Do - Mi - Sol)
+  function playPlanCreatedSound() {
+    const ctx = getAudioContext();
+    const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+    notes.forEach((freq, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const startTime = ctx.currentTime + (idx * 0.12);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, startTime);
+      gain.gain.setValueAtTime(0.001, startTime);
+      gain.gain.linearRampToValueAtTime(0.25, startTime + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(startTime);
+      osc.stop(startTime + 0.45);
+    });
+  }
+
+  // 3. Sınav Koçu Yanıt Verince Çalan Mesaj Bildirim Sesi (Pop-Tone)
+  function playCoachReplySound() {
+    const ctx = getAudioContext();
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(600, now);
+    osc.frequency.exponentialRampToValueAtTime(1050, now + 0.12);
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(0.2, now + 0.03);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.3);
+  }
+
+  // 4. Pomodoro Süresi Dolunca Çalan Kısa Alarm (3 Kere Bip-Bip)
+  function playPomodoroAlarmSound() {
+    const ctx = getAudioContext();
+    for (let i = 0; i < 3; i++) {
+      const startTime = ctx.currentTime + (i * 0.22);
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(880, startTime); // A5
+      gain.gain.setValueAtTime(0.001, startTime);
+      gain.gain.linearRampToValueAtTime(0.18, startTime + 0.02);
+      gain.gain.linearRampToValueAtTime(0.001, startTime + 0.14);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(startTime);
+      osc.stop(startTime + 0.16);
+    }
   }
 
   function triggerSeagullSound() {
@@ -923,6 +979,7 @@ KURALLAR:
         const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
         if (reply) {
           botDiv.textContent = reply;
+          playCoachReplySound(); // Koç dönüş yaptığında çalan bildirim sesi
           success = true;
           break;
         }
@@ -1174,6 +1231,8 @@ Eğer link verilmemişse "link" alanını boş string ("") bırak. Yalnızca ge�
         renderCards(planData);
         updateProgress();
         output.style.display = 'block';
+        playPlanCreatedSound(); // Plan olunca çalan zafer fanfarı
+        showToast('🚀 Çalışma planın başarıyla oluşturuldu!');
         success = true;
         break;
       } catch (err) {
@@ -1366,7 +1425,7 @@ Eğer link verilmemişse "link" alanını boş string ("") bırak. Yalnızca ge�
           clearInterval(timerInterval);
           isRunning = false;
           btn.textContent = 'Başlat';
-          playDinkSound();
+          playPomodoroAlarmSound(); // Pomodoro bitiş alarmı (bip-bip-bip)
 
           if (isWorkMode) {
             showToast('☕ Çalışma bitti, mola vakti!');

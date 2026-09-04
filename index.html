@@ -82,7 +82,6 @@
     .header h1 { font-size: 24px; font-weight: 800; color: var(--text); }
     .header p { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
 
-    /* GERİ SAYIM SAYACI */
     .countdown-card {
       background: linear-gradient(135deg, var(--primary), #6366f1);
       color: white;
@@ -188,7 +187,7 @@
 
     .loading { display: none; text-align: center; margin-top: 20px; padding: 16px; background: #eef2ff; border-radius: 10px; color: var(--primary); font-weight: 600; font-size: 14px; }
 
-    /* POMODORO VE ARKA PLAN SESLERİ */
+    /* POMODORO */
     .pomodoro-card {
       background: var(--paper);
       border: 1.5px solid var(--paper-border);
@@ -209,42 +208,14 @@
     .pomo-start { background: var(--primary); color: white; }
     .pomo-reset { background: #e2e8f0; color: #475569; }
 
-    .noise-controls {
-      display: flex;
-      gap: 8px;
-      margin-top: 6px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .btn-noise {
-      background: none;
-      border: 1px solid var(--paper-border);
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      cursor: pointer;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
+    .noise-controls { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; justify-content: center; }
+    .btn-noise { background: none; border: 1px solid var(--paper-border); padding: 5px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; color: var(--text-muted); font-weight: 600; }
     .btn-noise.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-    /* İLERLEME VE SORU SAYACI */
-    .stats-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 20px;
-    }
-    .stat-box {
-      background: var(--paper);
-      padding: 14px;
-      border-radius: 10px;
-      border: 1px solid var(--paper-border);
-      text-align: center;
-    }
+    .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+    .stat-box { background: var(--paper); padding: 14px; border-radius: 10px; border: 1px solid var(--paper-border); text-align: center; }
     .stat-num { font-size: 20px; font-weight: 800; color: var(--primary); }
     .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-
     .progress-bar-bg { width: 100%; height: 10px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin-top: 8px; }
     .progress-bar-fill { height: 100%; width: 0%; background: #10b981; transition: width 0.3s ease; }
 
@@ -256,75 +227,100 @@
     .btn-clear { background: #ef4444; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
     .btn-change-key { background: #64748b; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
 
-    /* AJANDA KARTLARI */
     .agenda-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
-    .agenda-card {
-      background-color: var(--paper);
-      border: 1px solid var(--paper-border);
-      border-left: 5px solid #ef4444;
-      border-radius: 10px;
-      padding: 16px 14px;
-      box-shadow: 2px 3px 6px rgba(0,0,0,0.04);
-      position: relative;
-    }
+    .agenda-card { background-color: var(--paper); border: 1px solid var(--paper-border); border-left: 5px solid #ef4444; border-radius: 10px; padding: 16px 14px; box-shadow: 2px 3px 6px rgba(0,0,0,0.04); position: relative; }
     .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1.5px solid var(--paper-border); }
     .card-title { font-weight: 800; color: var(--text); font-size: 15px; }
     .card-badge { font-size: 11px; background: var(--highlight); color: #854d0e; padding: 3px 8px; border-radius: 4px; font-weight: 700; }
 
     .task-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .task-item {
-      font-size: 13px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      color: var(--text);
-      background: var(--card-bg);
-      padding: 8px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--paper-border);
-    }
+    .task-item { font-size: 13px; display: flex; flex-direction: column; gap: 5px; color: var(--text); background: var(--card-bg); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--paper-border); }
     .task-row { display: flex; align-items: flex-start; gap: 8px; }
     .task-item.done .task-title { text-decoration: line-through; opacity: 0.45; }
     .task-item input[type="checkbox"] { width: auto; margin-top: 3px; cursor: pointer; accent-color: var(--primary); }
     
-    .video-link-btn {
-      align-self: flex-start;
-      margin-left: 24px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: #fee2e2;
-      color: #dc2626;
-      text-decoration: none;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-    }
+    .video-link-btn { align-self: flex-start; margin-left: 24px; display: inline-flex; align-items: center; gap: 4px; background: #fee2e2; color: #dc2626; text-decoration: none; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
 
-    /* KART ALTI SORU VE NOT ALANI */
-    .card-footer {
-      margin-top: 14px;
-      padding-top: 10px;
-      border-top: 1px dashed var(--paper-border);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .card-footer { margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--paper-border); display: flex; flex-direction: column; gap: 8px; }
     .q-tracker { display: flex; gap: 8px; align-items: center; font-size: 12px; font-weight: 600; }
     .q-tracker input { width: 55px; padding: 4px 6px; text-align: center; font-size: 12px; }
-    .card-note {
-      font-size: 12px;
-      padding: 6px;
-      border-radius: 6px;
-      resize: vertical;
-      min-height: 40px;
-      background: var(--card-bg);
-    }
+    .card-note { font-size: 12px; padding: 6px; border-radius: 6px; resize: vertical; min-height: 40px; background: var(--card-bg); }
 
     .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
     .toast { background: #10b981; color: white; padding: 12px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.15); animation: slideIn 0.3s ease; }
     @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    /* SOL ORTA / ALT YAPAY ZEKA SOHBET BALONCUĞU */
+    .ai-bubble-btn {
+      position: fixed;
+      left: 20px;
+      bottom: 25px;
+      background: linear-gradient(135deg, var(--primary), #ec4899);
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 9990;
+      transition: transform 0.2s;
+    }
+    .ai-bubble-btn:hover { transform: scale(1.05); }
+
+    .ai-chat-window {
+      position: fixed;
+      left: 20px;
+      bottom: 80px;
+      width: 340px;
+      max-width: calc(100vw - 40px);
+      height: 440px;
+      background: var(--card-bg);
+      border: 1.5px solid var(--paper-border);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      display: none;
+      flex-direction: column;
+      z-index: 9991;
+      overflow: hidden;
+    }
+    .ai-chat-window.open { display: flex; }
+    .chat-header {
+      background: var(--primary);
+      color: white;
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-close-btn { background: none; border: none; color: white; font-size: 18px; cursor: pointer; }
+    .chat-messages {
+      flex: 1;
+      padding: 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13px;
+    }
+    .chat-msg { padding: 9px 12px; border-radius: 12px; max-width: 85%; line-height: 1.4; }
+    .chat-msg.bot { background: var(--paper); border: 1px solid var(--paper-border); align-self: flex-start; color: var(--text); }
+    .chat-msg.user { background: var(--primary); color: white; align-self: flex-end; }
+    .chat-input-area {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid var(--paper-border);
+      background: var(--paper);
+      gap: 6px;
+    }
+    .chat-input-area input { flex: 1; padding: 8px 12px; font-size: 13px; }
+    .chat-send-btn { background: var(--primary); color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; }
 
     .version-tag { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 24px; }
   </style>
@@ -333,12 +329,32 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
+<!-- YAPAY ZEKA REHBER SOHBET BALONCUĞU -->
+<button class="ai-bubble-btn" id="aiBubbleBtn" onclick="toggleChatWindow()">
+  💬 <span>Sınav Koçum</span>
+</button>
+
+<div class="ai-chat-window" id="aiChatWindow">
+  <div class="chat-header">
+    <span>🤖 KPSS & Sınav Koçun</span>
+    <button class="chat-close-btn" onclick="toggleChatWindow()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-msg bot">
+      Selam! Çalışma planını, çözdüğün soruları ve notlarını buradan görüyorum. Aklına takılan dersleri, yapamadığın konuları sorabilirsin!
+    </div>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" id="chatInput" placeholder="Soru sor veya durumunu yaz..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+    <button class="chat-send-btn" onclick="sendChatMessage()">Gönder</button>
+  </div>
+</div>
+
 <div class="container">
   <div class="top-bar-tools">
     <button class="theme-toggle-btn" onclick="toggleTheme()">🌙 Karanlık Mod</button>
   </div>
 
-  <!-- GERİ SAYIM SAYACI -->
   <div class="countdown-card" id="countdownCard">
     <div class="countdown-title">🎯 KPSS HEDEF SINAVINA KALAN SÜRE</div>
     <div class="countdown-timer" id="countdownTimer">Hesaplanıyor...</div>
@@ -433,7 +449,7 @@
       ✍️ Videolar günlere paylaştırılıyor, ajandan hazırlanıyor...
     </div>
 
-    <!-- POMODORO VE ARKA PLAN SESLERİ -->
+    <!-- POMODORO VE AYRIŞTIRILMIŞ ORTAM SESLERİ -->
     <div class="pomodoro-card">
       <div class="pomo-settings">
         <div class="pomo-input-group">
@@ -451,7 +467,6 @@
         <button class="pomo-btn pomo-reset" onclick="resetTimer()">Sıfırla</button>
       </div>
 
-      <!-- Ortam Sesleri -->
       <div class="noise-controls">
         <button class="btn-noise" id="btnRain" onclick="toggleNoise('rain')">🌧️ Yağmur</button>
         <button class="btn-noise" id="btnCafe" onclick="toggleNoise('cafe')">☕ Kafe</button>
@@ -459,7 +474,6 @@
       </div>
     </div>
 
-    <!-- İSTATİSTİKLER -->
     <div class="stats-container">
       <div class="stat-box">
         <div class="stat-num" id="progressPctText">%0</div>
@@ -487,14 +501,13 @@
     </div>
   </div>
   
-  <div class="version-tag">Sürüm: v13 Ultimate (Countdown + Dark Mode + Ortam Sesleri + Notlar)</div>
+  <div class="version-tag">Sürüm: v14 (Koç Sohbet Baloncuğu + Düzeltilmiş Sesler)</div>
 </div>
 
 <script>
   let currentUser = null;
   let currentAuthMode = 'login';
 
-  // 1. GERİ SAYIM SAYACI (Hedef: 46 gün sonra)
   function initCountdown() {
     let targetDate = localStorage.getItem('exam_target_date');
     if (!targetDate) {
@@ -523,7 +536,6 @@
     updateTimer();
   }
 
-  // 2. TEMA DEĞİŞTİRİCİ
   function toggleTheme() {
     document.body.classList.toggle('dark-mode');
     const isDark = document.body.classList.contains('dark-mode');
@@ -531,7 +543,7 @@
     document.querySelector('.theme-toggle-btn').textContent = isDark ? '☀️ Gündüz Modu' : '🌙 Karanlık Mod';
   }
 
-  // 3. SES EFEKTLERİ & ARKA PLAN ORTAM SESLERİ
+  // SES MOTORU (YAĞMUR VE KAFE SESLERİ AYRILDI)
   let audioCtx = null;
   let activeNoiseNode = null;
   let currentNoise = null;
@@ -578,25 +590,36 @@
     whiteNoise.buffer = noiseBuffer;
     whiteNoise.loop = true;
 
-    const filter = ctx.createBiquadFilter();
+    const gain = ctx.createGain();
+
     if (type === 'rain') {
-      filter.type = 'lowpass';
-      filter.frequency.value = 800;
+      // Pıtır pıtır gerçek yağmur: Düşük frekanslı lowpass filtresi
+      const lowpass = ctx.createBiquadFilter();
+      lowpass.type = 'lowpass';
+      lowpass.frequency.value = 950;
+      gain.gain.value = 0.05;
+      whiteNoise.connect(lowpass);
+      lowpass.connect(gain);
     } else if (type === 'cafe') {
-      filter.type = 'bandpass';
-      filter.frequency.value = 500;
+      // Kafe / Kütüphane mırıltısı: Orta frekans bandpass filtresi
+      const bandpass = ctx.createBiquadFilter();
+      bandpass.type = 'bandpass';
+      bandpass.frequency.value = 420;
+      bandpass.Q.value = 1.8;
+      gain.gain.value = 0.08;
+      whiteNoise.connect(bandpass);
+      bandpass.connect(gain);
     } else if (type === 'waves') {
-      filter.type = 'lowpass';
-      filter.frequency.value = 300;
+      // Dalga: Çok derin alçak geçiren filtre
+      const lowpass = ctx.createBiquadFilter();
+      lowpass.type = 'lowpass';
+      lowpass.frequency.value = 240;
+      gain.gain.value = 0.09;
+      whiteNoise.connect(lowpass);
+      lowpass.connect(gain);
     }
 
-    const gain = ctx.createGain();
-    gain.gain.value = 0.06;
-
-    whiteNoise.connect(filter);
-    filter.connect(gain);
     gain.connect(ctx.destination);
-
     whiteNoise.start();
     activeNoiseNode = { source: whiteNoise, gain: gain };
   }
@@ -619,7 +642,70 @@
     setTimeout(() => toast.remove(), 2500);
   }
 
-  // 4. BAŞLANGIÇ YÜKLEMESİ
+  // KOÇLUK SOHBET PENCERESİ FONKSİYONLARI
+  function toggleChatWindow() {
+    const win = document.getElementById('aiChatWindow');
+    win.classList.toggle('open');
+  }
+
+  async function sendChatMessage() {
+    const input = document.getElementById('chatInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    const messagesBox = document.getElementById('chatMessages');
+
+    // Kullanıcı mesajını ekrana yaz
+    const userDiv = document.createElement('div');
+    userDiv.className = 'chat-msg user';
+    userDiv.textContent = msg;
+    messagesBox.appendChild(userDiv);
+    input.value = '';
+    messagesBox.scrollTop = messagesBox.scrollHeight;
+
+    // Bot bekliyor balonu
+    const botDiv = document.createElement('div');
+    botDiv.className = 'chat-msg bot';
+    botDiv.textContent = 'Düşünüyorum...';
+    messagesBox.appendChild(botDiv);
+    messagesBox.scrollTop = messagesBox.scrollHeight;
+
+    const apiKey = localStorage.getItem(getUserStorageKey('gemini_api_key'));
+    if (!apiKey) {
+      botDiv.textContent = "API anahtarın bulunamadı. Lütfen önce anahtarını kaydet.";
+      return;
+    }
+
+    // Mevcut programı ve ilerlemeyi oku
+    const currentPlan = localStorage.getItem(getUserStorageKey('study_plan')) || "Henüz plan çıkarılmadı.";
+    const questionsData = localStorage.getItem(getUserStorageKey('questions_and_notes')) || "Soru verisi yok.";
+
+    const systemPrompt = `Sen öğrencinin cana yakın, profesyonel KPSS ve sınav koçusun.
+Öğrencinin güncel çalışma planı:
+${currentPlan}
+
+Öğrencinin çözdüğü soru ve tuttuğu notlar:
+${questionsData}
+
+Kullanıcı sana şunu sordu: "${msg}"
+Öğrencinin planını, netlerini ve durumunu göz önüne alarak motive edici, net, somut ve kısa bir rehberlik cevabı ver.`;
+
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents: [{ parts: [{ text: systemPrompt }] }] })
+      });
+      const data = await response.json();
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      botDiv.textContent = reply || "Bir sorun oluştu, tekrar yazar mısın?";
+    } catch(err) {
+      botDiv.textContent = "Bağlantı hatası: " + err.message;
+    }
+    messagesBox.scrollTop = messagesBox.scrollHeight;
+  }
+
+  // BAŞLANGIÇ
   window.addEventListener('DOMContentLoaded', () => {
     initCountdown();
     if (localStorage.getItem('theme_preference') === 'dark') {
@@ -998,7 +1084,7 @@ Eğer link verilmemişse "link" alanını boş string ("") bırak. Yalnızca ge�
     }
   }
 
-  // 5. POMODORO MANTIĞI
+  // POMODORO MANTIĞI
   let timerInterval = null;
   let isRunning = false;
   let isWorkMode = true;

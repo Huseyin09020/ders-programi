@@ -141,7 +141,7 @@
       background: var(--paper);
       padding: 24px;
       border-radius: 12px;
-      border: 1px solid var(--paper-border);
+      border: 1.5px solid var(--paper-border);
     }
     .auth-tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1.5px solid var(--paper-border); padding-bottom: 8px; }
     .auth-tab { flex: 1; border: none; background: none; padding: 8px; font-weight: 700; color: var(--text-muted); cursor: pointer; font-size: 14px; }
@@ -161,7 +161,7 @@
       border: 2px solid var(--paper-border);
       border-radius: 12px;
       padding: 20px;
-      text-align: center;
+      text-align: left;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -170,10 +170,10 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(67, 56, 202, 0.1);
     }
-    .mode-card h3 { font-size: 16px; color: var(--text); margin-bottom: 8px; font-weight: 800; }
-    .mode-card p { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+    .mode-card h3 { font-size: 16px; color: var(--text); margin-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+    .mode-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
+    .mode-card ul { font-size: 12px; color: var(--text-muted); padding-left: 16px; display: flex; flex-direction: column; gap: 4px; }
 
-    /* SEVİYE SEÇİM EKRANI */
     .level-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -197,31 +197,54 @@
       border-color: var(--primary);
     }
 
-    /* MANUEL DERS KUTULARI */
     .manual-course-box {
       background: var(--paper);
       border: 1.5px solid var(--paper-border);
       border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
     .manual-course-top {
       display: flex;
       gap: 8px;
       align-items: center;
     }
-    .manual-course-top input { font-weight: 700; }
-    .manual-row-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .manual-course-top input { font-weight: 700; font-size: 15px; }
+    
+    .calendar-picker-area {
+      display: flex;
+      flex-direction: column;
       gap: 8px;
+      background: var(--card-bg);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--paper-border);
     }
-    @media (max-width: 500px) {
-      .manual-row-grid { grid-template-columns: 1fr; }
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      max-height: 140px;
+      overflow-y: auto;
+      padding: 4px;
     }
+    .day-cell {
+      background: var(--bg);
+      border: 1px solid var(--paper-border);
+      border-radius: 4px;
+      padding: 6px 2px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s;
+    }
+    .day-cell:hover { border-color: var(--primary); }
+    .day-cell.selected { background: var(--primary); color: white; border-color: var(--primary); }
 
     .user-badge-bar {
       display: flex;
@@ -463,7 +486,7 @@
       <span>Gizlilik ve Yerel Hafıza Politikası</span>
     </div>
     <div class="privacy-content">
-      <p>Bu uygulama tamamen öğrenci dostudur. Bilgileriniz harici sunucularda toplanmaz, yalnızca kendi cihazınızın yerel belleğinde saklanır.</p>
+      <p>Bu uygulama tamamen öğrenci dostudur. Verileriniz sunucularda toplanmaz, cihazınızın yerel hafızasında saklanır.</p>
     </div>
     <div class="privacy-actions">
       <button class="btn-consent-accept" onclick="acceptPrivacyConsent()">✅ Kabul Ediyorum</button>
@@ -484,7 +507,7 @@
   </div>
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg bot">
-      Selam! Çalışma planını ve ilerlemeni buradan takip ediyorum. Soru sorabilir veya koçluk alabilirsin!
+      Selam! Çalışma planını, netlerini ve ilerlemeni buradan takip ediyorum. Soru sorabilir veya koçluk alabilirsin!
     </div>
   </div>
   <div class="chat-input-area">
@@ -537,53 +560,59 @@
   <div id="modeSelectScreen" class="screen">
     <div class="header">
       <h1>⚙️ Çalışma Planı Nasıl Oluşturulsun?</h1>
-      <p>Sizin için en uygun yöntemi seçerek ajandanızı hemen kurun.</p>
+      <p>Aşağıdaki yöntemlerden birini seçerek ajandanızı hemen kurun.</p>
     </div>
     <div class="mode-selection-box">
       <div class="mode-card" onclick="selectMode('ai')">
         <h3>🤖 Yapay Zeka ile Oluştur</h3>
-        <p>Google Gemini yapay zekası derslerinizi analiz ederek size özel profesyonel bir program çıkarsın.</p>
+        <p>Google Gemini yapay zekası derslerinizi analiz ederek özel program çıkarsın.</p>
+        <ul>
+          <li>API anahtarı gerektirir.</li>
+          <li>Günlük akıllı görevler sunar.</li>
+        </ul>
       </div>
       <div class="mode-card" onclick="selectMode('manual')">
         <h3>✍️ Manuel Kendi Planımı Oluştur</h3>
-        <p>API anahtarı gerektirmez. Seviyenizi seçin, derslerinizi ve hangi gün çalışacağınızı kendiniz belirleyin.</p>
+        <p>API gerektirmez. Seviyenizi seçin, ay ve günlere tıklayarak planınızı kendiniz kurun.</p>
+        <ul>
+          <li>Tamamen şifresiz ve esnek.</li>
+          <li>Görsel takvimden gün seçme.</li>
+        </ul>
       </div>
     </div>
   </div>
 
-  <!-- MANUEL SEVİYE VE ÖĞRENCİ TİPİ SEÇİMİ -->
+  <!-- MANUEL SEVİYE SEÇİMİ -->
   <div id="manualLevelScreen" class="screen">
     <div class="header">
       <h1>🎓 Hangi Sınav veya Sınıf Düzeyindesin?</h1>
-      <p>Sana en uygun çalışma şablonunu hazırlayabilmemiz için seviyeni seç.</p>
+      <p>Seviyenizi seçin.</p>
     </div>
     <div class="level-grid">
       <button type="button" class="level-btn" onclick="selectStudentLevel('LGS')">LGS Öğrencisi</button>
       <button type="button" class="level-btn" onclick="selectStudentLevel('9. Sınıf')">9. Sınıf</button>
       <button type="button" class="level-btn" onclick="selectStudentLevel('10. Sınıf')">10. Sınıf</button>
       <button type="button" class="level-btn" onclick="selectStudentLevel('11. Sınıf')">11. Sınıf</button>
-      <button type="button" class="level-btn" onclick="selectStudentLevel('YKS (TYT-AYT)')">YKS Öğrencisi</button>
+      <button type="button" class="level-btn" onclick="selectStudentLevel('YKS')">YKS Öğrencisi</button>
       <button type="button" class="level-btn" onclick="selectStudentLevel('KPSS')">KPSS Öğrencisi</button>
     </div>
     <button type="button" class="btn-secondary" onclick="showScreen('modeSelectScreen')">⬅️ Geri Dön</button>
   </div>
 
-  <!-- MANUEL DETAYLI DERS & AY & GÜN KURULUM EKRANI -->
+  <!-- MANUEL TAKVİMLİ DERS KURULUM EKRANI -->
   <div id="manualBuilderScreen" class="screen">
     <div class="header">
-      <h1>📅 Dersleri, Ayları ve Günleri Belirle</h1>
-      <p id="studentLevelTitleText">Seçilen Seviye: <strong>YKS</strong></p>
+      <h1>📅 Dersleri, Ayı ve Günleri Seç</h1>
+      <p id="studentLevelTitleText">Seçilen Düzey: <strong>YKS</strong></p>
     </div>
 
     <div class="form-group">
-      <label>Ders Kutucukları (İstediğin ders adını değiştirebilirsin):</label>
-      <div id="manualCourseContainer">
-        <!-- Dinamik Kutular Buraya Gelecek -->
-      </div>
+      <label>Ders Kutucukları (İsmini değiştirebilir, ay ve günlere tıklayarak çalışacağın günleri seçebilirsin):</label>
+      <div id="manualCourseContainer"></div>
       <button type="button" class="btn-add" onclick="addManualCourseBox()" style="margin-top: 8px;">+ Başka Ders Kutusu Ekle</button>
     </div>
 
-    <button type="button" class="btn-main" onclick="generateManualPlanFinal()">✨ Programı ve Takvimi Oluştur</button>
+    <button type="button" class="btn-main" onclick="generateManualPlanFinal()">✨ Seçilen Günlere Göre Programı Oluştur</button>
     <button type="button" class="btn-secondary" onclick="showScreen('manualLevelScreen')">⬅️ Seviye Seçimine Dön</button>
   </div>
 
@@ -597,13 +626,11 @@
       <div class="guide-title">🔒 Verileriniz Neden Güvende?</div>
       <ul class="guide-steps" style="margin-bottom: 14px;">
         <li><span class="guide-num">✓</span> Girdiğiniz API anahtarı sadece sizin tarayıcınızda şifreli saklanır.</li>
-        <li><span class="guide-num">✓</span> Asla başka bir sunucuya gönderilmez, doğrudan Google AI ile şifreli görüşür.</li>
       </ul>
       <div class="guide-title">1 Dakikada Ücretsiz API Anahtarı Nasıl Alınır?</div>
       <ul class="guide-steps">
         <li><span class="guide-num">1</span> Google AI Studio sayfasına git: <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com/app/apikey</a></li>
         <li><span class="guide-num">2</span> Mavi <strong>"Create API key"</strong> butonuna tıkla.</li>
-        <li><span class="guide-num">3</span> Kodu kopyalayıp aşağıdaki kutucuğa yapıştır.</li>
       </ul>
     </div>
     <div class="form-group">
@@ -619,7 +646,7 @@
     <div class="user-badge-bar">
       <span>Giriş yapılan hesap: <strong id="currentUserLabel">Misafir</strong></span>
       <div class="user-actions-group">
-        <button type="button" class="btn-reset-key-top" onclick="resetApiKeyAndGoSetup()">🔑 API Sıfırla</button>
+        <button type="button" class="btn-reset-key-top" onclick="resetApiKeyAndGoSetup()" id="btnResetApiKey">🔑 API Sıfırla</button>
         <button type="button" class="btn-logout" onclick="logoutUser()">Çıkış Yap 🚪</button>
       </div>
     </div>
@@ -709,7 +736,7 @@
       </div>
     </div>
 
-    <!-- NET HESAPLAMA VE DENEME TAKİP MODÜLÜ -->
+    <!-- NET HESAPLAMA -->
     <div class="net-calculator-box">
       <div class="net-header">
         <span>📊 Sınav Net Hesaplama & Deneme Takibi</span>
@@ -750,7 +777,7 @@
       </div>
     </div>
 
-    <!-- GÖREV KARTLARI VE BUTONLAR -->
+    <!-- GÖREV KARTLARI -->
     <div id="output">
       <div class="output-top" style="margin-top: 24px;">
         <h2>📌 Ajanda Görev Kartların</h2>
@@ -765,7 +792,7 @@
   </div>
   
   <div class="privacy-footer-link" onclick="openPrivacyModal()">🔒 Gizlilik & Veri Güvenliği Politikası</div>
-  <div class="version-tag">Sürüm: v33 (Manuel Gelişmiş Ay & Gün Seçici Entegrasyonu)</div>
+  <div class="version-tag">Sürüm: v36 (Kararlı Koç & Kusursuz Mod Geçişleri)</div>
 </div>
 
 <script>
@@ -773,7 +800,7 @@
   let currentAuthMode = 'login';
   let dailyTargetQuestions = 100;
   let targetCelebrated = false;
-  let activeGenerationMode = 'ai'; // 'ai' veya 'manual'
+  let activeGenerationMode = 'ai';
   let selectedStudentLevel = 'YKS';
 
   // ÇİFT GERİ SAYIM
@@ -1108,7 +1135,7 @@
     }
   }
 
-  // KOÇLUK SOHBET
+  // KOÇLUK SOHBET (GÜNCELLENMİŞ STABİL GEMINI 3.6 FLASH)
   function toggleChatWindow() {
     const win = document.getElementById('aiChatWindow');
     win.classList.toggle('open');
@@ -1142,7 +1169,7 @@
 
     const activeKey = getActiveApiKey();
     if (!activeKey) {
-      botDiv.innerHTML = "⚠️ <strong>API Anahtarı Yok:</strong> Manuel moddasınız veya anahtar girilmemiş.";
+      botDiv.innerHTML = "⚠️ <strong>API Anahtarı Yok:</strong> Lütfen API anahtarı tanımlayın.";
       return;
     }
 
@@ -1158,7 +1185,7 @@
     } catch(e){}
 
     const lastNet = localStorage.getItem(getUserStorageKey('last_saved_net')) || "Girilmedi";
-    const promptText = `Sen profesyonel bir koçsun. Öğrenci düzeyi: ${selectedStudentLevel}, Son net: ${lastNet}. Soru: "${msg}". 2-3 cümlelik net tavsiye ver.`;
+    const promptText = `Sen profesyonel bir koçusun. Öğrenci düzeyi: ${selectedStudentLevel}, Son net: ${lastNet}. Soru: "${msg}". 2-3 cümlelik net tavsiye ver.`;
 
     const candidateModels = ["gemini-3.6-flash", "gemini-1.5-flash", "gemini-2.5-flash"];
     let success = false;
@@ -1287,7 +1314,6 @@
     if (mode === 'ai') {
       const key = getActiveApiKey();
       if (key) {
-        // Yapay zeka modunda standart AI ekranı
         setupMainScreenForAI();
         showScreen('mainScreen');
         loadExistingPlan();
@@ -1295,7 +1321,6 @@
         showScreen('setupScreen');
       }
     } else {
-      // Manuel mod seçilince seviye seçimine yönlendir
       showScreen('manualLevelScreen');
     }
   }
@@ -1304,11 +1329,9 @@
     selectedStudentLevel = level;
     document.getElementById('studentLevelTitleText').innerHTML = `Seçilen Düzey: <strong>${level}</strong>`;
     
-    // Manuel ders oluşturucu kutularını ilk kez doldur
     const container = document.getElementById('manualCourseContainer');
     container.innerHTML = '';
     
-    // Varsayılan örnek dersler ekleyelim
     const defaultCourses = level === 'LGS' ? ['Matematik', 'Türkçe', 'İnkılap', 'Fen Bilimleri', 'İngilizce'] : ['Matematik', 'Türkçe', 'Tarih', 'Coğrafya', 'Fizik'];
     defaultCourses.forEach(c => addManualCourseBox(c));
 
@@ -1319,81 +1342,90 @@
     const container = document.getElementById('manualCourseContainer');
     const div = document.createElement('div');
     div.className = 'manual-course-box';
+    
+    let daysCellsHtml = '';
+    for (let i = 1; i <= 31; i++) {
+      daysCellsHtml += `<div class="day-cell" onclick="toggleManualDay(this)" data-day="${i}">${i}</div>`;
+    }
+
     div.innerHTML = `
       <div class="manual-course-top">
-        <input type="text" class="manual-c-name" value="${defaultName}" placeholder="Ders Adı (Değiştirebilirsin)">
+        <input type="text" class="manual-c-name" value="${defaultName}" placeholder="Ders Adı (Tıklayıp değiştirebilirsin)">
         <button type="button" class="btn-del" onclick="this.closest('.manual-course-box').remove()">✕</button>
       </div>
-      <div class="manual-row-grid">
-        <div>
-          <label style="font-size:11px; margin-bottom:2px;">Çalışılacak Ay:</label>
-          <select class="manual-c-month">
-            <option value="Eylül">Eylül</option>
-            <option value="Ekim">Ekim</option>
-            <option value="Kasım">Kasım</option>
-            <option value="Aralık">Aralık</option>
+      <div class="calendar-picker-area">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <label style="font-size:12px; margin:0; font-weight:700;">Çalışılacak Ay:</label>
+          <select class="manual-c-month" style="width:140px; padding:4px 8px; font-size:12px;">
             <option value="Ocak">Ocak</option>
             <option value="Şubat">Şubat</option>
             <option value="Mart">Mart</option>
             <option value="Nisan">Nisan</option>
             <option value="Mayıs">Mayıs</option>
             <option value="Haziran">Haziran</option>
+            <option value="Temmuz">Temmuz</option>
+            <option value="Ağustos">Ağustos</option>
+            <option value="Eylül">Eylül</option>
+            <option value="Ekim">Ekim</option>
+            <option value="Kasım">Kasım</option>
+            <option value="Aralık">Aralık</option>
           </select>
         </div>
-        <div>
-          <label style="font-size:11px; margin-bottom:2px;">Hangi Günler (Örn: 1,3,8 veya 1-15):</label>
-          <input type="text" class="manual-c-days" placeholder="Örn: 1, 3, 5, 8">
+        <label style="font-size:12px; margin-bottom:4px; font-weight:700;">Çalışılacak Günleri Seç (Tıkla):</label>
+        <div class="days-grid">
+          ${daysCellsHtml}
         </div>
       </div>
     `;
     container.appendChild(div);
   }
 
+  function toggleManualDay(cell) {
+    cell.classList.toggle('selected');
+  }
+
   function generateManualPlanFinal() {
     const boxes = document.querySelectorAll('.manual-course-box');
     if (boxes.length === 0) return alert("En az bir ders kutusu eklemelisiniz.");
 
-    let planData = [];
-    let allDaysSet = new Set();
+    let dayMap = {};
 
     boxes.forEach(box => {
       const cName = box.querySelector('.manual-c-name').value.trim() || "Ders";
       const cMonth = box.querySelector('.manual-c-month').value;
-      const daysStr = box.querySelector('.manual-c-days').value.trim();
-      
-      // Günleri ayrıştır (Örn: "1, 3, 8" veya aralık)
-      let daysArr = [];
-      if (daysStr) {
-        daysStr.split(',').forEach(part => {
-          part = part.trim();
-          if (part.includes('-')) {
-            let [start, end] = part.split('-').map(Number);
-            for (let i = start; i <= end; i++) daysArr.push(i);
-          } else if (!isNaN(part) && part !== "") {
-            daysArr.push(Number(part));
-          }
-        });
-      }
+      const selectedCells = box.querySelectorAll('.day-cell.selected');
 
-      // Eğer gün girilmemişse varsayılan 1. gün diyelim
-      if (daysArr.length === 0) daysArr = [1];
-
-      daysArr.forEach(dayNum => {
-        allDaysSet.add(dayNum);
-        // İlgili güne dersi ekle
-        let existingDay = planData.find(p => p.gun === dayNum);
-        if (!existingDay) {
-          existingDay = { gun: dayNum, odak: `${cMonth} Ayı Çalışması`, gorevler: [] };
-          planData.push(existingDay);
+      selectedCells.forEach(cell => {
+        const dayNum = parseInt(cell.getAttribute('data-day'), 10);
+        if (!dayMap[dayNum]) dayMap[dayNum] = [];
+        
+        if (dayMap[dayNum].length >= 7) {
+          alert(`Uyarı: ${dayNum}. güne en fazla 7 farklı ders eklenebilir.`);
+          return;
         }
-        existingDay.gorevler.push({ baslik: `${cName} (${cMonth} Ayı): Konu Çalışması ve Soru Çözümü`, link: "" });
+
+        dayMap[dayNum].push({ name: cName, month: cMonth });
       });
     });
 
-    // Gün sırasına göre sırala
-    planData.sort((a, b) => a.gun - b.gun);
+    const daysKeys = Object.keys(dayMap).map(Number).sort((a, b) => a - b);
+    if (daysKeys.length === 0) return alert("Lütfen en az bir ders için takvimden gün(ler) seçin.");
 
-    if (planData.length === 0) return alert("Lütfen geçerli gün numaraları girin.");
+    let planData = [];
+    daysKeys.forEach(dNum => {
+      let coursesInThisDay = dayMap[dNum];
+      let monthName = coursesInThisDay[0].month;
+      
+      let tasks = coursesInThisDay.map(c => {
+        return { baslik: `${c.name} (${c.month} Ayı): Konu Çalışması ve Soru Çözümü`, link: "" };
+      });
+
+      planData.push({
+        gun: dNum,
+        odak: `${monthName} Ayı - ${dNum}. Gün Programı`,
+        gorevler: tasks
+      });
+    });
 
     localStorage.setItem(getUserStorageKey('study_plan'), JSON.stringify(planData));
     localStorage.removeItem(getUserStorageKey('checkbox_states'));
@@ -1405,7 +1437,7 @@
     showScreen('mainScreen');
     document.getElementById('output').style.display = 'block';
     playPlanCreatedSound();
-    showToast('✨ Manuel çalışma programınız başarıyla oluşturuldu!');
+    showToast('✨ Seçtiğiniz günlere göre programınız başarıyla oluşturuldu!');
   }
 
   function setupMainScreenForAI() {

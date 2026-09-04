@@ -157,7 +157,6 @@
       margin-top: 8px;
     }
 
-    /* ANA EKRAN YOUTUBE BUTONU */
     .youtube-action-bar {
       display: flex;
       gap: 8px;
@@ -581,7 +580,7 @@
         </div>
       </div>
       
-      <!-- YOUTUBE BUTONU ARTIK ANA EKRANDA DERSLERİN ALTINDA -->
+      <!-- YOUTUBE BUTONU DERSLERİN ALTINDA -->
       <div class="youtube-action-bar">
         <button type="button" class="btn-add" onclick="addRow()">+ Ders Ekle</button>
         <a href="https://www.youtube.com" target="_blank" rel="noopener" class="youtube-direct-btn">
@@ -703,7 +702,7 @@
   </div>
   
   <div class="privacy-footer-link" onclick="openPrivacyModal()">🔒 Gizlilik & Veri Güvenliği Politikası</div>
-  <div class="version-tag">Sürüm: v29 (Premium Akor Sesler, Kesin Yapay Zeka Yanıtı & Yeni YouTube Yeri)</div>
+  <div class="version-tag">Sürüm: v30 (Gemini 3.6 Flash Entegrasyonu & Premium Akor Sesler)</div>
 </div>
 
 <script>
@@ -927,7 +926,7 @@
       const osc1 = ctx.createOscillator();
       const gain1 = ctx.createGain();
       osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(587.33, now); // D5
+      osc1.frequency.setValueAtTime(587.33, now);
       gain1.gain.setValueAtTime(0.25, now);
       gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
       osc1.connect(gain1);
@@ -938,7 +937,7 @@
       const osc2 = ctx.createOscillator();
       const gain2 = ctx.createGain();
       osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(880, now + 0.12); // A5
+      osc2.frequency.setValueAtTime(880, now + 0.12);
       gain2.gain.setValueAtTime(0.3, now + 0.12);
       gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
       osc2.connect(gain2);
@@ -957,7 +956,7 @@
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(783.99, t); // G5
+        osc.frequency.setValueAtTime(783.99, t);
         gain.gain.setValueAtTime(0.3, t);
         gain.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
         osc.connect(gain);
@@ -1059,7 +1058,7 @@
     }
   }
 
-  // KOÇLUK SOHBET (KESİN ÇÖZÜMLÜ)
+  // KOÇLUK SOHBET (GÜNCELLENMİŞ GEMINI 3.6 FLASH MODELİ)
   function toggleChatWindow() {
     const win = document.getElementById('aiChatWindow');
     win.classList.toggle('open');
@@ -1120,10 +1119,11 @@ KURALLAR:
 1. Samimi bir dille, motive edici, doğrudan konuya odaklanan 2-3 cümlelik çok net ve pratik bir tavsiye ver.
 2. Uzun teorik anlatımlar yapma.`;
 
+    // 2026 En Güncel Resmi Gemini Modelleri
     const candidateModels = [
-      "gemini-2.5-flash",
-      "gemini-1.5-flash",
-      "gemini-2.0-flash"
+      "gemini-3.6-flash",
+      "gemini-3.6-flash-lite",
+      "gemini-2.5-flash"
     ];
 
     let success = false;
@@ -1336,7 +1336,7 @@ JSON formatında tam plan üret:
 [{"gun": 1, "odak": "Matematik", "gorevler": [{"baslik": "1. Video izle", "link": "https://..."}]}]
 Sadece geçerli JSON ver.`;
 
-    const candidateModels = ["gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.0-flash"];
+    const candidateModels = ["gemini-3.6-flash", "gemini-3.6-flash-lite", "gemini-2.5-flash"];
     let success = false;
     let lastError = "";
 

@@ -187,7 +187,7 @@
 
     .loading { display: none; text-align: center; margin-top: 20px; padding: 16px; background: #eef2ff; border-radius: 10px; color: var(--primary); font-weight: 600; font-size: 14px; }
 
-    /* POMODORO */
+    /* POMODORO & AMBİYANS */
     .pomodoro-card {
       background: var(--paper);
       border: 1.5px solid var(--paper-border);
@@ -209,8 +209,8 @@
     .pomo-reset { background: #e2e8f0; color: #475569; }
 
     .noise-controls { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; justify-content: center; }
-    .btn-noise { background: none; border: 1px solid var(--paper-border); padding: 5px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; color: var(--text-muted); font-weight: 600; }
-    .btn-noise.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .btn-noise { background: none; border: 1px solid var(--paper-border); padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; color: var(--text-muted); font-weight: 600; transition: all 0.2s; }
+    .btn-noise.active { background: var(--primary); color: white; border-color: var(--primary); transform: scale(1.03); }
 
     .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
     .stat-box { background: var(--paper); padding: 14px; border-radius: 10px; border: 1px solid var(--paper-border); text-align: center; }
@@ -250,7 +250,7 @@
     .toast { background: #10b981; color: white; padding: 12px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.15); animation: slideIn 0.3s ease; }
     @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-    /* SOL ORTA / ALT YAPAY ZEKA SOHBET BALONCUĞU */
+    /* KOÇLUK BALONCUĞU */
     .ai-bubble-btn {
       position: fixed;
       left: 20px;
@@ -309,7 +309,7 @@
       gap: 10px;
       font-size: 13px;
     }
-    .chat-msg { padding: 9px 12px; border-radius: 12px; max-width: 85%; line-height: 1.4; }
+    .chat-msg { padding: 9px 12px; border-radius: 12px; max-width: 85%; line-height: 1.4; word-break: break-word; }
     .chat-msg.bot { background: var(--paper); border: 1px solid var(--paper-border); align-self: flex-start; color: var(--text); }
     .chat-msg.user { background: var(--primary); color: white; align-self: flex-end; }
     .chat-input-area {
@@ -329,7 +329,7 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- YAPAY ZEKA REHBER SOHBET BALONCUĞU -->
+<!-- KOÇ BALONCUĞU -->
 <button class="ai-bubble-btn" id="aiBubbleBtn" onclick="toggleChatWindow()">
   💬 <span>Sınav Koçum</span>
 </button>
@@ -341,12 +341,12 @@
   </div>
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg bot">
-      Selam! Çalışma planını, çözdüğün soruları ve notlarını buradan görüyorum. Aklına takılan dersleri, yapamadığın konuları sorabilirsin!
+      Selam! Çalışma planını, çözdüğün soruları ve notlarını takip ediyorum. Takıldığın her şeyi bana sorabilirsin!
     </div>
   </div>
   <div class="chat-input-area">
-    <input type="text" id="chatInput" placeholder="Soru sor veya durumunu yaz..." onkeydown="if(event.key==='Enter') sendChatMessage()">
-    <button class="chat-send-btn" onclick="sendChatMessage()">Gönder</button>
+    <input type="text" id="chatInput" placeholder="Mesajını yaz..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+    <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">Gönder</button>
   </div>
 </div>
 
@@ -449,7 +449,7 @@
       ✍️ Videolar günlere paylaştırılıyor, ajandan hazırlanıyor...
     </div>
 
-    <!-- POMODORO VE AYRIŞTIRILMIŞ ORTAM SESLERİ -->
+    <!-- POMODORO VE YENİ DOĞAL ORTAM SESLERİ -->
     <div class="pomodoro-card">
       <div class="pomo-settings">
         <div class="pomo-input-group">
@@ -467,10 +467,11 @@
         <button class="pomo-btn pomo-reset" onclick="resetTimer()">Sıfırla</button>
       </div>
 
+      <!-- YENİLENEN SES BUTONLARI -->
       <div class="noise-controls">
-        <button class="btn-noise" id="btnRain" onclick="toggleNoise('rain')">🌧️ Yağmur</button>
-        <button class="btn-noise" id="btnCafe" onclick="toggleNoise('cafe')">☕ Kafe</button>
-        <button class="btn-noise" id="btnWaves" onclick="toggleNoise('waves')">🌊 Dalgalar</button>
+        <button class="btn-noise" id="btnRain" onclick="toggleNoise('rain')">🌧️ Sakin Yağmur</button>
+        <button class="btn-noise" id="btnForest" onclick="toggleNoise('forest')">🌲 Doğa & Gök Gürültüsü</button>
+        <button class="btn-noise" id="btnWaves" onclick="toggleNoise('waves')">🌊 Sahil & Martı</button>
       </div>
     </div>
 
@@ -501,7 +502,7 @@
     </div>
   </div>
   
-  <div class="version-tag">Sürüm: v14 (Koç Sohbet Baloncuğu + Düzeltilmiş Sesler)</div>
+  <div class="version-tag">Sürüm: v16 (Doğa & Gök Gürültüsü + Martılı Sahil + Sakin Yağmur)</div>
 </div>
 
 <script>
@@ -543,10 +544,13 @@
     document.querySelector('.theme-toggle-btn').textContent = isDark ? '☀️ Gündüz Modu' : '🌙 Karanlık Mod';
   }
 
-  // SES MOTORU (YAĞMUR VE KAFE SESLERİ AYRILDI)
+  // --- GELİŞMİŞ DOĞAL SES SENTEZLEYİCİ ---
   let audioCtx = null;
-  let activeNoiseNode = null;
+  let activeNoiseHandles = [];
   let currentNoise = null;
+  let thunderInterval = null;
+  let seagullInterval = null;
+  let birdInterval = null;
 
   function getAudioContext() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -569,6 +573,90 @@
     osc.stop(ctx.currentTime + 0.35);
   }
 
+  // MARTI SESİ ÜRETİCİ
+  function triggerSeagullSound() {
+    if (currentNoise !== 'waves') return;
+    const ctx = getAudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const now = ctx.currentTime;
+
+    osc.type = 'sawtooth';
+    // Martı çığlığı frekans eğrisi
+    osc.frequency.setValueAtTime(900, now);
+    osc.frequency.linearRampToValueAtTime(1400, now + 0.15);
+    osc.frequency.exponentialRampToValueAtTime(800, now + 0.5);
+
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(0.025, now + 0.15);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
+
+    const bp = ctx.createBiquadFilter();
+    bp.type = 'bandpass';
+    bp.frequency.value = 1100;
+    bp.Q.value = 3;
+
+    osc.connect(bp);
+    bp.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.55);
+  }
+
+  // GÖK GÜRÜLTÜSÜ GÜMBÜRTÜSÜ
+  function triggerThunderSound() {
+    if (currentNoise !== 'forest') return;
+    const ctx = getAudioContext();
+    const bufferSize = ctx.sampleRate * 2.5;
+    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) output[i] = Math.random() * 2 - 1;
+
+    const thunder = ctx.createBufferSource();
+    thunder.buffer = noiseBuffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 140;
+
+    const gain = ctx.createGain();
+    const now = ctx.currentTime;
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(0.12, now + 0.4);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 2.4);
+
+    thunder.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+
+    thunder.start(now);
+    thunder.stop(now + 2.5);
+  }
+
+  // KUŞ CIVILTISI
+  function triggerBirdChirp() {
+    if (currentNoise !== 'forest') return;
+    const ctx = getAudioContext();
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(2000, now);
+    osc.frequency.exponentialRampToValueAtTime(3200, now + 0.08);
+    osc.frequency.exponentialRampToValueAtTime(1800, now + 0.16);
+
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(0.03, now + 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.2);
+  }
+
   function toggleNoise(type) {
     const ctx = getAudioContext();
     if (currentNoise === type) {
@@ -577,58 +665,114 @@
     }
     stopNoise();
     currentNoise = type;
-    document.getElementById(`btn${type.charAt(0).toUpperCase() + type.slice(1)}`).classList.add('active');
+    const btn = document.getElementById(`btn${type.charAt(0).toUpperCase() + type.slice(1)}`);
+    if (btn) btn.classList.add('active');
 
+    // 1. Temel Gürültü Sentezi
     const bufferSize = ctx.sampleRate * 2;
     const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const output = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      output[i] = Math.random() * 2 - 1;
-    }
+    const data = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
 
-    const whiteNoise = ctx.createBufferSource();
-    whiteNoise.buffer = noiseBuffer;
-    whiteNoise.loop = true;
-
-    const gain = ctx.createGain();
+    const noiseSource = ctx.createBufferSource();
+    noiseSource.buffer = noiseBuffer;
+    noiseSource.loop = true;
 
     if (type === 'rain') {
-      // Pıtır pıtır gerçek yağmur: Düşük frekanslı lowpass filtresi
-      const lowpass = ctx.createBiquadFilter();
-      lowpass.type = 'lowpass';
-      lowpass.frequency.value = 950;
-      gain.gain.value = 0.05;
-      whiteNoise.connect(lowpass);
-      lowpass.connect(gain);
-    } else if (type === 'cafe') {
-      // Kafe / Kütüphane mırıltısı: Orta frekans bandpass filtresi
-      const bandpass = ctx.createBiquadFilter();
-      bandpass.type = 'bandpass';
-      bandpass.frequency.value = 420;
-      bandpass.Q.value = 1.8;
-      gain.gain.value = 0.08;
-      whiteNoise.connect(bandpass);
-      bandpass.connect(gain);
-    } else if (type === 'waves') {
-      // Dalga: Çok derin alçak geçiren filtre
-      const lowpass = ctx.createBiquadFilter();
-      lowpass.type = 'lowpass';
-      lowpass.frequency.value = 240;
-      gain.gain.value = 0.09;
-      whiteNoise.connect(lowpass);
-      lowpass.connect(gain);
-    }
+      // YAVAŞ & BELİRGİN YAĞMUR DAMLALARI
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 850;
+      filter.Q.value = 0.8;
 
-    gain.connect(ctx.destination);
-    whiteNoise.start();
-    activeNoiseNode = { source: whiteNoise, gain: gain };
+      const gain = ctx.createGain();
+      gain.gain.value = 0.055;
+
+      // Yavaş ritmik damla dalgalanması
+      const lfo = ctx.createOscillator();
+      lfo.frequency.value = 1.2; // Yavaş vuruş
+      const lfoGain = ctx.createGain();
+      lfoGain.gain.value = 0.02;
+      lfo.connect(lfoGain);
+      lfoGain.connect(gain.gain);
+      lfo.start();
+
+      noiseSource.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      noiseSource.start();
+
+      activeNoiseHandles.push(noiseSource, lfo);
+
+    } else if (type === 'forest') {
+      // DOĞA, ORMAN UĞULTUSU + GÖK GÜRÜLTÜSÜ + KUŞ CIVILTISI
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 350; // Ağaç yaprak hışırtısı
+
+      const gain = ctx.createGain();
+      gain.gain.value = 0.045;
+
+      noiseSource.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      noiseSource.start();
+      activeNoiseHandles.push(noiseSource);
+
+      // Periyodik gök gürültüsü ve kuş sesleri
+      triggerThunderSound();
+      thunderInterval = setInterval(() => {
+        if (Math.random() > 0.4) triggerThunderSound();
+      }, 14000);
+
+      birdInterval = setInterval(() => {
+        if (Math.random() > 0.3) triggerBirdChirp();
+      }, 4500);
+
+    } else if (type === 'waves') {
+      // DALGALAR + MARTI
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 280;
+
+      const gain = ctx.createGain();
+      gain.gain.value = 0.06;
+
+      // Dalga yükselip alçalması (LFO)
+      const lfo = ctx.createOscillator();
+      lfo.frequency.value = 0.12; // 8 saniyede bir kıyıya vuran dalga
+      const lfoGain = ctx.createGain();
+      lfoGain.gain.value = 0.045;
+      lfo.connect(lfoGain);
+      lfoGain.connect(gain.gain);
+      lfo.start();
+
+      noiseSource.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      noiseSource.start();
+
+      activeNoiseHandles.push(noiseSource, lfo);
+
+      // Martı sesleri (periyodik)
+      setTimeout(triggerSeagullSound, 1500);
+      seagullInterval = setInterval(() => {
+        if (Math.random() > 0.35) triggerSeagullSound();
+      }, 8000);
+    }
   }
 
   function stopNoise() {
-    if (activeNoiseNode) {
-      try { activeNoiseNode.source.stop(); } catch(e){}
-      activeNoiseNode = null;
-    }
+    activeNoiseHandles.forEach(h => {
+      try { h.stop(); } catch(e){}
+    });
+    activeNoiseHandles = [];
+    clearInterval(thunderInterval);
+    clearInterval(seagullInterval);
+    clearInterval(birdInterval);
+    thunderInterval = null;
+    seagullInterval = null;
+    birdInterval = null;
     currentNoise = null;
     document.querySelectorAll('.btn-noise').forEach(b => b.classList.remove('active'));
   }
@@ -642,20 +786,23 @@
     setTimeout(() => toast.remove(), 2500);
   }
 
-  // KOÇLUK SOHBET PENCERESİ FONKSİYONLARI
+  // KOÇLUK SOHBET FONKSİYONLARI (HIZLI YANITLI)
   function toggleChatWindow() {
     const win = document.getElementById('aiChatWindow');
     win.classList.toggle('open');
+    if (win.classList.contains('open')) {
+      setTimeout(() => document.getElementById('chatInput').focus(), 150);
+    }
   }
 
   async function sendChatMessage() {
     const input = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('chatSendBtn');
     const msg = input.value.trim();
     if (!msg) return;
 
     const messagesBox = document.getElementById('chatMessages');
 
-    // Kullanıcı mesajını ekrana yaz
     const userDiv = document.createElement('div');
     userDiv.className = 'chat-msg user';
     userDiv.textContent = msg;
@@ -663,46 +810,82 @@
     input.value = '';
     messagesBox.scrollTop = messagesBox.scrollHeight;
 
-    // Bot bekliyor balonu
     const botDiv = document.createElement('div');
     botDiv.className = 'chat-msg bot';
-    botDiv.textContent = 'Düşünüyorum...';
+    botDiv.textContent = 'Koçun düşünüyor... ✍️';
     messagesBox.appendChild(botDiv);
     messagesBox.scrollTop = messagesBox.scrollHeight;
 
-    const apiKey = localStorage.getItem(getUserStorageKey('gemini_api_key'));
-    if (!apiKey) {
-      botDiv.textContent = "API anahtarın bulunamadı. Lütfen önce anahtarını kaydet.";
+    const activeKey = getActiveApiKey();
+    if (!activeKey) {
+      botDiv.textContent = "API anahtarı bulunamadı. Lütfen önce kurulum adımından anahtarını gir.";
       return;
     }
 
-    // Mevcut programı ve ilerlemeyi oku
-    const currentPlan = localStorage.getItem(getUserStorageKey('study_plan')) || "Henüz plan çıkarılmadı.";
-    const questionsData = localStorage.getItem(getUserStorageKey('questions_and_notes')) || "Soru verisi yok.";
+    sendBtn.disabled = true;
 
-    const systemPrompt = `Sen öğrencinin cana yakın, profesyonel KPSS ve sınav koçusun.
-Öğrencinin güncel çalışma planı:
-${currentPlan}
+    const currentPlan = localStorage.getItem(getUserStorageKey('study_plan')) || "Plan yok.";
+    const questionsData = localStorage.getItem(getUserStorageKey('questions_and_notes')) || "Soru/not yok.";
 
-Öğrencinin çözdüğü soru ve tuttuğu notlar:
-${questionsData}
+    const systemPrompt = `Sen öğrencinin samimi, enerjik ve net sınav koçusun.
+Öğrencinin ders planı: ${currentPlan}
+Öğrencinin net/soru ve not durumu: ${questionsData}
 
-Kullanıcı sana şunu sordu: "${msg}"
-Öğrencinin planını, netlerini ve durumunu göz önüne alarak motive edici, net, somut ve kısa bir rehberlik cevabı ver.`;
+Öğrencinin mesajı: "${msg}"
 
-    try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contents: [{ parts: [{ text: systemPrompt }] }] })
-      });
-      const data = await response.json();
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      botDiv.textContent = reply || "Bir sorun oluştu, tekrar yazar mısın?";
-    } catch(err) {
-      botDiv.textContent = "Bağlantı hatası: " + err.message;
+KURALLAR:
+1. Kısa, net, 2-3 cümleyi geçmeyen hızlı ve etkili tavsiye ver.
+2. Gereksiz uzun edebiyat yapma, doğrudan soruya odaklan.`;
+
+    const candidateModels = [
+      "gemini-3.6-flash-lite", // En hızlı yanıt veren hafif model
+      "gemini-3.6-flash",
+      "gemini-2.5-pro",
+      "gemini-2.0-flash"
+    ];
+
+    let success = false;
+    let errDetail = "";
+
+    for (let model of candidateModels) {
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${activeKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: systemPrompt }] }] })
+        });
+
+        const data = await response.json();
+        if (data.error) {
+          errDetail = data.error.message;
+          continue;
+        }
+
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (reply) {
+          botDiv.textContent = reply;
+          success = true;
+          break;
+        }
+      } catch (err) {
+        errDetail = err.message;
+      }
     }
+
+    if (!success) {
+      botDiv.textContent = "Bağlantı kurulamadı: " + (errDetail || "Model yanıt vermedi.");
+    }
+
+    sendBtn.disabled = false;
     messagesBox.scrollTop = messagesBox.scrollHeight;
+  }
+
+  function getActiveApiKey() {
+    if (currentUser) {
+      const key = localStorage.getItem(getUserStorageKey('gemini_api_key'));
+      if (key) return key;
+    }
+    return localStorage.getItem('guest_gemini_api_key') || localStorage.getItem('gemini_api_key') || "";
   }
 
   // BAŞLANGIÇ
@@ -844,7 +1027,7 @@ Kullanıcı sana şunu sordu: "${msg}"
   }
 
   async function generatePlan() {
-    const apiKey = localStorage.getItem(getUserStorageKey('gemini_api_key'));
+    const apiKey = getActiveApiKey();
     const days = parseInt(document.getElementById('days').value.trim(), 10);
     const names = document.querySelectorAll('.course-name');
     const links = document.querySelectorAll('.course-link');
@@ -901,11 +1084,11 @@ Format şu JSON şemasında olmalıdır:
 ]
 Eğer link verilmemişse "link" alanını boş string ("") bırak. Yalnızca geçerli JSON döndür.`;
 
-    const models = ["gemini-3.6-flash", "gemini-3.6-flash-lite", "gemini-2.5-pro", "gemini-2.0-flash"];
+    const candidateModels = ["gemini-3.6-flash", "gemini-3.6-flash-lite", "gemini-2.5-pro", "gemini-2.0-flash"];
     let success = false;
     let lastError = "";
 
-    for (let model of models) {
+    for (let model of candidateModels) {
       try {
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
           method: 'POST',
@@ -1084,7 +1267,7 @@ Eğer link verilmemişse "link" alanını boş string ("") bırak. Yalnızca ge�
     }
   }
 
-  // POMODORO MANTIĞI
+  // POMODORO SAYAÇ
   let timerInterval = null;
   let isRunning = false;
   let isWorkMode = true;

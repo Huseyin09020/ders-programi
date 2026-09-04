@@ -93,7 +93,6 @@
       margin-top: 8px;
       transition: all 0.2s;
     }
-    .btn-secondary:hover { background: #e2e8f0; }
 
     .screen { display: none; }
     .screen.active { display: block; }
@@ -143,7 +142,7 @@
 
     .loading { display: none; text-align: center; margin-top: 20px; padding: 16px; background: #eef2ff; border-radius: 10px; color: var(--primary); font-weight: 600; font-size: 14px; }
 
-    /* GELİŞMİŞ AYARLANABİLİR POMODORO */
+    /* POMODORO */
     .pomodoro-card {
       background: #fafaf9;
       border: 1.5px solid #e7e5e4;
@@ -155,35 +154,10 @@
       align-items: center;
       gap: 12px;
     }
-    .pomo-settings {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .pomo-input-group {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #475569;
-    }
-    .pomo-input-group input {
-      width: 65px;
-      padding: 6px 8px;
-      text-align: center;
-      font-weight: 700;
-      background: #fff;
-    }
-    .pomo-state-label {
-      font-size: 12px;
-      font-weight: 700;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
+    .pomo-settings { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap; }
+    .pomo-input-group { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #475569; }
+    .pomo-input-group input { width: 65px; padding: 6px 8px; text-align: center; font-weight: 700; background: #fff; }
+    .pomo-state-label { font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; }
     .pomo-time { font-size: 36px; font-weight: 800; color: #1e1b4b; font-variant-numeric: tabular-nums; }
     .pomo-btns { display: flex; gap: 8px; }
     .pomo-btn { border: none; padding: 7px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; }
@@ -210,9 +184,10 @@
     .btn-clear { background: #ef4444; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
     .btn-change-key { background: #64748b; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
 
+    /* AJANDA KARTLARI */
     .agenda-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
       gap: 16px;
     }
     .agenda-card {
@@ -252,65 +227,105 @@
     .task-item {
       font-size: 13px;
       display: flex;
-      align-items: flex-start;
-      gap: 8px;
+      flex-direction: column;
+      gap: 5px;
       color: #334155;
-      background: rgba(255, 255, 255, 0.75);
-      padding: 6px 8px;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 8px 10px;
       border-radius: 6px;
       border: 1px solid rgba(226, 217, 200, 0.5);
     }
-    .task-item.done { text-decoration: line-through; opacity: 0.45; }
-    .task-item input[type="checkbox"] { width: auto; margin-top: 2px; cursor: pointer; accent-color: var(--primary); }
+    .task-row { display: flex; align-items: flex-start; gap: 8px; }
+    .task-item.done .task-title { text-decoration: line-through; opacity: 0.45; }
+    .task-item input[type="checkbox"] { width: auto; margin-top: 3px; cursor: pointer; accent-color: var(--primary); }
+    
+    .video-link-btn {
+      align-self: flex-start;
+      margin-left: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #fee2e2;
+      color: #dc2626;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .video-link-btn:hover { background: #fecaca; }
+
+    /* SAĞ ÜST BİLDİRİM TOAST */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast {
+      background: #10b981;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      animation: slideIn 0.3s ease forwards;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
 
     .version-tag { font-size: 11px; color: #a8a29e; text-align: center; margin-top: 24px; }
   </style>
 </head>
 <body>
 
+<div class="toast-container" id="toastContainer"></div>
+
 <div class="container">
 
-  <!-- EKRAN 1: GİRİŞ / KAYIT / MİSAFİR EKRANI -->
+  <!-- GİRİŞ / KAYIT / MİSAFİR -->
   <div id="authScreen" class="screen active">
     <div class="header">
       <h1>👋 Sınav Ajandasına Hoş Geldin</h1>
       <p>İlerlemelerini kaydetmek için giriş yap veya misafir olarak devam et.</p>
     </div>
-
     <div class="auth-box">
       <div class="auth-tabs">
         <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Giriş Yap</button>
         <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Kayıt Ol</button>
       </div>
-
       <div class="form-group">
         <label for="authEmail">E-posta:</label>
         <input type="email" id="authEmail" placeholder="ornek@mail.com">
       </div>
-
       <div class="form-group">
         <label for="authPassword">Şifre:</label>
         <input type="password" id="authPassword" placeholder="******">
       </div>
-
       <button type="button" class="btn-main" id="btnAuthSubmit" onclick="handleAuthSubmit()">Giriş Yap ➡️</button>
       <button type="button" class="btn-secondary" onclick="loginAsGuest()">👤 Misafir Olarak Devam Et</button>
     </div>
   </div>
 
-  <!-- EKRAN 2: API ANAHTARI REHBER EKRANI -->
+  <!-- API KURULUM -->
   <div id="setupScreen" class="screen">
     <div class="header">
       <h1>🔑 API Anahtarı Kurulumu</h1>
       <p>Yapay zekanın planını hazırlayabilmesi için ücretsiz Google API anahtarını tanımla.</p>
     </div>
-
     <div class="guide-box">
       <div class="guide-title">1 Dakikada Ücretsiz API Anahtarı Nasıl Alınır?</div>
       <ul class="guide-steps">
         <li>
           <span class="guide-num">1</span>
-          <span>Google AI Studio sayfasına git: <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com/app/apikey</a> (Ücretsizdir).</span>
+          <span>Google AI Studio sayfasına git: <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com/app/apikey</a></span>
         </li>
         <li>
           <span class="guide-num">2</span>
@@ -322,16 +337,14 @@
         </li>
       </ul>
     </div>
-
     <div class="form-group">
       <label for="initialApiKey">Gemini API Anahtarın:</label>
       <input type="password" id="initialApiKey" placeholder="API Anahtarını buraya yapıştır">
     </div>
-
     <button type="button" class="btn-main" onclick="saveApiKeyAndProceed()">Kaydet ve Ajandaya Başla ➡️</button>
   </div>
 
-  <!-- EKRAN 3: ANA AJANDA VE ÇALIŞMA EKRANI -->
+  <!-- ANA AJANDA -->
   <div id="mainScreen" class="screen">
     <div class="user-badge-bar">
       <span>Giriş yapılan hesap: <strong id="currentUserLabel">Misafir</strong></span>
@@ -340,7 +353,7 @@
 
     <div class="header">
       <h1>📖 Kişisel Çalışma Ajandası Pro</h1>
-      <p>Hedef gününü ve derslerini gir; programın hesabına kaydedilsin.</p>
+      <p>Hedef gününü ve derslerini gir; programın videolarla bağlansın.</p>
     </div>
 
     <div class="form-group">
@@ -352,7 +365,7 @@
       <label>Dersler ve Playlist Linkleri:</label>
       <div id="courseList">
         <div class="row">
-          <input type="text" class="course-name" placeholder="Ders Adı (Örn: KPSS Coğrafya)">
+          <input type="text" class="course-name" placeholder="Ders Adı (Örn: KPSS Matematik)">
           <input type="text" class="course-link" placeholder="YouTube Playlist Linki">
           <button type="button" class="btn-del" onclick="removeRow(this)">✕</button>
         </div>
@@ -363,10 +376,10 @@
     <button type="button" class="btn-main" id="btnSubmit" onclick="generatePlan()">✨ Yeni Ajanda Planı Çıkar</button>
 
     <div class="loading" id="loadingText">
-      ✍️ Ajandan hazırlanıyor, model taranıyor...
+      ✍️ Videolar günlere paylaştırılıyor, ajandan hazırlanıyor...
     </div>
 
-    <!-- ÖZELLEŞTİRİLEBİLİR POMODORO SAYACI -->
+    <!-- POMODORO -->
     <div class="pomodoro-card">
       <div class="pomo-settings">
         <div class="pomo-input-group">
@@ -409,12 +422,44 @@
     </div>
   </div>
   
-  <div class="version-tag">Sürüm: v10 (Özelleştirilebilir Pomodoro)</div>
+  <div class="version-tag">Sürüm: v11 (Video Linkleri + Dınk Sesi + Bildirim)</div>
 </div>
 
 <script>
   let currentUser = null;
   let currentAuthMode = 'login';
+
+  // SES EFEKTİ (Dınk Tınısı)
+  function playDinkSound() {
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+      osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.08); // A5 ("dınk" hissi)
+
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.35);
+    } catch(e) {}
+  }
+
+  // SAĞ ÜST BİLDİRİM TOAST
+  function showToast(msg) {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = msg;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
+  }
 
   window.addEventListener('DOMContentLoaded', () => {
     const savedSession = localStorage.getItem('active_session_user');
@@ -441,25 +486,20 @@
   function handleAuthSubmit() {
     const email = document.getElementById('authEmail').value.trim();
     const pass = document.getElementById('authPassword').value.trim();
-
     if (!email || !pass) return alert("Lütfen e-posta ve şifre girin.");
 
     const users = JSON.parse(localStorage.getItem('app_registered_users') || "{}");
-
     if (currentAuthMode === 'register') {
       if (users[email]) {
-        alert("Bu e-posta ile zaten bir hesap var. Giriş yapabilirsiniz.");
+        alert("Bu e-posta ile kayıtlı hesap var. Giriş yapabilirsiniz.");
         switchAuthTab('login');
         return;
       }
       users[email] = { password: pass };
       localStorage.setItem('app_registered_users', JSON.stringify(users));
-      alert("Hesabınız oluşturuldu! Şimdi giriş yapılıyor.");
+      alert("Hesabınız oluşturuldu!");
     } else {
-      if (!users[email] || users[email].password !== pass) {
-        alert("Hatalı e-posta veya şifre girdiniz.");
-        return;
-      }
+      if (!users[email] || users[email].password !== pass) return alert("Hatalı e-posta veya şifre girdiniz.");
     }
 
     currentUser = { email: email, isGuest: false };
@@ -498,7 +538,6 @@
   function saveApiKeyAndProceed() {
     const key = document.getElementById('initialApiKey').value.trim();
     if (!key) return alert("Lütfen API anahtarını girin.");
-
     localStorage.setItem(getUserStorageKey('gemini_api_key'), key);
     showScreen('mainScreen');
     loadExistingPlan();
@@ -559,7 +598,7 @@
     for (let i = 0; i < names.length; i++) {
       const name = names[i].value.trim();
       const link = links[i].value.trim();
-      if (name) courses.push(`${name} (${link || 'Link yok'})`);
+      if (name) courses.push(`- Ders Adı: ${name}, Playlist Linki: ${link || 'Link girilmedi'}`);
     }
 
     if (courses.length === 0) return alert("En az bir ders girmelisin.");
@@ -574,22 +613,31 @@
 
     const prompt = `Sen profesyonel bir KPSS ve sınav koçusun.
 Öğrencinin sınava tam ${days} günü kaldı.
-Dersler: ${courses.join(', ')}
+Dersler ve oynatma listeleri:
+${courses.join('\n')}
 
-Bana düz metin veya paragraf yazma. SADECE geçerli bir JSON dizisi üret.
-Format aynen şu JSON yapısında olmalıdır:
+GÖREVİN:
+Her gün için görevleri dağıt. İlgili ders için verilen playlist linkini doğrudan görev objesindeki "link" parametresine yerleştir.
+Bana ASLA düz paragraf yazma. SADECE geçerli bir JSON dizisi üret.
+
+Format şu JSON şemasında olmalıdır:
 [
   {
     "gun": 1,
-    "odak": "Tarih & Coğrafya",
+    "odak": "Matematik & Tarih",
     "gorevler": [
-      "Tarih: 2 video izle ve not çıkar",
-      "Coğrafya: 1 video izle",
-      "Soru: 40 soru çöz"
+      {
+        "baslik": "Matematik: Temel Kavramlar 1. ve 2. Video izle",
+        "link": "https://www.youtube.com/..."
+      },
+      {
+        "baslik": "Soru Çözümü: 30 Soru çöz",
+        "link": ""
+      }
     ]
   }
 ]
-Son günleri deneme kampı olacak şekilde bu yapıyı doldur. Sadece JSON döndür.`;
+Eğer link verilmemişse "link" alanını boş string ("") bırak. Yalnızca geçerli JSON döndür.`;
 
     const models = ["gemini-3.6-flash", "gemini-3.6-flash-lite", "gemini-2.5-pro", "gemini-2.0-flash"];
     let success = false;
@@ -612,183 +660,4 @@ Son günleri deneme kampı olacak şekilde bu yapıyı doldur. Sadece JSON dönd
         let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
         if (!text) continue;
 
-        text = text.replace(/```json/g, '').replace(/```/g, '').trim();
-        const planData = JSON.parse(text);
-
-        localStorage.setItem(getUserStorageKey('study_plan'), JSON.stringify(planData));
-        localStorage.removeItem(getUserStorageKey('checkbox_states'));
-
-        renderCards(planData);
-        updateProgress();
-        output.style.display = 'block';
-        success = true;
-        break;
-      } catch (err) {
-        lastError = err.message;
-      }
-    }
-
-    if (!success) {
-      alert("Hata oluştu: " + lastError);
-    }
-
-    btn.disabled = false;
-    loading.style.display = 'none';
-  }
-
-  function renderCards(planData) {
-    const grid = document.getElementById('agendaGrid');
-    grid.innerHTML = '';
-
-    planData.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'agenda-card';
-
-      const tasksHtml = item.gorevler.map((g, idx) => `
-        <li class="task-item" id="task_${item.gun}_${idx}">
-          <input type="checkbox" data-id="chk_${item.gun}_${idx}" onchange="handleCheck(this)">
-          <span>${g}</span>
-        </li>
-      `).join('');
-
-      card.innerHTML = `
-        <div class="card-head">
-          <span class="card-title">📌 Gün ${item.gun}</span>
-          <span class="card-badge">${item.odak}</span>
-        </div>
-        <ul class="task-list">
-          ${tasksHtml}
-        </ul>
-      `;
-      grid.appendChild(card);
-    });
-  }
-
-  function handleCheck(chk) {
-    const parent = chk.closest('.task-item');
-    if (chk.checked) parent.classList.add('done');
-    else parent.classList.remove('done');
-
-    saveCheckboxes();
-    updateProgress();
-  }
-
-  function saveCheckboxes() {
-    const states = {};
-    document.querySelectorAll('.task-item input[type="checkbox"]').forEach(c => {
-      states[c.dataset.id] = c.checked;
-    });
-    localStorage.setItem(getUserStorageKey('checkbox_states'), JSON.stringify(states));
-  }
-
-  function loadCheckboxes() {
-    const saved = localStorage.getItem(getUserStorageKey('checkbox_states'));
-    if (!saved) return;
-    const states = JSON.parse(saved);
-    document.querySelectorAll('.task-item input[type="checkbox"]').forEach(c => {
-      if (states[c.dataset.id]) {
-        c.checked = true;
-        c.closest('.task-item').classList.add('done');
-      }
-    });
-  }
-
-  function updateProgress() {
-    const all = document.querySelectorAll('.task-item input[type="checkbox"]');
-    if (all.length === 0) return;
-    const done = document.querySelectorAll('.task-item input[type="checkbox"]:checked');
-    const pct = Math.round((done.length / all.length) * 100);
-    document.getElementById('progressBar').style.width = pct + '%';
-    document.getElementById('progressText').textContent = `%${pct} Tamamlandı (${done.length}/${all.length} Görev)`;
-  }
-
-  function clearSavedData() {
-    if (confirm("Bu hesaba ait çalışma planını silmek istediğinize emin misiniz?")) {
-      localStorage.removeItem(getUserStorageKey('study_plan'));
-      localStorage.removeItem(getUserStorageKey('checkbox_states'));
-      document.getElementById('output').style.display = 'none';
-      document.getElementById('agendaGrid').innerHTML = '';
-    }
-  }
-
-  // ÖZELLEŞTİRİLEBİLİR POMODORO MANTIĞI
-  let timerInterval = null;
-  let isRunning = false;
-  let isWorkMode = true; // true: çalışma, false: mola
-  let timeLeft = 25 * 60;
-
-  function getWorkSeconds() {
-    const val = parseInt(document.getElementById('customWorkMin').value, 10);
-    return (val > 0 ? val : 25) * 60;
-  }
-
-  function getBreakSeconds() {
-    const val = parseInt(document.getElementById('customBreakMin').value, 10);
-    return (val > 0 ? val : 5) * 60;
-  }
-
-  function onPomoSettingChange() {
-    if (!isRunning) {
-      timeLeft = isWorkMode ? getWorkSeconds() : getBreakSeconds();
-      updateTimerDisplay();
-    }
-  }
-
-  function toggleTimer() {
-    const btn = document.getElementById('timerToggle');
-    if (isRunning) {
-      clearInterval(timerInterval);
-      btn.textContent = 'Devam Et';
-      isRunning = false;
-    } else {
-      isRunning = true;
-      btn.textContent = 'Durdur';
-      timerInterval = setInterval(() => {
-        if (timeLeft > 0) {
-          timeLeft--;
-          updateTimerDisplay();
-        } else {
-          clearInterval(timerInterval);
-          isRunning = false;
-          btn.textContent = 'Başlat';
-
-          if (isWorkMode) {
-            alert('🎉 Harika çalışma! Şimdi dinlenme zamanı.');
-            isWorkMode = false;
-            document.getElementById('pomoStateLabel').textContent = '☕ DİNLENME / MOLA';
-            document.getElementById('pomoStateLabel').style.color = '#059669';
-            timeLeft = getBreakSeconds();
-          } else {
-            alert('⏰ Mola bitti! Yeni çalışma seansına hazırsın.');
-            isWorkMode = true;
-            document.getElementById('pomoStateLabel').textContent = '📚 ÇALIŞMA ZAMANI';
-            document.getElementById('pomoStateLabel').style.color = '#64748b';
-            timeLeft = getWorkSeconds();
-          }
-          updateTimerDisplay();
-        }
-      }, 1000);
-    }
-  }
-
-  function resetTimer() {
-    clearInterval(timerInterval);
-    isRunning = false;
-    isWorkMode = true;
-    document.getElementById('timerToggle').textContent = 'Başlat';
-    document.getElementById('pomoStateLabel').textContent = '📚 ÇALIŞMA ZAMANI';
-    document.getElementById('pomoStateLabel').style.color = '#64748b';
-    timeLeft = getWorkSeconds();
-    updateTimerDisplay();
-  }
-
-  function updateTimerDisplay() {
-    const min = Math.floor(timeLeft / 60);
-    const sec = timeLeft % 60;
-    document.getElementById('timerDisplay').textContent = 
-      `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
-  }
-</script>
-
-</body>
-</html>
+        text = text.replace(/```json/g, '').replace(/

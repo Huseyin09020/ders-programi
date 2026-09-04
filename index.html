@@ -146,6 +146,28 @@
       margin-top: 8px;
     }
 
+    /* YOUTUBE HIZLI GEÇİŞ BUTONU */
+    .youtube-direct-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ff0000;
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 12px;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.2);
+    }
+    .youtube-direct-link:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
     .screen { display: none !important; }
     .screen.active { display: block !important; }
 
@@ -368,13 +390,13 @@
       <span>Gizlilik ve Veri Güvenliği</span>
     </div>
     <div class="privacy-content">
-      <p>Bu uygulama tamamen öğrenci odaklıdır. Bilgileriniz sunucularda toplanmaz:</p>
+      <p>Bu uygulama tamamen öğrenci odaklıdır. Bilgileriniz harici sunucularda toplanmaz:</p>
       <ul class="privacy-badge-list">
         <li><span>🔒</span><span><strong>Verileriniz Satılmaz / Saklanmaz:</strong> Veritabanımız yoktur, verileriniz tamamen size aittir.</span></li>
         <li><span>📱</span><span><strong>Yalnızca Kendi Cihazınızda Kalır:</strong> Programınız ve notlarınız sadece bu tarayıcının yerel hafızasında tutulur.</span></li>
         <li><span>🤖</span><span><strong>Doğrudan Google İletişimi:</strong> API anahtarınız aracı olmadan doğrudan Google AI ile görüşür.</span></li>
       </ul>
-      <p style="font-size: 12px;">Yerel hafıza çerezlerini kabul ediyor musunuz?</p>
+      <p style="font-size: 12px;">Yerel hafıza kullanımını kabul ediyor musunuz?</p>
     </div>
     <div class="privacy-actions">
       <button class="btn-consent-accept" onclick="acceptPrivacyConsent()">✅ Kabul Ediyorum ve Devam Et</button>
@@ -384,6 +406,7 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
+<!-- KOÇ BUTONU VE PENCERESİ -->
 <button class="ai-bubble-btn" id="aiBubbleBtn" onclick="toggleChatWindow()">
   💬 <span>Sınav Koçum</span>
 </button>
@@ -395,7 +418,7 @@
   </div>
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg bot">
-      Selam! Çalışma planını ve ilerlemeni buradan takip ediyorum. Kafana takılan soruları, moral durumunu veya dersleri sorabilirsin!
+      Selam! Çalışma planını ve ilerlemeni buradan takip ediyorum. Kafana takılan konuları, moral durumunu veya eksiklerini bana sorabilirsin!
     </div>
   </div>
   <div class="chat-input-area">
@@ -414,6 +437,7 @@
     <div class="countdown-timer" id="countdownTimer">Hesaplanıyor...</div>
   </div>
 
+  <!-- GİRİŞ EKRANI -->
   <div id="authScreen" class="screen active">
     <div class="header">
       <h1>👋 Sınav Ajandasına Hoş Geldin</h1>
@@ -434,9 +458,15 @@
       </div>
       <button type="button" class="btn-main" id="btnAuthSubmit" onclick="handleAuthSubmit()">Giriş Yap ➡️</button>
       <button type="button" class="btn-secondary" onclick="loginAsGuest()">👤 Misafir Olarak Devam Et</button>
+      
+      <!-- GİRİŞ EKRANI YOUTUBE DİREKT LİNKİ -->
+      <a href="https://www.youtube.com" target="_blank" rel="noopener" class="youtube-direct-link">
+        ▶ YouTube'a Git
+      </a>
     </div>
   </div>
 
+  <!-- API KURULUM -->
   <div id="setupScreen" class="screen">
     <div class="header">
       <h1>🔑 API Anahtarı Kurulumu</h1>
@@ -457,6 +487,7 @@
     <button type="button" class="btn-main" onclick="saveApiKeyAndProceed()">Kaydet ve Ajandaya Başla ➡️</button>
   </div>
 
+  <!-- ANA AJANDA -->
   <div id="mainScreen" class="screen">
     <div class="user-badge-bar">
       <span>Giriş yapılan hesap: <strong id="currentUserLabel">Misafir</strong></span>
@@ -468,6 +499,7 @@
       <p>Hedef gününü ve derslerini gir; programın videolarla bağlansın.</p>
     </div>
 
+    <!-- 6 DERSLİK KPSS PAKETİ -->
     <div class="template-banner">
       <div class="template-info">
         ✨ <strong>KPSS Full Paket:</strong> Tarih, Coğrafya, Matematik, Türkçe, Vatandaşlık ve Güncel Bilgiler hazır.
@@ -498,6 +530,7 @@
       ✍️ Videolar günlere paylaştırılıyor, ajandan hazırlanıyor...
     </div>
 
+    <!-- POMODORO -->
     <div class="pomodoro-card">
       <div class="pomo-settings">
         <div class="pomo-input-group">
@@ -550,7 +583,7 @@
   </div>
   
   <div class="privacy-footer-link" onclick="openPrivacyModal()">🔒 Gizlilik & Veri Güvenliği Politikası</div>
-  <div class="version-tag">Sürüm: v23 (Donma Korumalı & Ultra Hafif)</div>
+  <div class="version-tag">Sürüm: v25 (YouTube Doğrudan Geçiş & Kararlı Koç)</div>
 </div>
 
 <script>
@@ -636,13 +669,13 @@
     document.querySelector('.theme-toggle-btn').textContent = isDark ? '☀️ Gündüz Modu' : '🌙 Karanlık Mod';
   }
 
-  // ULTRA HAFİF SES MOTORU (CPU YORMAYAN DONMA KORUMALI)
+  // SES MOTORU (KORUMALI & KESİN ÇALIŞAN MİMARİ)
   let audioCtx = null;
   let activeNoiseSource = null;
   let activeNoiseGain = null;
   let currentNoiseType = null;
 
-  function getAudioContext() {
+  function ensureAudioUnlocked() {
     if (!audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
@@ -654,14 +687,14 @@
 
   function playDinkSound() {
     try {
-      const ctx = getAudioContext();
+      const ctx = ensureAudioUnlocked();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'sine';
       osc.frequency.setValueAtTime(587, ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
-      gain.gain.setValueAtTime(0.2, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.28);
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
@@ -671,15 +704,15 @@
 
   function playPlanCreatedSound() {
     try {
-      const ctx = getAudioContext();
+      const ctx = ensureAudioUnlocked();
       [523, 659, 784].forEach((freq, idx) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        const t = ctx.currentTime + (idx * 0.1);
+        const t = ctx.currentTime + (idx * 0.12);
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(freq, t);
-        gain.gain.setValueAtTime(0.18, t);
-        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+        gain.gain.setValueAtTime(0.25, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.32);
         osc.connect(gain);
         gain.connect(ctx.destination);
         osc.start(t);
@@ -690,52 +723,54 @@
 
   function playCoachReplySound() {
     try {
-      const ctx = getAudioContext();
+      const ctx = ensureAudioUnlocked();
       const now = ctx.currentTime;
+      
       const osc1 = ctx.createOscillator();
       const gain1 = ctx.createGain();
-      osc1.frequency.setValueAtTime(520, now);
-      gain1.gain.setValueAtTime(0.2, now);
-      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(440, now);
+      gain1.gain.setValueAtTime(0.3, now);
+      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
       osc1.connect(gain1);
       gain1.connect(ctx.destination);
       osc1.start(now);
-      osc1.stop(now + 0.1);
+      osc1.stop(now + 0.13);
 
       const osc2 = ctx.createOscillator();
       const gain2 = ctx.createGain();
-      osc2.frequency.setValueAtTime(880, now + 0.08);
-      gain2.gain.setValueAtTime(0.25, now + 0.08);
-      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(880, now + 0.1);
+      gain2.gain.setValueAtTime(0.35, now + 0.1);
+      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
       osc2.connect(gain2);
       gain2.connect(ctx.destination);
-      osc2.start(now + 0.08);
-      osc2.stop(now + 0.25);
+      osc2.start(now + 0.1);
+      osc2.stop(now + 0.35);
     } catch(e){}
   }
 
   function playPomodoroAlarmSound() {
     try {
-      const ctx = getAudioContext();
+      const ctx = ensureAudioUnlocked();
       for (let i = 0; i < 3; i++) {
-        const t = ctx.currentTime + (i * 0.2);
+        const t = ctx.currentTime + (i * 0.22);
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = 'square';
         osc.frequency.setValueAtTime(880, t);
-        gain.gain.setValueAtTime(0.15, t);
-        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+        gain.gain.setValueAtTime(0.2, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.14);
         osc.connect(gain);
         gain.connect(ctx.destination);
         osc.start(t);
-        osc.stop(t + 0.14);
+        osc.stop(t + 0.16);
       }
     } catch(e){}
   }
 
-  // Hafif Ambiyans Sentezleyici (Tek parça buffer, sıfır işlemci yükü)
   function toggleNoise(type) {
-    const ctx = getAudioContext();
+    const ctx = ensureAudioUnlocked();
     if (currentNoiseType === type) {
       stopNoise();
       return;
@@ -746,7 +781,6 @@
     const btn = document.getElementById(`btn${type.charAt(0).toUpperCase() + type.slice(1)}`);
     if (btn) btn.classList.add('active');
 
-    // Sadece 1 saniyelik küçük buffer (Asla kasmayan temiz döngü)
     const bufferSize = ctx.sampleRate;
     const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const output = noiseBuffer.getChannelData(0);
@@ -804,7 +838,7 @@
     const win = document.getElementById('aiChatWindow');
     win.classList.toggle('open');
     if (win.classList.contains('open')) {
-      getAudioContext();
+      ensureAudioUnlocked();
       setTimeout(() => document.getElementById('chatInput').focus(), 150);
     }
   }
@@ -815,7 +849,7 @@
     const msg = input.value.trim();
     if (!msg) return;
 
-    getAudioContext();
+    ensureAudioUnlocked();
 
     const messagesBox = document.getElementById('chatMessages');
     const userDiv = document.createElement('div');
@@ -833,27 +867,36 @@
 
     const activeKey = getActiveApiKey();
     if (!activeKey) {
-      botDiv.textContent = "API anahtarı bulunamadı. Lütfen önce anahtarınızı tanımlayın.";
+      botDiv.textContent = "API anahtarı bulunamadı. Lütfen önce kurulum ekranından anahtarınızı girin.";
       return;
     }
 
     sendBtn.disabled = true;
 
-    let planSummary = "Plan henüz çıkarılmadı.";
+    let planSummary = "Henüz çıkarılmış bir çalışma planı bulunmuyor.";
     try {
       const rawPlan = localStorage.getItem(getUserStorageKey('study_plan'));
       if (rawPlan) {
         const parsed = JSON.parse(rawPlan);
-        planSummary = `Toplam ${parsed.length} günlük KPSS çalışma planı mevcut.`;
+        planSummary = `Öğrencinin ${parsed.length} günlük KPSS çalışma planı var.`;
       }
     } catch(e){}
 
-    const systemPrompt = `Sen samimi ve motive edici bir KPSS koçusun.
-Öğrenci durumu: ${planSummary}
-Öğrenci sorusu: "${msg}"
-Kural: Samimi bir dille, motive edici, en fazla 2-3 cümlelik çok net ve pratik bir tavsiye ver.`;
+    const promptText = `Sen profesyonel, samimi ve motive edici bir KPSS sınav koçusun.
+Öğrencinin güncel durumu: ${planSummary}
 
-    const candidateModels = ["gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.5-pro"];
+Öğrencinin sana söylediği şey: "${msg}"
+
+KURALLAR:
+1. Kısa, samimi, tam olarak bu duruma odaklanan 2-3 cümlelik net tavsiye ver.
+2. Gereksiz uzun paragraflar kurma.`;
+
+    const candidateModels = [
+      "gemini-1.5-flash",
+      "gemini-2.5-flash",
+      "gemini-1.5-pro"
+    ];
+
     let success = false;
     let errDetail = "";
 
@@ -863,14 +906,15 @@ Kural: Samimi bir dille, motive edici, en fazla 2-3 cümlelik çok net ve pratik
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            contents: [{ parts: [{ text: systemPrompt }] }],
-            generationConfig: { maxOutputTokens: 250 }
+            contents: [{
+              parts: [{ text: promptText }]
+            }]
           })
         });
 
         const data = await response.json();
         if (data.error) {
-          errDetail = data.error.message;
+          errDetail = `${model}: ${data.error.message}`;
           continue;
         }
 
@@ -882,12 +926,12 @@ Kural: Samimi bir dille, motive edici, en fazla 2-3 cümlelik çok net ve pratik
           break;
         }
       } catch (err) {
-        errDetail = err.message;
+        errDetail = `${model}: ${err.message}`;
       }
     }
 
     if (!success) {
-      botDiv.textContent = "Bağlantı kurulamadı: " + (errDetail || "Lütfen internet bağlantını veya anahtarını kontrol et.");
+      botDiv.textContent = "Bağlantı kurulamadı: " + (errDetail || "Google API yanıt vermedi. Lütfen API anahtarını kontrol et.");
     }
 
     sendBtn.disabled = false;
@@ -1079,7 +1123,7 @@ JSON formatında plan üret:
 [{"gun": 1, "odak": "Matematik", "gorevler": [{"baslik": "1. Video izle", "link": "https://..."}]}]
 Sadece geçerli JSON ver.`;
 
-    const candidateModels = ["gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.5-pro"];
+    const candidateModels = ["gemini-1.5-flash", "gemini-2.5-flash", "gemini-1.5-pro"];
     let success = false;
     let lastError = "";
 
@@ -1100,243 +1144,4 @@ Sadece geçerli JSON ver.`;
         let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
         if (!text) continue;
 
-        text = text.replace(/```json/g, '').replace(/```/g, '').trim();
-        const planData = JSON.parse(text);
-
-        localStorage.setItem(getUserStorageKey('study_plan'), JSON.stringify(planData));
-        localStorage.removeItem(getUserStorageKey('checkbox_states'));
-        localStorage.removeItem(getUserStorageKey('questions_and_notes'));
-
-        renderCards(planData);
-        updateProgress();
-        output.style.display = 'block';
-        playPlanCreatedSound();
-        showToast('🚀 Çalışma planın başarıyla oluşturuldu!');
-        success = true;
-        break;
-      } catch (err) {
-        lastError = err.message;
-      }
-    }
-
-    if (!success) alert("Hata oluştu: " + lastError);
-
-    btn.disabled = false;
-    loading.style.display = 'none';
-  }
-
-  function renderCards(planData) {
-    const grid = document.getElementById('agendaGrid');
-    grid.innerHTML = '';
-
-    planData.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'agenda-card';
-
-      const tasksHtml = item.gorevler.map((g, idx) => {
-        const title = typeof g === 'object' ? g.baslik : g;
-        const link = typeof g === 'object' && g.link ? g.link : '';
-
-        return `
-          <li class="task-item" id="task_${item.gun}_${idx}">
-            <div class="task-row">
-              <input type="checkbox" data-id="chk_${item.gun}_${idx}" onchange="handleCheck(this)">
-              <span class="task-title">${title}</span>
-            </div>
-            ${link ? `<a href="${link}" target="_blank" rel="noopener" class="video-link-btn">▶ Videoyu Aç</a>` : ''}
-          </li>
-        `;
-      }).join('');
-
-      card.innerHTML = `
-        <div class="card-head">
-          <span class="card-title">📌 Gün ${item.gun}</span>
-          <span class="card-badge">${item.odak}</span>
-        </div>
-        <ul class="task-list">
-          ${tasksHtml}
-        </ul>
-        <div class="card-footer">
-          <div class="q-tracker">
-            <span>📝 Soru:</span>
-            <input type="number" min="0" placeholder="Doğru" data-day="${item.gun}" class="q-input q-correct" oninput="saveQuestionsAndNotes()">
-            <input type="number" min="0" placeholder="Yanlış" data-day="${item.gun}" class="q-input q-wrong" oninput="saveQuestionsAndNotes()">
-          </div>
-          <textarea class="card-note" data-day="${item.gun}" placeholder="📌 Bu güne özel not ekle..." oninput="saveQuestionsAndNotes()"></textarea>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-  }
-
-  function handleCheck(chk) {
-    const parent = chk.closest('.task-item');
-    if (chk.checked) {
-      parent.classList.add('done');
-      playDinkSound();
-      showToast('🎉 Harika! Görev tamamlandı.');
-    } else {
-      parent.classList.remove('done');
-    }
-    saveCheckboxes();
-    updateProgress();
-  }
-
-  function saveCheckboxes() {
-    const states = {};
-    document.querySelectorAll('.task-item input[type="checkbox"]').forEach(c => {
-      states[c.dataset.id] = c.checked;
-    });
-    localStorage.setItem(getUserStorageKey('checkbox_states'), JSON.stringify(states));
-  }
-
-  function loadCheckboxes() {
-    const saved = localStorage.getItem(getUserStorageKey('checkbox_states'));
-    if (!saved) return;
-    try {
-      const states = JSON.parse(saved);
-      document.querySelectorAll('.task-item input[type="checkbox"]').forEach(c => {
-        if (states[c.dataset.id]) {
-          c.checked = true;
-          c.closest('.task-item').classList.add('done');
-        }
-      });
-    } catch(e) {}
-  }
-
-  function saveQuestionsAndNotes() {
-    const data = {};
-    document.querySelectorAll('.agenda-card').forEach(card => {
-      const d = card.querySelector('.q-correct').dataset.day;
-      const c = parseInt(card.querySelector('.q-correct').value, 10) || 0;
-      const w = parseInt(card.querySelector('.q-wrong').value, 10) || 0;
-      const note = card.querySelector('.card-note').value;
-      data[d] = { correct: c, wrong: w, note: note };
-    });
-    localStorage.setItem(getUserStorageKey('questions_and_notes'), JSON.stringify(data));
-    updateQuestionStats();
-  }
-
-  function loadQuestionsAndNotes() {
-    const saved = localStorage.getItem(getUserStorageKey('questions_and_notes'));
-    if (!saved) return;
-    try {
-      const data = JSON.parse(saved);
-      Object.keys(data).forEach(day => {
-        const item = data[day];
-        const cInput = document.querySelector(`.q-correct[data-day="${day}"]`);
-        const wInput = document.querySelector(`.q-wrong[data-day="${day}"]`);
-        const nInput = document.querySelector(`.card-note[data-day="${day}"]`);
-        if (cInput && item.correct) cInput.value = item.correct;
-        if (wInput && item.wrong) wInput.value = item.wrong;
-        if (nInput && item.note) nInput.value = item.note;
-      });
-      updateQuestionStats();
-    } catch(e) {}
-  }
-
-  function updateQuestionStats() {
-    let total = 0;
-    document.querySelectorAll('.q-input').forEach(inp => {
-      total += parseInt(inp.value, 10) || 0;
-    });
-    document.getElementById('totalQuestionsCount').textContent = total;
-  }
-
-  function updateProgress() {
-    const all = document.querySelectorAll('.task-item input[type="checkbox"]');
-    if (all.length === 0) return;
-    const done = document.querySelectorAll('.task-item input[type="checkbox"]:checked');
-    const pct = Math.round((done.length / all.length) * 100);
-    document.getElementById('progressBar').style.width = pct + '%';
-    document.getElementById('progressPctText').textContent = `%${pct}`;
-  }
-
-  function clearSavedData() {
-    if (confirm("Bu hesaba ait çalışma planını silmek istediğinize emin misiniz?")) {
-      localStorage.removeItem(getUserStorageKey('study_plan'));
-      localStorage.removeItem(getUserStorageKey('checkbox_states'));
-      localStorage.removeItem(getUserStorageKey('questions_and_notes'));
-      document.getElementById('output').style.display = 'none';
-      document.getElementById('agendaGrid').innerHTML = '';
-      updateProgress();
-      updateQuestionStats();
-    }
-  }
-
-  // POMODORO SAYAÇ
-  let timerInterval = null;
-  let isRunning = false;
-  let isWorkMode = true;
-  let timeLeft = 25 * 60;
-
-  function getWorkSeconds() {
-    const val = parseInt(document.getElementById('customWorkMin').value, 10);
-    return (val > 0 ? val : 25) * 60;
-  }
-
-  function getBreakSeconds() {
-    const val = parseInt(document.getElementById('customBreakMin').value, 10);
-    return (val > 0 ? val : 5) * 60;
-  }
-
-  function onPomoSettingChange() {
-    if (!isRunning) {
-      timeLeft = isWorkMode ? getWorkSeconds() : getBreakSeconds();
-      updateTimerDisplay();
-    }
-  }
-
-  function toggleTimer() {
-    const btn = document.getElementById('timerToggle');
-    if (isRunning) {
-      clearInterval(timerInterval);
-      btn.textContent = 'Devam Et';
-      isRunning = false;
-    } else {
-      isRunning = true;
-      btn.textContent = 'Durdur';
-      timerInterval = setInterval(() => {
-        if (timeLeft > 0) {
-          timeLeft--;
-          updateTimerDisplay();
-        } else {
-          clearInterval(timerInterval);
-          isRunning = false;
-          btn.textContent = 'Başlat';
-          playPomodoroAlarmSound();
-
-          if (isWorkMode) {
-            showToast('☕ Çalışma bitti, mola vakti!');
-            isWorkMode = false;
-            timeLeft = getBreakSeconds();
-          } else {
-            showToast('📚 Mola bitti, derse başla!');
-            isWorkMode = true;
-            timeLeft = getWorkSeconds();
-          }
-          updateTimerDisplay();
-        }
-      }, 1000);
-    }
-  }
-
-  function resetTimer() {
-    clearInterval(timerInterval);
-    isRunning = false;
-    isWorkMode = true;
-    document.getElementById('timerToggle').textContent = 'Başlat';
-    timeLeft = getWorkSeconds();
-    updateTimerDisplay();
-  }
-
-  function updateTimerDisplay() {
-    const min = Math.floor(timeLeft / 60);
-    const sec = timeLeft % 60;
-    document.getElementById('timerDisplay').textContent = 
-      `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
-  }
-</script>
-
-</body>
-</html>
+        text = text.replace(/```json/g, '').replace(/
